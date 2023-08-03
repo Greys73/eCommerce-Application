@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
-    "start": "webpack serve --open --config ./webpack.config.js --env mode=dev"
+    "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,14 @@
   },
   "homepage": "https://github.com/Greys73/eCommerce-Application#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
     "css-loader": "^6.8.1",
+    "eslint": "^8.46.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-webpack-plugin": "^4.0.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.3",
