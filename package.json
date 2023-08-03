@@ -1,0 +1,36 @@
+{
+  "name": "ecommerce-application",
+  "version": "1.0.0",
+  "description": "## Contents * [Description](#description) * [Technologies](#technologies) * [Install](#install) * [Team](#team)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config ./webpack.config.js --env mode=prod",
+    "start": "webpack serve --open --config ./webpack.config.js --env mode=dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Greys73/eCommerce-Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Greys73/eCommerce-Application/issues"
+  },
+  "homepage": "https://github.com/Greys73/eCommerce-Application#readme",
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "eslint-webpack-plugin": "^4.0.1",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "sass": "^1.64.2",
+    "sass-loader": "^13.3.2",
+    "sass-resources-loader": "^2.2.5",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
