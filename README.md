@@ -14,7 +14,7 @@ Our application replicates the real-world shopping experience in a digital envir
 
 We are excited to present our eCommerce application and showcase our skills and creativity. Using reliable and cutting-edge solutions, we have developed an application that offers convenience, functionality, and an immersive shopping experience.
 
-Join us on this exciting journey and enjoy the pleasure that our application brings.
+[Join](#install) on this exciting journey and enjoy the pleasure that our application brings.
 
 ## Purpose
 This is a single-page application, that has responsive design with a minimum width of 390px. It ensures a seamless user experience across all devices, including desktops, laptops, tablets, and mobile phones. Every device provides a smooth and enjoyable interaction with fully accessible functionality.
@@ -34,7 +34,7 @@ Application is based on CommerceTools — the global leader of commerce solution
 
 Our application is the best choice for online stores, as it stands out for its stability, reliability and implementation of top-notch solutions.
 
-Join us and unlock new opportunities for growth and success. Take your business experience to new heights!
+[Join us](#team) and unlock new opportunities for growth and success. Take your business experience to new heights!
 	
 ## Technologies
 Technology stack:
@@ -74,4 +74,4 @@ We can do everything and just a little more to exceed your expectations.
 
 Our goal is to develop applications as qualitative as needed, but cleverly simple as possible. We pride ourselves on utilizing the best and most trusted technologies to guarantee that your experience with us is nothing short of exceptional.
 
-Join our team members, experience the enjoyment and pleasure that awaits you
+Join our team members, experience the enjoyment and pleasure that awaits you!
