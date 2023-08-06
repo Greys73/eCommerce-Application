@@ -5,10 +5,11 @@
 * [Purpose](#purpose)
 * [Technologies](#technologies)
 * [Install](#install)
+* [Scripts](#available-scripts)
 * [Team](#team)
 
 ## Description
-Welcome to our **eCommerce Application**! This application is the final task of the [RSSchool JavaScript/Front-end 2023Q1 course](https://rs.school/js/), developed by the [Dev Dream Team](#team).
+Welcome to our **eCommerce Application**! This application is the final [task](https://github.com/rolling-scopes-school/tasks/tree/master/tasks/eCommerce-Application) of the [RSSchool JavaScript/Front-end 2023Q1 course](https://rs.school/js/), developed by the [Dev Dream Team](#team).
 
 Our application replicates the real-world shopping experience in a digital environment, providing users with a comprehensive online shopping portal.
 
@@ -56,6 +57,18 @@ $ cd ../eCommerce-Application
 $ npm install
 $ npm start
 ```
+
+---
+
+## Available Scripts
+In the project directory, you can run scripts:
+* `npm test` - runs the Jest tests
+* `npm run build` - builds the project using webpack in production mode
+* `npm run start` - starts the development server using webpack
+* `npm run lint` - lints the project files using ESLint
+* `npm run format` - formats the project files using Prettier
+* `npm run prepare` - installs and configures Husky in project
+* `npm run pre-commit` - runs lint-staged, which executes linting tasks on the files staged for commit
 
 ---
 
