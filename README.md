@@ -50,15 +50,12 @@ Technology stack:
 ---	
 
 ## Install
-Clone this repository. Install it locally using npm:  
-
-```
-$ cd ../eCommerce-Application
-$ npm install
-$ npm start
-```
-
----
+To start the application, please make sure you have [Git](https://git-scm.com) and [Node.js](https://nodejs.org) installed on your machine. Then, follow these steps: 
+1. Clone repository: `git clone https://github.com/Greys73/eCommerce-Application.git`
+1. Navigate to the project directory: `cd eCommerce-Application`
+1. Switch to 'develop' branch: `git checkout develop`
+1. Install dependencies: `npm install`
+1. Start the development server: `npm start`
 
 ## Available Scripts
 In the project directory, you can run scripts:
