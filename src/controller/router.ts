@@ -1,4 +1,4 @@
-import * as view from '../view/view';
+import * as mainSection from '../view/view';
 // import * as mainPage from "../view/pages/main/main";
 // import * as regPage from "../view/pages/registration/registration";
 // import * as loginPage from "../view/pages/login/login";
@@ -16,8 +16,8 @@ const routes: RoutesType = {
 
 const locationHandler = () => {
   const path = window.location.pathname || '/';
-  const section: HTMLElement = routes[path] || routes['404'];
-  view.default.append(section);
+  const page: HTMLElement = routes[path] || routes['404'];
+  mainSection.default.append(page);
 };
 
 const route = (event: Event) => {
