@@ -14,7 +14,8 @@ const createFormBlock = (options: FormBlock): HTMLDivElement => {
   const label = document.createElement('label');
   label.htmlFor = options.name;
   label.textContent = options.text;
-  block.append(label, input);
+  const errorMessage = document.createElement('p');
+  block.append(label, input, errorMessage);
   return block;
 };
 
@@ -123,6 +124,8 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'email',
     text: 'E-mail',
     required: true,
+    pattern:
+      '^([a-z0-9_-]+.)*[a-z0-9_-]+@[a-z0-9_-]+(.[a-z0-9_-]+)*.[a-z]{2,6}$',
     title: 'Type valid e-mail (e.g., example@email.com)',
   };
 
@@ -162,7 +165,7 @@ function createRegistrationForm(): HTMLFormElement {
   const maxDay = maxBirthDate.getDate().toString().padStart(2, '0');
   const birthDateOptions: FormBlock = {
     type: 'date',
-    name: 'birthDate',
+    name: 'dateOfBirth',
     text: 'Date of Birth',
     required: true,
     max: `${maxBirthDate.getFullYear()}-${maxMonth}-${maxDay}`,
