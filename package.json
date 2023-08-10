@@ -36,9 +36,9 @@
     "eslint-webpack-plugin": "^4.0.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.3",
+    "husky": "^8.0.3",
     "jest": "^29.6.2",
     "jsdom": "^22.1.0",
-    "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.1",
     "sass": "^1.64.2",
@@ -51,5 +51,9 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "@commercetools/platform-sdk": "^5.0.0",
+    "@commercetools/sdk-client-v2": "^2.2.0"
   }
 }
