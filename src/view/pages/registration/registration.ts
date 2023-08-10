@@ -1,7 +1,10 @@
+import countries from '../../../model/data/countries';
 import { AddressType, FormBlock } from '../../../types/type';
+import resultMessage from './resultMessage';
 
 const createFormBlock = (options: FormBlock): HTMLDivElement => {
   const block = document.createElement('div');
+  block.className = 'reg-form__block';
   const input = document.createElement('input');
   input.type = options.type;
   if (options.placeholder) input.placeholder = options.placeholder;
@@ -21,7 +24,9 @@ const createFormBlock = (options: FormBlock): HTMLDivElement => {
 
 const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const block = document.createElement('div');
+  block.className = 'reg-form__address';
   const heading = document.createElement('h4');
+  heading.className = 'reg-form__subheading';
   heading.textContent = `Enter ${addressType} address`;
 
   const defaultAddressBlock = createFormBlock({
@@ -34,7 +39,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'Street',
     name: `${addressType}Street`,
-    required: true,
+    required: false,
     pattern: `.+`,
     title: 'Must contain at least one character',
   };
@@ -43,7 +48,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'City',
     name: `${addressType}City`,
-    required: true,
+    required: false,
     pattern: `[A-Za-z]+`,
     title:
       'Must contain at least one character and no special characters or numbers',
@@ -53,7 +58,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'Postal code',
     name: `${addressType}PostCode`,
-    required: true,
+    required: false,
     pattern: '[0-9]{5,7}',
     title: 'Must contain from 5 to 7 digits',
   };
@@ -65,35 +70,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
 
   const countrySelection = document.createElement('select');
   countrySelection.name = `${addressType}Country`;
-  const countries = [
-    'Austria',
-    'Belgium',
-    'Bulgaria',
-    'Croatia',
-    'Republic of Cyprus',
-    'Czech Republic',
-    'Denmark',
-    'Estonia',
-    'Finland',
-    'France',
-    'Germany',
-    'Greece',
-    'Hungary',
-    'Ireland',
-    'Italy',
-    'Latvia',
-    'Lithuania',
-    'Luxembourg',
-    'Malta',
-    'Netherlands',
-    'Poland',
-    'Portugal',
-    'Romania',
-    'Slovakia',
-    'Slovenia',
-    'Spain',
-    'Sweden',
-  ];
+
   countries.forEach((el) => {
     const option = document.createElement('option');
     option.value = el;
@@ -114,9 +91,11 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
 
 function createRegistrationForm(): HTMLFormElement {
   const registrationForm = document.createElement('form');
+  registrationForm.className = 'reg-form';
 
   const heading = document.createElement('h2');
   heading.textContent = 'Register';
+  heading.className = 'reg-form__heading';
 
   const emailOptions: FormBlock = {
     type: 'email',
@@ -124,8 +103,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'email',
     text: 'E-mail',
     required: true,
-    pattern:
-      '^([a-z0-9_-]+.)*[a-z0-9_-]+@[a-z0-9_-]+(.[a-z0-9_-]+)*.[a-z]{2,6}$',
+    pattern: '.+@.+',
     title: 'Type valid e-mail (e.g., example@email.com)',
   };
 
@@ -138,6 +116,16 @@ function createRegistrationForm(): HTMLFormElement {
     pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}',
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+  };
+
+  const repeatPasswordOptions: FormBlock = {
+    type: 'password',
+    placeholder: 'Repeat password',
+    name: 'checkPassword',
+    text: 'Repeat password',
+    required: true,
+    pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}',
+    title: 'Must match the password',
   };
 
   const firstNameOptions: FormBlock = {
@@ -174,6 +162,7 @@ function createRegistrationForm(): HTMLFormElement {
   const blocks = [
     emailOptions,
     passwordOptions,
+    repeatPasswordOptions,
     firstNameOptions,
     lastNameOptions,
     birthDateOptions,
@@ -189,10 +178,13 @@ function createRegistrationForm(): HTMLFormElement {
   const submitBtn = document.createElement('button');
   submitBtn.textContent = 'Submit';
   submitBtn.type = 'submit';
+  submitBtn.className = 'button reg-form__button';
   registrationForm.append(shippingAddressBlock, billingAddressBlock, submitBtn);
   registrationForm.prepend(heading);
+  registrationForm.prepend(resultMessage);
   return registrationForm;
 }
 
 const registrationForm = createRegistrationForm();
+
 export default registrationForm;
