@@ -1,4 +1,12 @@
-import registrationForm from './registration';
+import registrationForm from '../view/pages/registration/registration';
+
+const checkPassword = (input: HTMLInputElement): boolean => {
+  const secondPassword = input.value;
+  const firstPasswordInput = input.parentElement?.previousElementSibling
+    ?.children[1] as HTMLInputElement;
+  const firstPassword = firstPasswordInput.value;
+  return secondPassword === firstPassword;
+};
 
 export default function addErrorHandlers() {
   const inputs = [...registrationForm.querySelectorAll('input')];
@@ -7,7 +15,10 @@ export default function addErrorHandlers() {
     const input = e.target as HTMLInputElement;
     if (input.pattern) {
       const regex = new RegExp(input.pattern);
-      const isValid = regex.test(input.value);
+      let isValid = regex.test(input.value);
+      if (input.name === 'checkPassword') {
+        isValid = checkPassword(input);
+      }
       const errorMessage = input.nextElementSibling;
       if (isValid) {
         input.style.borderColor = 'green';
