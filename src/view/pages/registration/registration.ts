@@ -146,6 +146,15 @@ function createRegistrationForm(): HTMLFormElement {
     pattern: '[A-Za-z]+',
     title: 'At least one character and no special characters or numbers',
   };
+  const telOptions: FormBlock = {
+    type: 'tel',
+    placeholder: 'Enter phone number',
+    name: 'tel',
+    text: 'Phone',
+    required: true,
+    pattern: '[0-9]{10,12}',
+    title: 'From 10 to 12 digits',
+  };
   const currentDate = new Date().getTime();
   const MS_FOR_18_YEARS = (12 * 365 + 3) * 24 * 60 * 60 * 1000;
   const maxBirthDate = new Date(currentDate - MS_FOR_18_YEARS);
@@ -165,6 +174,7 @@ function createRegistrationForm(): HTMLFormElement {
     repeatPasswordOptions,
     firstNameOptions,
     lastNameOptions,
+    telOptions,
     birthDateOptions,
   ];
   blocks.forEach((opt) => {
