@@ -8,7 +8,7 @@ const createFormBlock = (options: FormBlock): HTMLDivElement => {
   if (options.placeholder) input.placeholder = options.placeholder;
   input.name = options.name;
   input.required = options.required;
-  if (options.pattern) input.pattern = options.pattern;
+  if (options.pattern) input.pattern = options.pattern.source;
   if (options.max) input.max = options.max;
   if (options.title) input.title = options.title;
 

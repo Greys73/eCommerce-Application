@@ -4,7 +4,7 @@ export type FormBlock = {
   name: string;
   text: string;
   required: boolean;
-  pattern?: string;
+  pattern?: RegExp;
   max?: string;
   title?: string;
 };

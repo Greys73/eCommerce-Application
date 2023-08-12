@@ -21,7 +21,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     text: 'Street',
     name: `${addressType}Street`,
     required: false,
-    pattern: `.+`,
+    pattern: /.+/,
     title: 'Must contain at least one character',
   };
   const street = createFormBlock(streetOptions);
@@ -30,7 +30,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     text: 'City',
     name: `${addressType}City`,
     required: false,
-    pattern: `[A-Za-z]+`,
+    pattern: /[A-Za-z]+/,
     title:
       'Must contain at least one character and no special characters or numbers',
   };
@@ -40,7 +40,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     text: 'Postal code',
     name: `${addressType}PostCode`,
     required: false,
-    pattern: '[0-9]{5,7}',
+    pattern: /[0-9]{5,7}/,
     title: 'Must contain from 5 to 7 digits',
   };
   const postCode = createFormBlock(postCodeOptions);
@@ -84,7 +84,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'email',
     text: 'E-mail',
     required: true,
-    pattern: '.+@.+',
+    pattern: /.+@.+\..+/,
     title: 'Type valid e-mail (e.g., example@email.com)',
   };
 
@@ -94,7 +94,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'password',
     text: 'Password',
     required: true,
-    pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}',
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}/,
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   };
@@ -105,7 +105,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'checkPassword',
     text: 'Repeat password',
     required: true,
-    pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}',
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}/,
     title: 'Must match the password',
   };
 
@@ -115,7 +115,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'firstName',
     text: 'First name',
     required: true,
-    pattern: '[A-Za-z]+',
+    pattern: /[A-Za-z]+/,
     title: 'At least one character and no special characters or numbers',
   };
   const lastNameOptions: FormBlock = {
@@ -124,7 +124,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'lastName',
     text: 'Last Name',
     required: true,
-    pattern: '[A-Za-z]+',
+    pattern: /[A-Za-z]+/,
     title: 'At least one character and no special characters or numbers',
   };
   const currentDate = new Date().getTime();
