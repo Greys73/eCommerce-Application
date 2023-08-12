@@ -71,7 +71,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const countrySelection = document.createElement('select');
   countrySelection.name = `${addressType}Country`;
 
-  countries.forEach((el) => {
+  Object.keys(countries).forEach((el) => {
     const option = document.createElement('option');
     option.value = el;
     option.textContent = el;
