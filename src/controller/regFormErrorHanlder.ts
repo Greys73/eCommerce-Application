@@ -1,4 +1,5 @@
 import registrationForm from '../view/pages/registration/registration';
+import loginForm from '../view/pages/login/login';
 
 const checkPassword = (input: HTMLInputElement): boolean => {
   const secondPassword = input.value;
@@ -9,7 +10,8 @@ const checkPassword = (input: HTMLInputElement): boolean => {
 };
 
 export default function addErrorHandlers() {
-  const inputs = [...registrationForm.querySelectorAll('input')];
+  const regInputs = [...registrationForm.querySelectorAll('input')];
+  const loginInputs = [...loginForm.querySelectorAll('input')];
 
   const validationErrorHandler = (e: Event) => {
     const input = e.target as HTMLInputElement;
@@ -34,7 +36,11 @@ export default function addErrorHandlers() {
     }
   };
 
-  inputs.forEach((input) => {
+  regInputs.forEach((input) => {
+    input.addEventListener('change', validationErrorHandler);
+  });
+
+  loginInputs.forEach((input) => {
     input.addEventListener('change', validationErrorHandler);
   });
 }
