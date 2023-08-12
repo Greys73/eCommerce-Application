@@ -1,16 +1,14 @@
 import img from '../../../assets/images/page_not_found404.png';
 
 const container = document.createElement('div');
-container.style.display = 'flex';
-container.style.flexDirection = 'column';
-container.style.justifyContent = 'center';
-container.style.alignItems = 'center';
+container.className = 'page-404';
 
 const image = document.createElement('img');
+image.className = 'page-404__image';
 image.src = img;
-image.style.height = '30rem';
 
 const link = document.createElement('a');
+link.className = 'page-404__link';
 link.textContent = 'Go back to main page!';
 link.href = '/';
 
