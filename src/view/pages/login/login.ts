@@ -16,7 +16,7 @@ function createLoginForm(): HTMLFormElement {
     name: 'email',
     text: 'E-mail',
     required: true,
-    pattern: '.+@.+',
+    pattern: /.+@.+\..+/,
     title: 'Type valid e-mail (e.g., example@email.com)',
   };
 
@@ -26,10 +26,17 @@ function createLoginForm(): HTMLFormElement {
     name: 'password',
     text: 'Password',
     required: true,
-    pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}',
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}/,
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   };
+
+  const showPassword = createFormBlock({
+    type: 'checkbox',
+    name: `showPassword`,
+    text: 'Show password',
+    required: false,
+  });
 
   const blocks = [emailOptions, passwordOptions];
   blocks.forEach((opt) => {
@@ -41,6 +48,7 @@ function createLoginForm(): HTMLFormElement {
   submitBtn.textContent = 'Submit';
   submitBtn.type = 'submit';
   submitBtn.className = 'button login-form__button';
+  loginForm.append(showPassword);
   loginForm.append(submitBtn);
   loginForm.prepend(heading);
   loginForm.prepend(resultMessage);
