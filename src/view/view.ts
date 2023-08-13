@@ -1,4 +1,4 @@
-import '../controller/loginFormHandler';
+import '../controller/loginPageHandlers';
 
 const main = document.createElement('div');
 main.style.display = 'flex';
