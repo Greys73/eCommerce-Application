@@ -1,11 +1,12 @@
 import countries from '../../../model/data/countries';
 import { AddressType, FormBlock } from '../../../types/type';
 import createFormBlock from '../../../utils/view/createFormBlock';
+import bothDefaultAddressBlock from './defaultCheckbox';
 import resultMessage from './resultMessage';
 
 const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const block = document.createElement('div');
-  block.className = 'reg-form__address';
+  block.className = `reg-form__address ${addressType}`;
   const heading = document.createElement('h4');
   heading.className = 'reg-form__subheading';
   heading.textContent = `Enter ${addressType} address`;
@@ -16,6 +17,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     text: 'Set this address as default',
     required: false,
   });
+
   const streetOptions: FormBlock = {
     type: 'text',
     text: 'Street',
@@ -52,20 +54,27 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const countrySelection = document.createElement('select');
   countrySelection.name = `${addressType}Country`;
 
+  const countryMessage = document.createElement('p');
+  countryMessage.textContent =
+    'You should select a country to save this address';
+
   Object.keys(countries).forEach((el) => {
     const option = document.createElement('option');
     option.value = el;
     option.textContent = el;
     countrySelection.append(option);
   });
+  block.append(heading, defaultAddressBlock);
+  if (addressType === 'shipping') {
+    block.append(bothDefaultAddressBlock);
+  }
   block.append(
-    heading,
-    defaultAddressBlock,
     street,
     city,
     postCode,
     countryLabel,
     countrySelection,
+    countryMessage,
   );
   return block;
 };
