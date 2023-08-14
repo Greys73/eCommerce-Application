@@ -1,3 +1,3 @@
 import './regFormErrorHanlder';
-import './loginFormHandler';
+import './loginPageHandlers';
 import './router';

@@ -94,7 +94,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'password',
     text: 'Password',
     required: true,
-    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}/,
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   };
@@ -105,7 +105,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'checkPassword',
     text: 'Repeat password',
     required: true,
-    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}/,
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title: 'Must match the password',
   };
 
