@@ -1,4 +1,5 @@
 import logo from '../../assets/images/header-logo.png';
+import '../../assets/styles/footer.scss';
 
 const header = document.createElement('header');
 header.classList.add('header');
@@ -71,9 +72,26 @@ Object.entries(navObj).forEach(([key, value]) => {
   el.textContent = value.text;
   el.href = value.routing.slice(1);
 
+  if (value.routing === '/profile' || value.routing === '/logout')
+    el.classList.add('hidden');
+  // if (value.routing === '/registration' || value.routing === '/login') el.classList.add('hidden');
+
   nav.append(el);
 });
 
-headerContainer.append(headerLogo, nav);
+// create burger-icon
+
+const burger = document.createElement('div');
+burger.classList.add('header__burger');
+
+for (let i = 0; i < 4; i += 1) {
+  const span = document.createElement('span');
+  span.classList.add('burger__span');
+  // if (i === 0) span.classList.add('rotated');
+  // if (i === 3) span.classList.add('rotated-reverse');
+  burger.append(span);
+}
+
+headerContainer.append(headerLogo, nav, burger);
 
 export default header;

@@ -1,0 +1,32 @@
+$marginDesctop: 40px;
+$marginTablet: 20px;
+$marginMobile: 10px;
+
+@mixin _tablet {
+  @media (max-width: 1279.98px) {
+    @content;
+  }
+}
+
+@mixin _mobile {
+  @media (max-width: 767.98px) {
+    @content;
+  }
+}
+
+@mixin _font($size) {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: $size;
+  color: white;
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  transition-duration: .3s;
+}
+
+.hidden {
+  display: none;
+}

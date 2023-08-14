@@ -1,12 +1,11 @@
 import '../controller/loginPageHandlers';
 
-// const header = document.createElement('header');
-// header.classList.add('header');
-// console.log(header)
+const main = document.createElement('main');
+main.classList.add('main');
 
-const main = document.createElement('div');
-main.style.display = 'flex';
-main.style.justifyContent = 'center';
-main.style.alignItems = 'center';
+const mainContainer = document.createElement('div');
+mainContainer.classList.add('main__container');
+
+main.append(mainContainer);
 
 export default main;
