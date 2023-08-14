@@ -9,8 +9,13 @@ type RoutesType = {
 };
 const routes: RoutesType = {
   '/': mainPage.default,
+  // '/products':
+  // '/basket':
+  // '/about':
   '/registration': regPage.default,
   '/login': loginPage.default,
+  // '/profile':
+  // '/logout':
   '404': er404Page.default,
 };
 
