@@ -17,18 +17,18 @@ function checkEmail(data: string): string {
 function getSpecifyError(type: string, data: string): string {
   let result = '';
   switch (type) {
-  case 'email': {
-    result = checkEmail(data);
-    break;
-  }
-  case 'password': {
-    result = checkPassword(data);
-    break;
-  }
-  default: {
-    // statements;
-    break;
-  }
+    case 'email': {
+      result = checkEmail(data);
+      break;
+    }
+    case 'password': {
+      result = checkPassword(data);
+      break;
+    }
+    default: {
+      // statements;
+      break;
+    }
   }
   return result;
 }
