@@ -1,4 +1,5 @@
-import '../controller/loginPageHandlers';
+import header from './header/header';
+import footer from './footer/footer';
 
 const main = document.createElement('main');
 main.classList.add('main');
@@ -8,4 +9,6 @@ mainContainer.classList.add('main__container');
 
 main.append(mainContainer);
 
-export default main;
+document.body.append(header, main, footer);
+
+export default mainContainer;
