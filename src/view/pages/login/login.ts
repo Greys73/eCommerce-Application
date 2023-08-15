@@ -10,6 +10,11 @@ function createLoginForm(): HTMLFormElement {
   heading.textContent = 'Login';
   heading.className = 'login-form__heading';
 
+  const greeting = document.createElement('p');
+  greeting.innerHTML =
+    'Sign in to MotoDream or <a href="/registration">create an account</a>';
+  greeting.className = 'login-form__greeting';
+
   const emailOptions: FormBlock = {
     type: 'email',
     placeholder: 'Enter e-mail',
@@ -48,8 +53,10 @@ function createLoginForm(): HTMLFormElement {
   submitBtn.textContent = 'Submit';
   submitBtn.type = 'submit';
   submitBtn.className = 'button login-form__button';
+
   loginForm.append(showPassword);
   loginForm.append(submitBtn);
+  loginForm.prepend(greeting);
   loginForm.prepend(heading);
   loginForm.prepend(resultMessage);
   return loginForm;
