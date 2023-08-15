@@ -5,7 +5,7 @@ import getSpecifyError from '../model/inputErrorSpecifier';
 const checkPassword = (input: HTMLInputElement): boolean => {
   const secondPassword = input.value;
   const firstPasswordInput = input.parentElement?.previousElementSibling
-    ?.children[1] as HTMLInputElement;
+    ?.previousElementSibling?.children[1] as HTMLInputElement;
   const firstPassword = firstPasswordInput.value;
   return secondPassword === firstPassword;
 };

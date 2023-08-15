@@ -107,6 +107,12 @@ function createRegistrationForm(): HTMLFormElement {
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   };
+  const showPasswordOptions: FormBlock = {
+    type: 'checkbox',
+    name: `showPassword`,
+    text: 'Show password',
+    required: false,
+  };
 
   const repeatPasswordOptions: FormBlock = {
     type: 'password',
@@ -161,7 +167,9 @@ function createRegistrationForm(): HTMLFormElement {
   const blocks = [
     emailOptions,
     passwordOptions,
+    showPasswordOptions,
     repeatPasswordOptions,
+    showPasswordOptions,
     firstNameOptions,
     lastNameOptions,
     telOptions,
