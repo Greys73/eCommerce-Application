@@ -22,7 +22,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'Street',
     name: `${addressType}Street`,
-    required: false,
+    required: true,
     pattern: /.+/,
     title: 'Must contain at least one character',
   };
@@ -31,7 +31,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'City',
     name: `${addressType}City`,
-    required: false,
+    required: true,
     pattern: /[A-Za-z]+/,
     title:
       'Must contain at least one character and no special characters or numbers',
@@ -41,7 +41,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'Postal code',
     name: `${addressType}PostCode`,
-    required: false,
+    required: true,
     pattern: /[0-9]{5,7}/,
     title: 'Must contain from 5 to 7 digits',
   };
@@ -53,10 +53,9 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
 
   const countrySelection = document.createElement('select');
   countrySelection.name = `${addressType}Country`;
+  countrySelection.title = 'You should select a country to save this address';
 
   const countryMessage = document.createElement('p');
-  countryMessage.textContent =
-    'You should select a country to save this address';
 
   Object.keys(countries).forEach((el) => {
     const option = document.createElement('option');
@@ -148,7 +147,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'tel',
     text: 'Phone',
     required: true,
-    pattern: /[0-9]{10,12}/,
+    pattern: /^[0-9]{10,12}$/,
     title: 'From 10 to 12 digits',
   };
   const currentDate = new Date().getTime();
