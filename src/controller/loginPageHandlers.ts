@@ -22,6 +22,9 @@ async function submitHandler(e: Event) {
   const response = await loginCustomer(mail, password);
   if (response.statusCode === 200) {
     resultMessage.textContent = `Successfully login!`;
+    setTimeout(() => {
+      window.location.pathname = '/';
+    }, 3000);
   } else {
     resultMessage.textContent = response.message;
   }
