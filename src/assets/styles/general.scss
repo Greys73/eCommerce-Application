@@ -22,6 +22,27 @@ $marginMobile: 10px;
   text-decoration: none;
 }
 
+@mixin _mainFont($size) {
+  @include _font($size);
+  color: black;
+}
+
+@mixin _button($width, $height, $font-size) {
+  display: flex;
+  width: $width;
+  height: $height;
+  justify-content: center;
+  align-items: center;
+  background-color: cornflowerblue;
+  border-radius: 10px;
+  @include _font($font-size);
+  &:hover {
+    background-color: royalblue;
+    transform: scale(.95);
+    cursor: pointer;
+  }
+}
+
 * {
   margin: 0;
   transition-duration: .3s;

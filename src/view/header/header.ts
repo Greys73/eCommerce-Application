@@ -74,14 +74,21 @@ Object.entries(navObj).forEach(([key, value]) => {
   el.classList.add('nav__item');
   el.id = key;
   el.textContent = value.text;
-  el.href = value.routing.slice(1);
+  el.href = value.routing;
 
   if (value.routing === '/profile' || value.routing === '/logout')
     el.classList.add('hidden');
-  // if (value.routing === '/registration' || value.routing === '/login') el.classList.add('hidden');
 
   navContainer.append(el);
 });
+
+const changeRegStatus = () => {
+  const arr = ['sigin', 'login', 'profile', 'logout'];
+  arr.forEach((el) => {
+    const element = document.getElementById(el);
+    element?.classList.toggle('hidden');
+  });
+};
 
 // create burger-icon
 
@@ -109,4 +116,4 @@ const clickBurger = (): void => {
 
 burger.addEventListener('click', clickBurger);
 
-export default header;
+export { header, changeRegStatus };

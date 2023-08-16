@@ -15,8 +15,11 @@
 }
 
 .main__container {
+  display: flex;
+  justify-content: center;
   width: calc(100% - $marginDesctop);
   max-width: 1920px;
+  
   @include _tablet {
     width: calc(100% - $marginTablet);
   }

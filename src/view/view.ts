@@ -1,4 +1,4 @@
-import header from './header/header';
+import { header } from './header/header';
 import footer from './footer/footer';
 
 const main = document.createElement('main');
