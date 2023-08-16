@@ -22,33 +22,28 @@ const getRegFormData = (e: Event): CustomerDraft => {
   const shipAsDefault = `${formData.get('defaultshippingAddress')}` === 'on';
   const bothShipAsDefault = `${formData.get('bothDefaultAddress')}` === 'on';
 
-  let shippingAddress: Address;
-  if (shippingCountry) {
-    shippingAddress = {
-      country: countries[shippingCountry as keyof typeof countries],
-      city: `${formData.get('shippingCity')}`,
-      streetName: `${formData.get('shippingStreet')}`,
-      postalCode: `${formData.get('shippingPostCode')}`,
-      firstName: `${formData.get('firstName')}`,
-      lastName: `${formData.get('lastName')}`,
-      phone: `${formData.get('tel')}`,
-    };
-    newCustomer.addresses?.push(shippingAddress);
-    if (shipAsDefault) {
-      newCustomer.defaultShippingAddress = 0;
-    }
-    if (bothShipAsDefault) {
-      newCustomer.defaultBillingAddress = 0;
-      newCustomer.defaultShippingAddress = 0;
-    }
+  const shippingAddress = {
+    country: countries[shippingCountry as keyof typeof countries],
+    city: `${formData.get('shippingCity')}`,
+    streetName: `${formData.get('shippingStreet')}`,
+    postalCode: `${formData.get('shippingPostCode')}`,
+    firstName: `${formData.get('firstName')}`,
+    lastName: `${formData.get('lastName')}`,
+    phone: `${formData.get('tel')}`,
+  };
+  newCustomer.addresses.push(shippingAddress);
+  if (shipAsDefault) {
+    newCustomer.defaultShippingAddress = 0;
+  }
+  if (bothShipAsDefault) {
+    newCustomer.defaultBillingAddress = 0;
+    newCustomer.defaultShippingAddress = 0;
   }
 
   const billingCountry = `${formData.get('billingCountry')}`;
   const billAsDefault = `${formData.get('defaultbillingAddress')}` === 'on';
   let billingAddress: Address;
-  console.log(billingCountry);
   if (billingCountry && billingCountry !== 'null' && !bothShipAsDefault) {
-    console.log('hello');
     billingAddress = {
       country: countries[billingCountry as keyof typeof countries],
       city: `${formData.get('billingCity')}`,
@@ -66,7 +61,6 @@ const getRegFormData = (e: Event): CustomerDraft => {
       newCustomer.defaultBillingAddress = 0;
     }
   }
-
   return newCustomer;
 };
 
