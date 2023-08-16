@@ -10,3 +10,7 @@ export type FormBlock = {
 };
 
 export type AddressType = 'billing' | 'shipping';
+
+export type NavObjType = {
+  [key: string]: { text: string; routing: string; obj?: HTMLElement };
+};

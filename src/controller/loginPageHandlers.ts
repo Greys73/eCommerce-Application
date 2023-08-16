@@ -1,6 +1,7 @@
 import loginForm from '../view/pages/login/login';
 import { loginCustomer } from '../model/api/apiRoot';
 import resultMessage from '../view/pages/login/resultMessage';
+import { setLoacalCustomer } from '../model/login';
 
 const input: HTMLInputElement = loginForm.querySelector(
   'input[name="password"]',
@@ -20,7 +21,9 @@ async function submitHandler(e: Event) {
   const mail = formData.get('email')?.toString() || '';
   const password = formData.get('password')?.toString() || '';
   const response = await loginCustomer(mail, password);
+  console.log(response.body.customer);
   if (response.statusCode === 200) {
+    setLoacalCustomer(response.body.customer);
     resultMessage.textContent = `Successfully login!`;
     setTimeout(() => {
       window.location.pathname = '/';
