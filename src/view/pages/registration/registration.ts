@@ -9,12 +9,12 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   block.className = `reg-form__address ${addressType}`;
   const heading = document.createElement('h4');
   heading.className = 'reg-form__subheading';
-  heading.textContent = `Enter ${addressType} address`;
+  heading.textContent = `Enter address`;
 
   const defaultAddressBlock = createFormBlock({
     type: 'checkbox',
     name: `default${addressType}Address`,
-    text: 'Set this address as default',
+    text: `Set this address as default ${addressType}`,
     required: false,
   });
 
@@ -77,6 +77,17 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   );
   return block;
 };
+
+export const billingAddressBlock = createAddressBlock('billing');
+export const shippingAddressBlock = createAddressBlock('shipping');
+
+const createAddressButton = (): HTMLButtonElement => {
+  const button = document.createElement('button');
+  button.textContent = 'Add second address';
+  button.className = 'button reg-form__address-btn';
+  return button;
+};
+export const addressButton = createAddressButton();
 
 function createRegistrationForm(): HTMLFormElement {
   const registrationForm = document.createElement('form');
@@ -179,14 +190,11 @@ function createRegistrationForm(): HTMLFormElement {
     registrationForm.append(block);
   });
 
-  const billingAddressBlock = createAddressBlock('billing');
-  const shippingAddressBlock = createAddressBlock('shipping');
-
   const submitBtn = document.createElement('button');
   submitBtn.textContent = 'Submit';
   submitBtn.type = 'submit';
-  submitBtn.className = 'button reg-form__button';
-  registrationForm.append(shippingAddressBlock, billingAddressBlock, submitBtn);
+  submitBtn.className = 'button reg-form__submit-btn';
+  registrationForm.append(shippingAddressBlock, addressButton, submitBtn);
   registrationForm.prepend(heading);
   registrationForm.prepend(resultMessage);
   return registrationForm;

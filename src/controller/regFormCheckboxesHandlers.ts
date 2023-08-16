@@ -1,27 +1,23 @@
 import bothDefaultAddressBlock from '../view/pages/registration/defaultCheckbox';
-import registrationForm from '../view/pages/registration/registration';
+import registrationForm, {
+  addressButton,
+  billingAddressBlock,
+  shippingAddressBlock,
+} from '../view/pages/registration/registration';
+
+const shippingDefaultCheckbox = shippingAddressBlock.children[1]
+  .children[1] as HTMLInputElement;
 
 const toggleBlock = (e: Event) => {
   const target = e.target as HTMLInputElement;
   if (target.tagName !== 'INPUT') return;
-  const billingInputs = [
-    ...registrationForm.querySelectorAll('.billing input'),
-  ] as HTMLInputElement[];
-  const billingSelect = registrationForm.querySelector(
-    '.billing select',
-  ) as HTMLSelectElement;
-  const billingElems = [...billingInputs, billingSelect];
+
+  // const defaultCheckbox = target.parentElement?.previousElementSibling?.children[1] as HTMLInputElement;
 
   if (target.checked === true) {
-    billingElems.forEach((el) => {
-      const input = el;
-      input.disabled = true;
-    });
+    shippingDefaultCheckbox.disabled = true;
   } else {
-    billingElems.forEach((el) => {
-      const input = el;
-      input.disabled = false;
-    });
+    shippingDefaultCheckbox.disabled = false;
   }
 };
 bothDefaultAddressBlock.addEventListener('click', toggleBlock);
@@ -42,3 +38,23 @@ const showPassword = (i: number) => {
 passwordCheckboxes.forEach((checkbox, i) => {
   checkbox.addEventListener('click', () => showPassword(i));
 });
+
+let isShown = false;
+const toggleBillingAddress = (e: Event) => {
+  e.preventDefault();
+  const checkbox = bothDefaultAddressBlock.children[1] as HTMLInputElement;
+  if (!isShown) {
+    addressButton.textContent = 'Hide billing address';
+    isShown = true;
+    addressButton.after(billingAddressBlock);
+    checkbox.disabled = true;
+    shippingDefaultCheckbox.disabled = false;
+  } else {
+    addressButton.textContent = 'Add second address';
+    isShown = false;
+    billingAddressBlock.remove();
+    checkbox.disabled = false;
+    checkbox.checked = false;
+  }
+};
+addressButton.addEventListener('click', toggleBillingAddress);
