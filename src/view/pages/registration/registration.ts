@@ -1,11 +1,12 @@
 import countries from '../../../model/data/countries';
 import { AddressType, FormBlock } from '../../../types/type';
 import createFormBlock from '../../../utils/view/createFormBlock';
+import bothDefaultAddressBlock from './defaultCheckbox';
 import resultMessage from './resultMessage';
 
 const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const block = document.createElement('div');
-  block.className = 'reg-form__address';
+  block.className = `reg-form__address ${addressType}`;
   const heading = document.createElement('h4');
   heading.className = 'reg-form__subheading';
   heading.textContent = `Enter ${addressType} address`;
@@ -16,11 +17,12 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     text: 'Set this address as default',
     required: false,
   });
+
   const streetOptions: FormBlock = {
     type: 'text',
     text: 'Street',
     name: `${addressType}Street`,
-    required: false,
+    required: true,
     pattern: /.+/,
     title: 'Must contain at least one character',
   };
@@ -29,7 +31,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'City',
     name: `${addressType}City`,
-    required: false,
+    required: true,
     pattern: /[A-Za-z]+/,
     title:
       'Must contain at least one character and no special characters or numbers',
@@ -39,7 +41,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     type: 'text',
     text: 'Postal code',
     name: `${addressType}PostCode`,
-    required: false,
+    required: true,
     pattern: /[0-9]{5,7}/,
     title: 'Must contain from 5 to 7 digits',
   };
@@ -51,6 +53,9 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
 
   const countrySelection = document.createElement('select');
   countrySelection.name = `${addressType}Country`;
+  countrySelection.title = 'You should select a country to save this address';
+
+  const countryMessage = document.createElement('p');
 
   Object.keys(countries).forEach((el) => {
     const option = document.createElement('option');
@@ -58,14 +63,17 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     option.textContent = el;
     countrySelection.append(option);
   });
+  block.append(heading, defaultAddressBlock);
+  if (addressType === 'shipping') {
+    block.append(bothDefaultAddressBlock);
+  }
   block.append(
-    heading,
-    defaultAddressBlock,
     street,
     city,
     postCode,
     countryLabel,
     countrySelection,
+    countryMessage,
   );
   return block;
 };
@@ -97,6 +105,12 @@ function createRegistrationForm(): HTMLFormElement {
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+  };
+  const showPasswordOptions: FormBlock = {
+    type: 'checkbox',
+    name: `showPassword`,
+    text: 'Show password',
+    required: false,
   };
 
   const repeatPasswordOptions: FormBlock = {
@@ -133,7 +147,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'tel',
     text: 'Phone',
     required: true,
-    pattern: /[0-9]{10,12}/,
+    pattern: /^[0-9]{10,12}$/,
     title: 'From 10 to 12 digits',
   };
   const currentDate = new Date().getTime();
@@ -152,7 +166,9 @@ function createRegistrationForm(): HTMLFormElement {
   const blocks = [
     emailOptions,
     passwordOptions,
+    showPasswordOptions,
     repeatPasswordOptions,
+    showPasswordOptions,
     firstNameOptions,
     lastNameOptions,
     telOptions,
