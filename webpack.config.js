@@ -17,7 +17,7 @@ const baseConfig = {
           {
             loader: 'sass-resources-loader',
             options: {
-              resources: ['./src/style.scss'],
+              resources: ['./src/assets/styles/*.scss'],
             },
           },
         ],
