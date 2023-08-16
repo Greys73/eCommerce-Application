@@ -133,7 +133,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: 'tel',
     text: 'Phone',
     required: true,
-    pattern: '[0-9]{10,12}',
+    pattern: /[0-9]{10,12}/,
     title: 'From 10 to 12 digits',
   };
   const currentDate = new Date().getTime();
