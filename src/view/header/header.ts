@@ -28,6 +28,10 @@ headerLogo.append(logoImg, logoText);
 const nav = document.createElement('nav');
 nav.classList.add('header__nav');
 
+const navContainer = document.createElement('div');
+navContainer.classList.add('header__nav-container');
+nav.append(navContainer);
+
 const navObj = {
   'main-page': {
     text: 'Main page 🏠',
@@ -76,7 +80,7 @@ Object.entries(navObj).forEach(([key, value]) => {
     el.classList.add('hidden');
   // if (value.routing === '/registration' || value.routing === '/login') el.classList.add('hidden');
 
-  nav.append(el);
+  navContainer.append(el);
 });
 
 // create burger-icon
@@ -93,5 +97,16 @@ for (let i = 0; i < 4; i += 1) {
 }
 
 headerContainer.append(headerLogo, nav, burger);
+
+const clickBurger = (): void => {
+  nav.classList.toggle('header__nav_visable');
+
+  burger.children[0].classList.toggle('hidden');
+  burger.children[1].classList.toggle('rotated');
+  burger.children[2].classList.toggle('rotated-reverse');
+  burger.children[3].classList.toggle('hidden');
+};
+
+burger.addEventListener('click', clickBurger);
 
 export default header;
