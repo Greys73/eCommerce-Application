@@ -12,8 +12,6 @@ const toggleBlock = (e: Event) => {
   const target = e.target as HTMLInputElement;
   if (target.tagName !== 'INPUT') return;
 
-  // const defaultCheckbox = target.parentElement?.previousElementSibling?.children[1] as HTMLInputElement;
-
   if (target.checked === true) {
     shippingDefaultCheckbox.disabled = true;
   } else {
