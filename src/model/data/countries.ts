@@ -1,5 +1,4 @@
 const countries = {
-  '': '',
   Austria: 'AT',
   Belgium: 'BE',
   Bulgaria: 'BG',
