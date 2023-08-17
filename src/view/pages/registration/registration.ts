@@ -77,6 +77,18 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   );
   return block;
 };
+const createLoginLinkBlock = (): HTMLParagraphElement => {
+  const linkP = document.createElement('p');
+  linkP.className = 'reg-form__redirection';
+  linkP.textContent = 'Already registered? ';
+
+  const loginLink = document.createElement('a');
+  loginLink.href = '/login';
+  loginLink.textContent = 'Login';
+  linkP.append(loginLink);
+  return linkP;
+};
+const loginLinkBlock = createLoginLinkBlock();
 
 function createRegistrationForm(): HTMLFormElement {
   const registrationForm = document.createElement('form');
@@ -187,7 +199,7 @@ function createRegistrationForm(): HTMLFormElement {
   submitBtn.type = 'submit';
   submitBtn.className = 'button reg-form__button';
   registrationForm.append(shippingAddressBlock, billingAddressBlock, submitBtn);
-  registrationForm.prepend(heading);
+  registrationForm.prepend(heading, loginLinkBlock);
   registrationForm.prepend(resultMessage);
   return registrationForm;
 }

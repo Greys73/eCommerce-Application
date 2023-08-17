@@ -1,0 +1,26 @@
+@import './general.scss';
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: calc(100vh - 160px);
+  @include _tablet {
+    min-height: calc(100vh - 120px);
+  }
+  @include _mobile {
+    min-height: calc(100vh - 100px);
+  }
+}
+
+.main__container {
+  width: calc(100% - $marginDesctop);
+  max-width: 1920px;
+  @include _tablet {
+    width: calc(100% - $marginTablet);
+  }
+  @include _mobile {
+    width: calc(100% - $marginMobile);
+  }
+}
