@@ -77,6 +77,18 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   );
   return block;
 };
+const createLoginLinkBlock = (): HTMLParagraphElement => {
+  const linkP = document.createElement('p');
+  linkP.className = 'reg-form__redirection';
+  linkP.textContent = 'Already registered? ';
+
+  const loginLink = document.createElement('a');
+  loginLink.href = '/login';
+  loginLink.textContent = 'Login';
+  linkP.append(loginLink);
+  return linkP;
+};
+const loginLinkBlock = createLoginLinkBlock();
 
 export const billingAddressBlock = createAddressBlock('billing');
 export const shippingAddressBlock = createAddressBlock('shipping');
