@@ -207,7 +207,7 @@ function createRegistrationForm(): HTMLFormElement {
   submitBtn.type = 'submit';
   submitBtn.className = 'button reg-form__submit-btn';
   registrationForm.append(shippingAddressBlock, addressButton, submitBtn);
-  registrationForm.prepend(heading);
+  registrationForm.prepend(heading, loginLinkBlock);
   registrationForm.prepend(resultMessage);
   return registrationForm;
 }
