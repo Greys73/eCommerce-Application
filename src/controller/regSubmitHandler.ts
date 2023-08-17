@@ -1,4 +1,4 @@
-import { createCustomer } from '../model/api/apiRoot';
+import { createCustomer, loginCustomer } from '../model/api/apiRoot';
 import countries from '../model/data/countries';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
@@ -73,15 +73,26 @@ const getRegFormData = (e: Event): CustomerDraft => {
 const submitHandler = async (e: Event) => {
   e.preventDefault();
   const newCustomer = getRegFormData(e);
-  const response = await createCustomer(newCustomer);
-  console.log(response);
-  if (response.statusCode === 201) {
-    resultMessage.textContent = `Successfully registered`;
-    // redirect to main page
-    // setTimeout(() => {window.location.href = '/'}, 3000 )
-  } else {
-    resultMessage.textContent = response.message;
-    // show error massage "try again"
+  try {
+    const response = await createCustomer(newCustomer);
+    if (response.statusCode === 201) {
+      resultMessage.textContent = `Successfully registered`;
+
+      const logResponse = await loginCustomer(
+        newCustomer.email,
+        newCustomer.password,
+      );
+      if (logResponse.statusCode === 200) {
+        window.location.pathname = '/';
+        resultMessage.textContent = 'Logged in';
+      } else {
+        resultMessage.textContent += 'Error with login';
+      }
+    } else {
+      resultMessage.textContent = response.message;
+    }
+  } catch {
+    resultMessage.textContent = 'Something went wrong. Try again.';
   }
 };
 
