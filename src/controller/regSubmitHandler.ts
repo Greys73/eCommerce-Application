@@ -1,4 +1,4 @@
-import { createCustomer } from '../model/api/apiRoot';
+import { createCustomer, loginCustomer } from '../model/api/apiRoot';
 import countries from '../model/data/countries';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
@@ -22,33 +22,28 @@ const getRegFormData = (e: Event): CustomerDraft => {
   const shipAsDefault = `${formData.get('defaultshippingAddress')}` === 'on';
   const bothShipAsDefault = `${formData.get('bothDefaultAddress')}` === 'on';
 
-  let shippingAddress: Address;
-  if (shippingCountry) {
-    shippingAddress = {
-      country: countries[shippingCountry as keyof typeof countries],
-      city: `${formData.get('shippingCity')}`,
-      streetName: `${formData.get('shippingStreet')}`,
-      postalCode: `${formData.get('shippingPostCode')}`,
-      firstName: `${formData.get('firstName')}`,
-      lastName: `${formData.get('lastName')}`,
-      phone: `${formData.get('tel')}`,
-    };
-    newCustomer.addresses?.push(shippingAddress);
-    if (shipAsDefault) {
-      newCustomer.defaultShippingAddress = 0;
-    }
-    if (bothShipAsDefault) {
-      newCustomer.defaultBillingAddress = 0;
-      newCustomer.defaultShippingAddress = 0;
-    }
+  const shippingAddress = {
+    country: countries[shippingCountry as keyof typeof countries],
+    city: `${formData.get('shippingCity')}`,
+    streetName: `${formData.get('shippingStreet')}`,
+    postalCode: `${formData.get('shippingPostCode')}`,
+    firstName: `${formData.get('firstName')}`,
+    lastName: `${formData.get('lastName')}`,
+    phone: `${formData.get('tel')}`,
+  };
+  newCustomer.addresses.push(shippingAddress);
+  if (shipAsDefault) {
+    newCustomer.defaultShippingAddress = 0;
+  }
+  if (bothShipAsDefault) {
+    newCustomer.defaultBillingAddress = 0;
+    newCustomer.defaultShippingAddress = 0;
   }
 
   const billingCountry = `${formData.get('billingCountry')}`;
   const billAsDefault = `${formData.get('defaultbillingAddress')}` === 'on';
   let billingAddress: Address;
-  console.log(billingCountry);
   if (billingCountry && billingCountry !== 'null' && !bothShipAsDefault) {
-    console.log('hello');
     billingAddress = {
       country: countries[billingCountry as keyof typeof countries],
       city: `${formData.get('billingCity')}`,
@@ -66,22 +61,32 @@ const getRegFormData = (e: Event): CustomerDraft => {
       newCustomer.defaultBillingAddress = 0;
     }
   }
-
   return newCustomer;
 };
 
 const submitHandler = async (e: Event) => {
   e.preventDefault();
   const newCustomer = getRegFormData(e);
-  const response = await createCustomer(newCustomer);
-  console.log(response);
-  if (response.statusCode === 201) {
-    resultMessage.textContent = `Successfully registered`;
-    // redirect to main page
-    // setTimeout(() => {window.location.href = '/'}, 3000 )
-  } else {
-    resultMessage.textContent = response.message;
-    // show error massage "try again"
+  try {
+    const response = await createCustomer(newCustomer);
+    if (response.statusCode === 201) {
+      resultMessage.textContent = `Successfully registered`;
+
+      const logResponse = await loginCustomer(
+        newCustomer.email,
+        newCustomer.password,
+      );
+      if (logResponse.statusCode === 200) {
+        window.location.pathname = '/';
+        resultMessage.textContent = 'Logged in';
+      } else {
+        resultMessage.textContent += 'Error with login';
+      }
+    } else {
+      resultMessage.textContent = response.message;
+    }
+  } catch {
+    resultMessage.textContent = 'Something went wrong. Try again.';
   }
 };
 
