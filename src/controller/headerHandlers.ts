@@ -2,9 +2,10 @@ import header from '../view/header/header';
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
 import { NavObjType } from '../types/type';
 
-function navChanger(menu: NavObjType) {
-  const customer = getLoacalCustomer();
-  if ('id' in customer) {
+let menu: NavObjType = {};
+
+function switchElements(_logined: boolean) {
+  if (_logined) {
     menu.sigin.obj?.classList.add('hidden');
     menu.login.obj?.classList.add('hidden');
     menu.logout.obj?.classList.remove('hidden');
@@ -15,7 +16,16 @@ function navChanger(menu: NavObjType) {
     menu.sigin.obj?.classList.remove('hidden');
     menu.login.obj?.classList.remove('hidden');
   }
-  menu.logout.obj?.addEventListener('click', () => setLoacalCustomer({}));
+}
+
+function navChanger(_menu: NavObjType) {
+  menu = _menu;
+  const customer = getLoacalCustomer();
+  switchElements('id' in customer);
+  menu.logout.obj?.addEventListener('click', () => {
+    setLoacalCustomer({});
+    switchElements(false);
+  });
 }
 
 header.addEventListener('load', ((e: CustomEvent) =>

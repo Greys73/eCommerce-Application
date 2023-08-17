@@ -19,18 +19,32 @@ const routes: RoutesType = {
   '404': er404Page.default,
 };
 
-const locationHandler = () => {
+function locationHandler() {
   const path = window.location.pathname || '/';
   const page: HTMLElement = routes[path] || routes['404'];
+  mainSection.default.innerHTML = '';
   mainSection.default.append(page);
-};
+}
 
-const route = (event: Event) => {
-  const location = window.location.pathname;
-  event.preventDefault();
+function route(e: Event) {
+  const location = (e.target as HTMLAnchorElement).href;
   window.history.pushState({}, '', location);
   locationHandler();
-};
+}
 
-window.addEventListener('popstate', route);
-window.addEventListener('DOMContentLoaded', locationHandler);
+function linkClick(e: Event) {
+  if ((e.target as HTMLAnchorElement).origin === window.location.origin) {
+    e.preventDefault();
+    route(e);
+  }
+}
+
+function contentLoaded() {
+  document.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', linkClick);
+  });
+  locationHandler();
+}
+
+window.addEventListener('popstate', locationHandler);
+window.addEventListener('DOMContentLoaded', contentLoaded);
