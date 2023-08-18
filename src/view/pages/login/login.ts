@@ -2,10 +2,6 @@ import { FormBlock } from '../../../types/type';
 import createFormBlock from '../../../utils/view/createFormBlock';
 import resultMessage from './resultMessage';
 
-const header = document.createElement('h2');
-header.textContent = 'Log in your MotoDream account';
-header.className = 'login-page__header';
-
 function createLoginForm(): HTMLFormElement {
   const loginForm = document.createElement('form');
   loginForm.className = 'login-page__form';
@@ -61,11 +57,15 @@ function createLoginForm(): HTMLFormElement {
 const loginPage = document.createElement('div');
 loginPage.classList.add('login-page');
 
+const header = document.createElement('h2');
+header.textContent = 'Log in your MotoDream account';
+header.className = 'login-page__header';
+
 const form = createLoginForm();
 
 const redirectText = document.createElement('p');
 redirectText.innerHTML =
-  'Don\'t have an account? <a class="redirect__link" href="/registration">Sign up</a> now!';
+  'Don\'t have an account? <a class="login-page__redirect-link" href="/registration">Sign up</a> now!';
 redirectText.className = 'login-page__redirect';
 
 loginPage.append(header, form, redirectText);

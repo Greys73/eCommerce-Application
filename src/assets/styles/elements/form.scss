@@ -76,6 +76,9 @@
   width: 15px;
   height: 15px;
   margin: 0 10px 0 5px;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .form__error {
@@ -96,4 +99,35 @@
 
 .form__block_marker {
   margin: 0px;
+}
+
+.form__label_selection {
+  margin-left: 10px;
+}
+
+.form__flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 432px;
+  margin: 0 auto;
+  @include _tablet {
+    width: 332px;
+  }
+  @include _mobile {
+    width: 282px;
+  }
+}
+
+.selection__country {
+  width: 320px;
+  margin: 0;
+  border-radius: 5px;
+  color: darkslategray;
+  @include _tablet {
+    width: 240px;
+  }
+  @include _mobile {
+    width: 210px;
+  }
 }

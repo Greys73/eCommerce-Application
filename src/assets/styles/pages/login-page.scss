@@ -42,7 +42,7 @@
 }
 
 .login-page__redirect,
-.redirect__link {
+.login-page__redirect-link {
   @include _mainFont(20px);
   text-align: center;
   margin: $marginDesctop 0;
@@ -56,7 +56,7 @@
   }
 }
 
-.redirect__link {
+.login-page__redirect-link {
   color: darkcyan;
   text-decoration: underline;
   &:hover {

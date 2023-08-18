@@ -7,9 +7,10 @@ import resultMessage from './resultMessage';
 const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const block = document.createElement('div');
   block.className = `reg-form__address ${addressType}`;
-  const heading = document.createElement('h4');
-  heading.className = 'reg-form__subheading';
-  heading.textContent = `Enter address`;
+
+  // const addressHeader = document.createElement('h4');
+  // addressHeader.className = 'reg-form__subheader';
+  // addressHeader.textContent = `Address Section`;
 
   const defaultAddressBlock = createFormBlock({
     type: 'checkbox',
@@ -20,42 +21,58 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
 
   const streetOptions: FormBlock = {
     type: 'text',
-    text: 'Street',
+    text: 'Address:',
     name: `${addressType}Street`,
     required: true,
     pattern: /.+/,
     title: 'Must contain at least one character',
   };
-  const street = createFormBlock(streetOptions);
+
   const cityOptions: FormBlock = {
     type: 'text',
-    text: 'City',
+    text: 'City:',
     name: `${addressType}City`,
     required: true,
     pattern: /[A-Za-z]+/,
     title:
       'Must contain at least one character and no special characters or numbers',
   };
-  const city = createFormBlock(cityOptions);
+
   const postCodeOptions: FormBlock = {
     type: 'text',
-    text: 'Postal code',
+    text: 'Postal code:',
     name: `${addressType}PostCode`,
     required: true,
     pattern: /[0-9]{5,7}/,
     title: 'Must contain from 5 to 7 digits',
   };
+
+  const city = createFormBlock(cityOptions);
+  const street = createFormBlock(streetOptions);
   const postCode = createFormBlock(postCodeOptions);
+
+  const countryBlock = document.createElement('div');
+  countryBlock.classList.add('form__block');
+
+  const countryContainer = document.createElement('div');
+  countryContainer.classList.add('form__flex-container');
 
   const countryLabel = document.createElement('label');
   countryLabel.htmlFor = `${addressType}Country`;
-  countryLabel.textContent = 'Select a country';
+  countryLabel.textContent = 'Country:';
+  countryLabel.classList.add('form__label');
 
   const countrySelection = document.createElement('select');
   countrySelection.name = `${addressType}Country`;
   countrySelection.title = 'You should select a country to save this address';
+  countrySelection.classList.add('form__input', 'selection__country');
 
   const countryMessage = document.createElement('p');
+  countryMessage.classList.add('form__error');
+
+  countryContainer.append(countryLabel, countrySelection);
+
+  countryBlock.append(countryContainer, countryMessage);
 
   Object.keys(countries).forEach((el) => {
     const option = document.createElement('option');
@@ -63,57 +80,59 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     option.textContent = el;
     countrySelection.append(option);
   });
-  block.append(heading, defaultAddressBlock);
+
+  block.append(countryBlock, city, street, postCode, defaultAddressBlock);
+
   if (addressType === 'shipping') {
     block.append(bothDefaultAddressBlock);
   }
-  block.append(
-    street,
-    city,
-    postCode,
-    countryLabel,
-    countrySelection,
-    countryMessage,
-  );
+
   return block;
 };
-const createLoginLinkBlock = (): HTMLParagraphElement => {
-  const linkP = document.createElement('p');
-  linkP.className = 'reg-form__redirection';
-  linkP.textContent = 'Already registered? ';
-
-  const loginLink = document.createElement('a');
-  loginLink.href = '/login';
-  loginLink.textContent = 'Login';
-  linkP.append(loginLink);
-  return linkP;
-};
-const loginLinkBlock = createLoginLinkBlock();
-
-export const billingAddressBlock = createAddressBlock('billing');
-export const shippingAddressBlock = createAddressBlock('shipping');
 
 const createAddressButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
-  button.textContent = 'Add second address';
-  button.className = 'button reg-form__address-btn';
+  button.textContent = 'Add another address';
+  button.className = 'reg-page__adress-button';
+
   return button;
 };
+
+export const billingAddressBlock = createAddressBlock('billing');
+export const shippingAddressBlock = createAddressBlock('shipping');
 export const addressButton = createAddressButton();
 
+const checkAgeParams = () => {
+  const currentDate = new Date().getTime();
+
+  // const msInSec = 1000;
+  // const secInMin = 60;
+  // const minInHour = 60;
+  // const hoursInDay = 24;
+  // const monthInYear = 12; // correct?
+  // const daysInYear = 365; // correct?
+  // const smth = 3; //
+
+  const MS_FOR_18_YEARS = (12 * 365 + 3) * 24 * 60 * 60 * 1000;
+  const maxBirthDate = new Date(currentDate - MS_FOR_18_YEARS);
+  const maxMonth = (maxBirthDate.getMonth() + 1).toString().padStart(2, '0');
+  const maxDay = maxBirthDate.getDate().toString().padStart(2, '0');
+
+  const resultObj = {
+    bitrhExtr: maxBirthDate,
+    mExtr: maxMonth,
+    dExtr: maxDay,
+  };
+
+  return resultObj;
+};
+
 function createRegistrationForm(): HTMLFormElement {
-  const registrationForm = document.createElement('form');
-  registrationForm.className = 'reg-form';
-
-  const heading = document.createElement('h2');
-  heading.textContent = 'Register';
-  heading.className = 'reg-form__heading';
-
   const emailOptions: FormBlock = {
     type: 'email',
     placeholder: 'Enter e-mail',
     name: 'email',
-    text: 'E-mail',
+    text: 'E-mail:',
     required: true,
     pattern: /.+@.+\..+/,
     title: 'Type valid e-mail (e.g., example@email.com)',
@@ -123,16 +142,17 @@ function createRegistrationForm(): HTMLFormElement {
     type: 'password',
     placeholder: 'Enter password',
     name: 'password',
-    text: 'Password',
+    text: 'Password:',
     required: true,
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   };
+
   const showPasswordOptions: FormBlock = {
     type: 'checkbox',
     name: `showPassword`,
-    text: 'Show password',
+    text: 'Show password:',
     required: false,
   };
 
@@ -140,7 +160,7 @@ function createRegistrationForm(): HTMLFormElement {
     type: 'password',
     placeholder: 'Repeat password',
     name: 'checkPassword',
-    text: 'Repeat password',
+    text: 'Repeat password:',
     required: true,
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title: 'Must match the password',
@@ -150,68 +170,100 @@ function createRegistrationForm(): HTMLFormElement {
     type: 'text',
     placeholder: 'Enter first name',
     name: 'firstName',
-    text: 'First name',
+    text: 'First name:',
     required: true,
     pattern: /[A-Za-z]+/,
     title: 'At least one character and no special characters or numbers',
   };
+
   const lastNameOptions: FormBlock = {
     type: 'text',
     placeholder: 'Enter last name',
     name: 'lastName',
-    text: 'Last Name',
+    text: 'Last Name:',
     required: true,
     pattern: /[A-Za-z]+/,
     title: 'At least one character and no special characters or numbers',
   };
+
   const telOptions: FormBlock = {
     type: 'tel',
     placeholder: 'Enter phone number',
     name: 'tel',
-    text: 'Phone',
+    text: 'Phone number:',
     required: true,
     pattern: /^[0-9]{10,12}$/,
     title: 'From 10 to 12 digits',
   };
-  const currentDate = new Date().getTime();
-  const MS_FOR_18_YEARS = (12 * 365 + 3) * 24 * 60 * 60 * 1000;
-  const maxBirthDate = new Date(currentDate - MS_FOR_18_YEARS);
-  const maxMonth = (maxBirthDate.getMonth() + 1).toString().padStart(2, '0');
-  const maxDay = maxBirthDate.getDate().toString().padStart(2, '0');
+
   const birthDateOptions: FormBlock = {
     type: 'date',
     name: 'dateOfBirth',
-    text: 'Date of Birth',
+    text: 'Date of Birth:',
     required: true,
-    max: `${maxBirthDate.getFullYear()}-${maxMonth}-${maxDay}`,
+    max: `${checkAgeParams().bitrhExtr.getFullYear()}-${
+      checkAgeParams().mExtr
+    }-${checkAgeParams().dExtr}`,
     title: 'Only customers over 12 years allowed',
   };
-  const blocks = [
+
+  const blocksArr = [
     emailOptions,
     passwordOptions,
-    showPasswordOptions,
     repeatPasswordOptions,
-    showPasswordOptions,
     firstNameOptions,
     lastNameOptions,
     telOptions,
     birthDateOptions,
   ];
-  blocks.forEach((opt) => {
+
+  const regForm = document.createElement('form');
+  regForm.className = 'reg-page__form';
+
+  blocksArr.forEach((opt) => {
     const block = createFormBlock(opt);
-    registrationForm.append(block);
+    if (opt.type === 'password') {
+      const showPassword = createFormBlock(showPasswordOptions);
+      block.append(showPassword);
+    }
+    regForm.append(block);
   });
 
   const submitBtn = document.createElement('button');
-  submitBtn.textContent = 'Submit';
+  submitBtn.textContent = 'Create MotoDream account!';
   submitBtn.type = 'submit';
-  submitBtn.className = 'button reg-form__submit-btn';
-  registrationForm.append(shippingAddressBlock, addressButton, submitBtn);
-  registrationForm.prepend(heading, loginLinkBlock);
-  registrationForm.prepend(resultMessage);
-  return registrationForm;
+  submitBtn.className = 'reg-page__button';
+
+  regForm.append(shippingAddressBlock, addressButton, submitBtn);
+  regForm.prepend(resultMessage);
+
+  return regForm;
 }
 
-const registrationForm = createRegistrationForm();
+const createLoginLinkBlock = (): HTMLParagraphElement => {
+  const redirectText = document.createElement('p');
+  redirectText.className = 'reg-page__redirect';
+  redirectText.textContent = 'Already have an account? ';
 
-export default registrationForm;
+  const redirectLink = document.createElement('a');
+  redirectLink.classList.add('reg-page__redirect-link');
+  redirectLink.href = '/login';
+  redirectLink.textContent = 'Log in to MotoDream';
+  redirectText.append(redirectLink);
+  return redirectText;
+};
+
+const registrationPage = document.createElement('div');
+registrationPage.classList.add('reg-page');
+
+const header = document.createElement('h2');
+header.textContent = 'Create your MotoDream account';
+header.className = 'reg-page__header';
+
+const redirectionBlock = createLoginLinkBlock();
+
+const form = createRegistrationForm();
+
+registrationPage.append(header, redirectionBlock, form);
+
+export default registrationPage;

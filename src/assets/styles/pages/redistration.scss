@@ -1,0 +1,78 @@
+@import '../general.scss';
+@import '../elements/form.scss';
+
+.reg-page {
+  width: 100%;
+}
+
+.reg-page__header {
+  @include _mainFont(35px);
+  margin: $marginDesctop 0;
+  text-align: center;
+  @include _tablet {
+    font-size: 25px;
+    margin: $marginTablet;
+  }
+  @include _mobile {
+    font-size: 20px;
+    margin: $marginMobile;
+  }
+}
+
+.reg-page__redirect,
+.reg-page__redirect-link {
+  @include _mainFont(20px);
+  text-align: center;
+  margin: $marginDesctop 0;
+  @include _tablet {
+    font-size: 16px;
+    margin: $marginTablet 0;
+  }
+  @include _mobile {
+    font-size: 12px;
+    margin: $marginMobile 0;
+  }
+}
+
+.reg-page__redirect-link {
+  color: darkcyan;
+  text-decoration: underline;
+  &:hover {
+    color: lightseagreen;
+  }
+}
+
+.reg-page__form { 
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.reg-page__adress-button {
+  margin: calc($marginDesctop / 2) auto;
+  border: none;
+  @include _button(240px, 30px, 20px);
+  @include _tablet {
+    margin: calc($marginTablet / 2) auto;
+  }
+  @include _mobile {
+    @include _button(180px, 24px, 16px);
+    border-radius: 8px;
+    margin: calc($marginMobile / 2) auto;
+  }
+}
+
+.reg-page__button {
+  margin: $marginDesctop auto;
+  border: none;
+  @include _button(320px, 40px, 20px);
+  @include _tablet {
+    margin: $marginTablet auto;
+  }
+  @include _mobile {
+    @include _button(260px, 30px, 16px);
+  }
+
+  &:hover {
+    background-color: LimeGreen;
+  }
+}
