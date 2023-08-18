@@ -69,8 +69,6 @@ const navObj: NavObjType = {
 };
 
 Object.entries(navObj).forEach(([key, value]) => {
-  console.log('key=', key, ', value=', value);
-
   const el = document.createElement('a');
   el.classList.add('nav__item');
   el.id = key;
@@ -97,8 +95,6 @@ burger.classList.add('header__burger');
 for (let i = 0; i < 4; i += 1) {
   const span = document.createElement('span');
   span.classList.add('burger__span');
-  // if (i === 0) span.classList.add('rotated');
-  // if (i === 3) span.classList.add('rotated-reverse');
   burger.append(span);
 }
 
@@ -114,6 +110,11 @@ const clickBurger = (): void => {
 };
 
 burger.addEventListener('click', clickBurger);
+navContainer.childNodes.forEach((el) =>
+  el.addEventListener('click', () => {
+    if (nav.classList.contains('header__nav_visable')) clickBurger();
+  }),
+);
 
 const event = new CustomEvent('load', { detail: navObj });
 logoImg.addEventListener('load', () => header.dispatchEvent(event));
