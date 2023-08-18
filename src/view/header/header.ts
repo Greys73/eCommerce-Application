@@ -1,5 +1,6 @@
 import logo from '../../assets/images/header-logo.png';
 import '../../assets/styles/footer.scss';
+import { NavObjType } from '../../types/type';
 
 const header = document.createElement('header');
 header.classList.add('header');
@@ -32,7 +33,7 @@ const navContainer = document.createElement('div');
 navContainer.classList.add('header__nav-container');
 nav.append(navContainer);
 
-const navObj = {
+const navObj: NavObjType = {
   'main-page': {
     text: 'Main page 🏠',
     routing: '/',
@@ -63,7 +64,7 @@ const navObj = {
   },
   logout: {
     text: 'Log out 🔐',
-    routing: '/logout',
+    routing: '/',
   },
 };
 
@@ -75,10 +76,8 @@ Object.entries(navObj).forEach(([key, value]) => {
   el.id = key;
   el.textContent = value.text;
   el.href = value.routing;
-
-  if (value.routing === '/profile' || value.routing === '/logout')
-    el.classList.add('hidden');
-
+  
+  navObj[key].obj = el;
   navContainer.append(el);
 });
 
@@ -115,5 +114,8 @@ const clickBurger = (): void => {
 };
 
 burger.addEventListener('click', clickBurger);
+
+const event = new CustomEvent('load', { detail: navObj });
+logoImg.addEventListener('load', () => header.dispatchEvent(event));
 
 export { header, changeRegStatus };
