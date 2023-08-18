@@ -1,4 +1,3 @@
-
 export interface Address {
   country: string;
   city: string;
@@ -19,7 +18,7 @@ export interface CustomerDraft {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
-  addresses?: Address[];
+  addresses: Address[];
   defaultBillingAddress?: number;
   defaultShippingAddress?: number;
 }

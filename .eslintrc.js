@@ -26,8 +26,16 @@ module.exports = {
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-explicit-any': 2,
     'max-len': ['error', { code: 160, ignoreStrings: true }],
-    indent: ['error', 2],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'no-trailing-spaces': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: false,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
   },
   ignorePatterns: ['.eslintrc.js', '*.js'],
 };
