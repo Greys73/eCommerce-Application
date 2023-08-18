@@ -21,12 +21,10 @@ const changeStyle = (
   const errorMessage = elem.nextElementSibling;
   const el = elem;
   if (isValid) {
-    el.style.borderColor = 'green';
     el.classList.remove('invalid');
     el.classList.add('valid');
     if (errorMessage) errorMessage.textContent = '';
   } else {
-    el.style.borderColor = 'red';
     el.classList.remove('valid');
     el.classList.add('invalid');
     if (errorMessage)
