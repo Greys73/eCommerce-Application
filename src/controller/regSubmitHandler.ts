@@ -1,5 +1,6 @@
 import { createCustomer, loginCustomer } from '../model/api/apiRoot';
 import countries from '../model/data/countries';
+import { setLoacalCustomer } from '../model/login';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
 import resultMessage from '../view/pages/registration/resultMessage';
@@ -78,7 +79,7 @@ const submitHandler = async (e: Event) => {
         newCustomer.password,
       );
       if (logResponse.statusCode === 200) {
-        // setLoacalCustomer(logResponse.body.customer); - раскомментить перед коммитом
+        setLoacalCustomer(logResponse.body.customer);
         resultMessage.textContent = 'Logged in';
         setTimeout(() => {
           window.location.pathname = '/';
