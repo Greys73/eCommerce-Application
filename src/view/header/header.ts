@@ -1,5 +1,6 @@
 import logo from '../../assets/images/header-logo.png';
 import '../../assets/styles/footer.scss';
+import { NavObjType } from '../../types/type';
 
 const header = document.createElement('header');
 header.classList.add('header');
@@ -28,7 +29,7 @@ headerLogo.append(logoImg, logoText);
 const nav = document.createElement('nav');
 nav.classList.add('header__nav');
 
-const navObj = {
+const navObj: NavObjType = {
   'main-page': {
     text: 'Main page 🏠',
     routing: '/',
@@ -59,7 +60,7 @@ const navObj = {
   },
   logout: {
     text: 'Log out 🔐',
-    routing: '/logout',
+    routing: '/',
   },
 };
 
@@ -70,12 +71,9 @@ Object.entries(navObj).forEach(([key, value]) => {
   el.classList.add('nav__item');
   el.id = key;
   el.textContent = value.text;
-  el.href = value.routing.slice(1);
+  el.href = value.routing;
 
-  if (value.routing === '/profile' || value.routing === '/logout')
-    el.classList.add('hidden');
-  // if (value.routing === '/registration' || value.routing === '/login') el.classList.add('hidden');
-
+  navObj[key].obj = el;
   nav.append(el);
 });
 
@@ -93,5 +91,8 @@ for (let i = 0; i < 4; i += 1) {
 }
 
 headerContainer.append(headerLogo, nav, burger);
+
+const event = new CustomEvent('load', { detail: navObj });
+logoImg.addEventListener('load', () => header.dispatchEvent(event));
 
 export default header;
