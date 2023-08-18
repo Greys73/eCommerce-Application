@@ -19,7 +19,7 @@ const routes: RoutesType = {
   '404': er404Page.default,
 };
 
-function locationHandler() {
+export function locationHandler() {
   const path = window.location.pathname || '/';
   const page: HTMLElement = routes[path] || routes['404'];
   mainSection.default.innerHTML = '';
