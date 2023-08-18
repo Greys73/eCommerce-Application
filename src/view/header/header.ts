@@ -76,7 +76,7 @@ Object.entries(navObj).forEach(([key, value]) => {
   el.id = key;
   el.textContent = value.text;
   el.href = value.routing;
-  
+
   navObj[key].obj = el;
   navContainer.append(el);
 });

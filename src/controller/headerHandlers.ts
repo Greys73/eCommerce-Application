@@ -1,4 +1,4 @@
-import header from '../view/header/header';
+import { header } from '../view/header/header';
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
 import { NavObjType } from '../types/type';
 
