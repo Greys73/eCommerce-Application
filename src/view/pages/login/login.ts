@@ -2,24 +2,19 @@ import { FormBlock } from '../../../types/type';
 import createFormBlock from '../../../utils/view/createFormBlock';
 import resultMessage from './resultMessage';
 
+const header = document.createElement('h2');
+header.textContent = 'Log in your MotoDream account';
+header.className = 'login-page__header';
+
 function createLoginForm(): HTMLFormElement {
   const loginForm = document.createElement('form');
-  loginForm.className = 'login-form';
-
-  const heading = document.createElement('h2');
-  heading.textContent = 'Login';
-  heading.className = 'login-form__heading';
-
-  const greeting = document.createElement('p');
-  greeting.innerHTML =
-    'Sign in to MotoDream or <a href="/registration">create an account</a>';
-  greeting.className = 'login-form__greeting';
+  loginForm.className = 'login-page__form';
 
   const emailOptions: FormBlock = {
     type: 'email',
     placeholder: 'Enter e-mail',
     name: 'email',
-    text: 'E-mail',
+    text: 'E-mail:',
     required: true,
     pattern: /.+@.+\..+/,
     title: 'Type valid e-mail (e.g., example@email.com)',
@@ -29,39 +24,50 @@ function createLoginForm(): HTMLFormElement {
     type: 'password',
     placeholder: 'Enter password',
     name: 'password',
-    text: 'Password',
+    text: 'Password:',
     required: true,
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title:
       'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   };
 
-  const showPassword = createFormBlock({
-    type: 'checkbox',
-    name: `showPassword`,
-    text: 'Show password',
-    required: false,
-  });
-
   const blocks = [emailOptions, passwordOptions];
   blocks.forEach((opt) => {
     const block = createFormBlock(opt);
+    if (opt.type === 'password') {
+      const showPassword = createFormBlock({
+        type: 'checkbox',
+        name: `showPassword`,
+        text: 'Show password',
+        required: false,
+      });
+
+      block.append(showPassword);
+    }
     loginForm.append(block);
   });
 
   const submitBtn = document.createElement('button');
-  submitBtn.textContent = 'Submit';
+  submitBtn.textContent = 'Log in';
   submitBtn.type = 'submit';
-  submitBtn.className = 'button login-form__button';
+  submitBtn.className = 'login-form__button';
 
-  loginForm.append(showPassword);
   loginForm.append(submitBtn);
-  loginForm.prepend(greeting);
-  loginForm.prepend(heading);
   loginForm.prepend(resultMessage);
+
   return loginForm;
 }
 
-const loginForm = createLoginForm();
+const loginPage = document.createElement('div');
+loginPage.classList.add('login-page');
 
-export default loginForm;
+const form = createLoginForm();
+
+const redirectText = document.createElement('p');
+redirectText.innerHTML =
+  'Don\'t have an account? <a class="redirect__link" href="/registration">Sign up</a> now!';
+redirectText.className = 'login-page__redirect';
+
+loginPage.append(header, form, redirectText);
+
+export default loginPage;
