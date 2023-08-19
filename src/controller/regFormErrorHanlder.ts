@@ -34,7 +34,7 @@ const changeStyle = (
   }
 };
 
-const inputValidationErrorHandler = (e: Event) => {
+export const inputValidationErrorHandler = (e: Event) => {
   const input = e.target as HTMLInputElement;
   if (input.pattern) {
     const regex = new RegExp(input.pattern);

@@ -92,7 +92,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
 
 const createAddressButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
-  button.textContent = 'Add another address';
+  button.textContent = 'Add second address';
   button.className = 'reg-page__adress-button';
 
   return button;
