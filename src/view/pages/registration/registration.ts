@@ -15,8 +15,9 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const defaultAddressBlock = createFormBlock({
     type: 'checkbox',
     name: `default${addressType}Address`,
-    text: `Set this address as default ${addressType}`,
+    text: `Assign this address as default ${addressType}`,
     required: false,
+    placeholder: '',
   });
 
   const streetOptions: FormBlock = {
@@ -26,6 +27,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     required: true,
     pattern: /.+/,
     title: 'Must contain at least one character',
+    placeholder: 'Address (Street, Building, etc)',
   };
 
   const cityOptions: FormBlock = {
@@ -36,6 +38,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     pattern: /[A-Za-z]+/,
     title:
       'Must contain at least one character and no special characters or numbers',
+    placeholder: 'City',
   };
 
   const postCodeOptions: FormBlock = {
@@ -45,6 +48,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     required: true,
     pattern: /[0-9]{5,7}/,
     title: 'Must contain from 5 to 7 digits',
+    placeholder: 'Postal code (5-7 digits)',
   };
 
   const city = createFormBlock(cityOptions);
@@ -136,7 +140,7 @@ const checkAgeParams = () => {
 function createRegistrationForm(): HTMLFormElement {
   const emailOptions: FormBlock = {
     type: 'email',
-    placeholder: 'Enter e-mail',
+    placeholder: 'E-mail',
     name: 'email',
     text: 'E-mail:',
     required: true,
@@ -146,7 +150,7 @@ function createRegistrationForm(): HTMLFormElement {
 
   const passwordOptions: FormBlock = {
     type: 'password',
-    placeholder: 'Enter password',
+    placeholder: 'Password',
     name: 'password',
     text: 'Password:',
     required: true,
@@ -160,6 +164,7 @@ function createRegistrationForm(): HTMLFormElement {
     name: `showPassword`,
     text: 'Show password:',
     required: false,
+    placeholder: '',
   };
 
   const repeatPasswordOptions: FormBlock = {
@@ -174,32 +179,32 @@ function createRegistrationForm(): HTMLFormElement {
 
   const firstNameOptions: FormBlock = {
     type: 'text',
-    placeholder: 'Enter first name',
+    placeholder: 'First name',
     name: 'firstName',
     text: 'First name:',
     required: true,
     pattern: /[A-Za-z]+/,
-    title: 'At least one character and no special characters or numbers',
+    title: 'At least one character, no special characters or numbers',
   };
 
   const lastNameOptions: FormBlock = {
     type: 'text',
-    placeholder: 'Enter last name',
+    placeholder: 'Last name',
     name: 'lastName',
     text: 'Last Name:',
     required: true,
     pattern: /[A-Za-z]+/,
-    title: 'At least one character and no special characters or numbers',
+    title: 'At least one character, no special characters or numbers',
   };
 
   const telOptions: FormBlock = {
     type: 'tel',
-    placeholder: 'Enter phone number',
+    placeholder: 'Phone number (10-12 digits)',
     name: 'tel',
     text: 'Phone number:',
     required: true,
     pattern: /^[0-9]{10,12}$/,
-    title: 'From 10 to 12 digits',
+    title: '10 to 12 digits, no plus sign',
   };
 
   const birthDateOptions: FormBlock = {
@@ -210,7 +215,8 @@ function createRegistrationForm(): HTMLFormElement {
     max: `${checkAgeParams().bitrhExtr.getFullYear()}-${
       checkAgeParams().mExtr
     }-${checkAgeParams().dExtr}`,
-    title: 'Only customers over 18 years allowed',
+    title: 'Only customers over 18 years old',
+    placeholder: 'Date of Birth',
   };
 
   const blocksArr = [
