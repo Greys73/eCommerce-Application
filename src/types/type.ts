@@ -2,7 +2,7 @@ export type FormBlock = {
   type: string;
   placeholder?: string;
   name: string;
-  text: string;
+  text?: string;
   required: boolean;
   pattern?: RegExp;
   max?: string;

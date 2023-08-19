@@ -47,6 +47,24 @@
   margin: 0 auto;
 }
 
+.reg-page__prev-button {
+  margin: calc($marginDesctop / 2) auto;
+  border: none;
+  @include _button(200px, 30px, 20px);
+  @include _tablet {
+    margin: calc($marginTablet / 2) auto;
+  }
+  @include _mobile {
+    @include _button(140px, 24px, 16px);
+    border-radius: 8px;
+    margin: calc($marginMobile / 2) auto;
+  }
+  &:hover{
+    background-color: crimson;
+  }
+}
+
+.reg-page__next-button,
 .reg-page__adress-button {
   margin: calc($marginDesctop / 2) auto;
   border: none;
@@ -75,4 +93,19 @@
   &:hover {
     background-color: LimeGreen;
   }
+}
+
+.subheader {
+  display: block;
+  @include _mainFont(25px);
+  text-align: center;
+  margin: $marginDesctop;
+  @include _tablet {
+    font-size: 20px;
+    margin: $marginTablet;
+  }
+  @include _mobile {
+    font-size: 16px;
+    margin: $marginMobile;
+  }  
 }

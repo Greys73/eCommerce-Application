@@ -15,36 +15,37 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
   const defaultAddressBlock = createFormBlock({
     type: 'checkbox',
     name: `default${addressType}Address`,
-    text: `Set this address as default ${addressType}`,
+    text: `Assign this address as default ${addressType}`,
     required: false,
+    placeholder: '',
   });
 
   const streetOptions: FormBlock = {
     type: 'text',
-    text: 'Address:',
     name: `${addressType}Street`,
     required: true,
     pattern: /.+/,
     title: 'Must contain at least one character',
+    placeholder: 'Adress (Street, Building, etc)',
   };
 
   const cityOptions: FormBlock = {
     type: 'text',
-    text: 'City:',
     name: `${addressType}City`,
     required: true,
     pattern: /[A-Za-z]+/,
     title:
       'Must contain at least one character and no special characters or numbers',
+    placeholder: 'Сity',
   };
 
   const postCodeOptions: FormBlock = {
     type: 'text',
-    text: 'Postal code:',
     name: `${addressType}PostCode`,
     required: true,
     pattern: /[0-9]{5,7}/,
     title: 'Must contain from 5 to 7 digits',
+    placeholder: 'Postal code (5-7 digits)',
   };
 
   const city = createFormBlock(cityOptions);
@@ -127,22 +128,33 @@ const checkAgeParams = () => {
   return resultObj;
 };
 
+const createLoginLinkBlock = (): HTMLParagraphElement => {
+  const redirectText = document.createElement('p');
+  redirectText.className = 'reg-page__redirect';
+  redirectText.textContent = 'Already have an account? ';
+
+  const redirectLink = document.createElement('a');
+  redirectLink.classList.add('reg-page__redirect-link');
+  redirectLink.href = '/login';
+  redirectLink.textContent = 'Log in to MotoDream';
+  redirectText.append(redirectLink);
+  return redirectText;
+};
+
 function createRegistrationForm(): HTMLFormElement {
   const emailOptions: FormBlock = {
     type: 'email',
-    placeholder: 'Enter e-mail',
+    placeholder: 'E-mail',
     name: 'email',
-    text: 'E-mail:',
     required: true,
     pattern: /.+@.+\..+/,
-    title: 'Type valid e-mail (e.g., example@email.com)',
+    title: 'Enter a valid e-mail (e.g., example@email.com)',
   };
 
   const passwordOptions: FormBlock = {
     type: 'password',
-    placeholder: 'Enter password',
+    placeholder: 'Password',
     name: 'password',
-    text: 'Password:',
     required: true,
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title:
@@ -151,16 +163,16 @@ function createRegistrationForm(): HTMLFormElement {
 
   const showPasswordOptions: FormBlock = {
     type: 'checkbox',
-    name: `showPassword`,
+    name: 'showPassword',
     text: 'Show password:',
     required: false,
+    placeholder: '',
   };
 
   const repeatPasswordOptions: FormBlock = {
     type: 'password',
     placeholder: 'Repeat password',
     name: 'checkPassword',
-    text: 'Repeat password:',
     required: true,
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
     title: 'Must match the password',
@@ -168,43 +180,40 @@ function createRegistrationForm(): HTMLFormElement {
 
   const firstNameOptions: FormBlock = {
     type: 'text',
-    placeholder: 'Enter first name',
+    placeholder: 'First name',
     name: 'firstName',
-    text: 'First name:',
     required: true,
     pattern: /[A-Za-z]+/,
-    title: 'At least one character and no special characters or numbers',
+    title: 'At least one character, no special characters or numbers',
   };
 
   const lastNameOptions: FormBlock = {
     type: 'text',
-    placeholder: 'Enter last name',
+    placeholder: 'Last name',
     name: 'lastName',
-    text: 'Last Name:',
     required: true,
     pattern: /[A-Za-z]+/,
-    title: 'At least one character and no special characters or numbers',
+    title: 'At least one character, no special characters or numbers',
   };
 
   const telOptions: FormBlock = {
     type: 'tel',
-    placeholder: 'Enter phone number',
+    placeholder: 'Phone number (10-12 digits)',
     name: 'tel',
-    text: 'Phone number:',
     required: true,
     pattern: /^[0-9]{10,12}$/,
-    title: 'From 10 to 12 digits',
+    title: '10 to 12 digits, no plus sign',
   };
 
   const birthDateOptions: FormBlock = {
     type: 'date',
     name: 'dateOfBirth',
-    text: 'Date of Birth:',
     required: true,
     max: `${checkAgeParams().bitrhExtr.getFullYear()}-${
       checkAgeParams().mExtr
     }-${checkAgeParams().dExtr}`,
-    title: 'Only customers over 12 years allowed',
+    title: 'Only for customers over 12 years old',
+    placeholder: 'Date of Birth',
   };
 
   const blocksArr = [
@@ -220,50 +229,79 @@ function createRegistrationForm(): HTMLFormElement {
   const regForm = document.createElement('form');
   regForm.className = 'reg-page__form';
 
+  const generalBlock = document.createElement('div');
+  generalBlock.classList.add('reg-page__general');
+
+  const header = document.createElement('h2');
+  header.textContent = 'Create your MotoDream account';
+  header.className = 'reg-page__header';
+
+  const redirectionBlock = createLoginLinkBlock();
+
+  const generalHeader = document.createElement('h4');
+  generalHeader.classList.add('subheader');
+  generalHeader.textContent = 'General info:';
+
+  generalBlock.append(header, redirectionBlock, generalHeader);
+
   blocksArr.forEach((opt) => {
     const block = createFormBlock(opt);
     if (opt.type === 'password') {
       const showPassword = createFormBlock(showPasswordOptions);
       block.append(showPassword);
     }
-    regForm.append(block);
+    generalBlock.append(block);
   });
+
+  const nextButton = document.createElement('button');
+  nextButton.textContent = 'Continue registration';
+  nextButton.className = 'reg-page__next-button';
+
+  generalBlock.append(nextButton);
+
+  const adressBlock = document.createElement('div');
+  adressBlock.classList.add('reg-page__adress', 'hidden');
+
+  const prevButton = document.createElement('button');
+  prevButton.textContent = 'Back to general';
+  prevButton.className = 'reg-page__prev-button';
+
+  const addressHeader = document.createElement('h4');
+  addressHeader.classList.add('subheader');
+  addressHeader.textContent = 'Address Section:';
 
   const submitBtn = document.createElement('button');
   submitBtn.textContent = 'Create MotoDream account!';
   submitBtn.type = 'submit';
   submitBtn.className = 'reg-page__button';
 
-  regForm.append(shippingAddressBlock, addressButton, submitBtn);
-  regForm.prepend(resultMessage);
+  adressBlock.append(
+    addressHeader,
+    prevButton,
+    shippingAddressBlock,
+    addressButton,
+    submitBtn,
+  );
+
+  regForm.append(resultMessage, generalBlock, adressBlock);
+
+  nextButton.addEventListener('click', () => {
+    generalBlock.classList.toggle('hidden');
+    adressBlock.classList.toggle('hidden');
+  });
+  prevButton.addEventListener('click', () => {
+    generalBlock.classList.toggle('hidden');
+    adressBlock.classList.toggle('hidden');
+  });
 
   return regForm;
 }
 
-const createLoginLinkBlock = (): HTMLParagraphElement => {
-  const redirectText = document.createElement('p');
-  redirectText.className = 'reg-page__redirect';
-  redirectText.textContent = 'Already have an account? ';
-
-  const redirectLink = document.createElement('a');
-  redirectLink.classList.add('reg-page__redirect-link');
-  redirectLink.href = '/login';
-  redirectLink.textContent = 'Log in to MotoDream';
-  redirectText.append(redirectLink);
-  return redirectText;
-};
-
 const registrationPage = document.createElement('div');
 registrationPage.classList.add('reg-page');
 
-const header = document.createElement('h2');
-header.textContent = 'Create your MotoDream account';
-header.className = 'reg-page__header';
-
-const redirectionBlock = createLoginLinkBlock();
-
 const form = createRegistrationForm();
 
-registrationPage.append(header, redirectionBlock, form);
+registrationPage.append(form);
 
 export default registrationPage;
