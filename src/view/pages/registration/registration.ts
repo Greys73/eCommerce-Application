@@ -113,8 +113,14 @@ const checkAgeParams = () => {
   // const daysInYear = 365; // correct?
   // const smth = 3; //
 
-  const MS_FOR_18_YEARS = (12 * 365 + 3) * 24 * 60 * 60 * 1000;
-  const maxBirthDate = new Date(currentDate - MS_FOR_18_YEARS);
+  const msPerDay = 86400000;
+  const daysPerYear = 365;
+  const leapYearAmount = 4;
+  const minCustomerAge = 18;
+
+  const msFromCustomerBirthday =
+    (minCustomerAge * daysPerYear + leapYearAmount) * msPerDay;
+  const maxBirthDate = new Date(currentDate - msFromCustomerBirthday);
   const maxMonth = (maxBirthDate.getMonth() + 1).toString().padStart(2, '0');
   const maxDay = maxBirthDate.getDate().toString().padStart(2, '0');
 
@@ -204,7 +210,7 @@ function createRegistrationForm(): HTMLFormElement {
     max: `${checkAgeParams().bitrhExtr.getFullYear()}-${
       checkAgeParams().mExtr
     }-${checkAgeParams().dExtr}`,
-    title: 'Only customers over 12 years allowed',
+    title: 'Only customers over 18 years allowed',
   };
 
   const blocksArr = [
