@@ -51,11 +51,11 @@ const selectValidationHandler = (e: Event) => {
 };
 
 regInputs.forEach((input) => {
-  input.addEventListener('change', inputValidationErrorHandler);
+  input.addEventListener('input', inputValidationErrorHandler);
 });
 
 loginInputs.forEach((input) => {
-  input.addEventListener('change', inputValidationErrorHandler);
+  input.addEventListener('input', inputValidationErrorHandler);
 });
 
 regSelects.forEach((select) => {
