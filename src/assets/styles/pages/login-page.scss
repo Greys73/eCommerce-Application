@@ -52,7 +52,6 @@
   }
   @include _mobile {
     font-size: 12px;
-    // margin: $marginMobile 0;
   }
 }
 
@@ -61,5 +60,37 @@
   text-decoration: underline;
   &:hover {
     color: lightseagreen;
+  }
+}
+
+.login-form__result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.login-form__result-text {
+  max-width: 400px;
+  max-height: 400px;
+  background-color: rgba($color: #FF8C00, $alpha: .8);
+  text-align: center;
+  padding: $marginDesctop;
+  border-radius: calc($marginDesctop / 2);
+  @include _font(20px);
+  @include _tablet {
+    font-size: 16px;
+    padding: $marginTablet;
+    border-radius: calc($marginTablet / 2);
+  }
+  @include _mobile {
+    max-width: 80vw;
+    font-size: 12px;
+    padding: $marginMobile;
+    border-radius: calc($marginMobile / 2);
   }
 }

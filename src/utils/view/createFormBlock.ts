@@ -17,7 +17,7 @@ const createFormBlock = (options: FormBlock): HTMLDivElement => {
 
   const label = document.createElement('label');
   label.htmlFor = options.name;
-  label.textContent = options.text;
+  if (options.text) label.textContent = options.text;
   label.classList.add('form__label');
 
   const errorMessage = document.createElement('p');
@@ -34,6 +34,7 @@ const createFormBlock = (options: FormBlock): HTMLDivElement => {
     flexCont.className = 'form__flex-container';
     flexCont.append(label, input);
     block.append(flexCont, errorMessage);
+    input.classList.add('selection__country');
   } else {
     block.append(label, input, errorMessage);
   }

@@ -37,7 +37,7 @@ $marginMobile: 10px;
   border-radius: 10px;
   @include _font($font-size);
   &:hover {
-    background-color: royalblue;
+    background-color: darkorange;
     transform: scale(.95);
     cursor: pointer;
   }
