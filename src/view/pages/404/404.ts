@@ -7,7 +7,7 @@ const image = document.createElement('img');
 image.className = 'page-404__image';
 image.src = img;
 
-export const link = document.createElement('a');
+const link = document.createElement('a');
 link.className = 'page-404__link';
 link.textContent = 'Go back to main page!';
 link.href = '/';

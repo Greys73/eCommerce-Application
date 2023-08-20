@@ -4,7 +4,6 @@ import { setLoacalCustomer } from '../model/login';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
 import resultMessage from '../view/pages/registration/resultMessage';
-import { locationHandler } from './router';
 
 const getRegFormData = (e: Event): CustomerDraft => {
   const regForm = e.target as HTMLFormElement;
@@ -82,9 +81,7 @@ const submitHandler = async (e: Event) => {
       if (logResponse.statusCode === 200) {
         setLoacalCustomer(logResponse.body.customer);
         resultMessage.textContent = 'Logged in';
-
-        window.history.pushState({}, '', '/');
-        locationHandler();
+        window.routeLocation = '/';
       } else {
         resultMessage.textContent += 'Error with login';
       }

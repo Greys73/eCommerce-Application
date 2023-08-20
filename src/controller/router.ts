@@ -3,7 +3,6 @@ import * as mainPage from '../view/pages/main/main';
 import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
-import { link as mainPageLink } from '../view/pages/404/404';
 
 type RoutesType = {
   [key: string]: HTMLElement;
@@ -20,11 +19,12 @@ const routes: RoutesType = {
   '404': er404Page.default,
 };
 
-export function locationHandler() {
+function locationHandler() {
   const path = window.location.pathname || '/';
   const page: HTMLElement = routes[path] || routes['404'];
   mainSection.default.innerHTML = '';
   mainSection.default.append(page);
+  window.dispatchEvent(new Event('DOMContentLoaded'));
 }
 
 function route(e: Event) {
@@ -47,6 +47,16 @@ function contentLoaded() {
   locationHandler();
 }
 
+Object.defineProperty(window, 'routeLocation', {
+  get() {
+    return this.value;
+  },
+  set(_value: string) {
+    this.value = _value;
+    window.history.pushState({}, '', this.value);
+    locationHandler();
+  },
+});
+
 window.addEventListener('popstate', locationHandler);
 window.addEventListener('DOMContentLoaded', contentLoaded);
-mainPageLink.addEventListener('click', linkClick);
