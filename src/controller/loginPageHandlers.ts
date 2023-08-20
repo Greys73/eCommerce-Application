@@ -21,13 +21,13 @@ async function submitHandler(e: Event) {
   const mail = formData.get('email')?.toString() || '';
   const password = formData.get('password')?.toString() || '';
   const response = await loginCustomer(mail, password);
-  console.log(response.body.customer);
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body.customer);
     resultMessage.textContent = `Successfully login!`;
     setTimeout(() => {
-      window.location.pathname = '/';
-    }, 3000);
+      window.routeLocation = '/';
+      resultMessage.textContent = ``;
+    }, 1500);
   } else {
     resultMessage.textContent = response.message;
   }
@@ -36,9 +36,10 @@ async function submitHandler(e: Event) {
 function checkCustomer() {
   const location = window.location.pathname;
   if (location === '/login') {
-    const customer = getLoacalCustomer();
-    console.log(customer);
-    if ('id' in customer) window.location.pathname = '/';
+    setTimeout(() => {
+      const customer = getLoacalCustomer();
+      if ('id' in customer) window.routeLocation = '/';
+    }, 500);
   }
 }
 
