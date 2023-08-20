@@ -3,6 +3,7 @@ import * as mainPage from '../view/pages/main/main';
 import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
+import { link as mainPageLink } from '../view/pages/404/404';
 
 type RoutesType = {
   [key: string]: HTMLElement;
@@ -48,3 +49,4 @@ function contentLoaded() {
 
 window.addEventListener('popstate', locationHandler);
 window.addEventListener('DOMContentLoaded', contentLoaded);
+mainPageLink.addEventListener('click', linkClick);
