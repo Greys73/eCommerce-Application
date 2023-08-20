@@ -16,20 +16,25 @@ function changeType() {
 
 async function submitHandler(e: Event) {
   e.preventDefault();
+
   const regForm = e.target as HTMLFormElement;
   const formData = new FormData(regForm);
   const mail = formData.get('email')?.toString() || '';
   const password = formData.get('password')?.toString() || '';
   const response = await loginCustomer(mail, password);
+
+  console.log(resultMessage);
+  resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body.customer);
-    resultMessage.textContent = `Successfully login!`;
+    resultMessage.firstChild!.textContent = `Welcome to MotoDream, ${response.body.customer.firstName}!`;
     setTimeout(() => {
       window.routeLocation = '/';
-      resultMessage.textContent = ``;
-    }, 1500);
+      resultMessage.firstChild!.textContent = '';
+      resultMessage.classList.add('hidden');
+    }, 3000);
   } else {
-    resultMessage.textContent = response.message;
+    resultMessage.firstChild!.textContent = response.message;
   }
 }
 

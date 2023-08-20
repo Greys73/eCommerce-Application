@@ -4,16 +4,19 @@ import registrationForm, {
   billingAddressBlock,
   shippingAddressBlock,
 } from '../view/pages/registration/registration';
+import { inputValidationErrorHandler } from './regFormErrorHanlder';
 
-const shippingDefaultCheckbox = shippingAddressBlock.children[1]
+const shippingDefaultCheckbox = shippingAddressBlock.children[4]
   .children[1] as HTMLInputElement;
 
 const toggleBlock = (e: Event) => {
   const target = e.target as HTMLInputElement;
+  console.log(shippingDefaultCheckbox);
   if (target.tagName !== 'INPUT') return;
 
   if (target.checked === true) {
     shippingDefaultCheckbox.disabled = true;
+    shippingDefaultCheckbox.checked = false;
   } else {
     shippingDefaultCheckbox.disabled = false;
   }
@@ -42,11 +45,16 @@ const toggleBillingAddress = (e: Event) => {
   e.preventDefault();
   const checkbox = bothDefaultAddressBlock.children[1] as HTMLInputElement;
   if (!isShown) {
-    addressButton.textContent = 'Hide billing address';
+    addressButton.textContent = 'Hide second address';
     isShown = true;
     addressButton.after(billingAddressBlock);
+    checkbox.checked = false;
     checkbox.disabled = true;
     shippingDefaultCheckbox.disabled = false;
+    const billingInputs = billingAddressBlock.querySelectorAll('input');
+    billingInputs.forEach((input) => {
+      input.addEventListener('change', inputValidationErrorHandler);
+    });
   } else {
     addressButton.textContent = 'Add second address';
     isShown = false;

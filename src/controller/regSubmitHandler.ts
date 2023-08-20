@@ -71,8 +71,9 @@ const submitHandler = async (e: Event) => {
   try {
     const regResponse = await createCustomer(newCustomer);
     const regMessage = regResponse.message;
+    console.log('regMessage=', regMessage);
     if (regResponse.statusCode === 201) {
-      resultMessage.textContent = `Successfully registered`;
+      resultMessage.firstChild!.textContent = `Successfully registered`;
 
       const logResponse = await loginCustomer(
         newCustomer.email,
@@ -80,23 +81,23 @@ const submitHandler = async (e: Event) => {
       );
       if (logResponse.statusCode === 200) {
         setLoacalCustomer(logResponse.body.customer);
-        resultMessage.textContent = 'Logged in';
+        resultMessage.firstChild!.textContent = 'Logged in';
         window.routeLocation = '/';
       } else {
-        resultMessage.textContent += 'Error with login';
+        resultMessage.firstChild!.textContent += 'Error with login';
       }
     } else if (`${regResponse.statusCode}`.startsWith('4')) {
       if (regMessage.includes(newCustomer.customerNumber)) {
-        resultMessage.textContent =
+        resultMessage.firstChild!.textContent =
           'There is already an existing customer with provided phone number.';
       } else {
-        resultMessage.textContent = regMessage;
+        resultMessage.firstChild!.textContent = regMessage;
       }
     } else if (`${regResponse.statusCode}`.startsWith('5')) {
-      resultMessage.textContent = `Server error. Try again later.`;
+      resultMessage.firstChild!.textContent = `Server error. Please, try again later!`;
     }
   } catch {
-    resultMessage.textContent = 'Something went wrong. Try again later.';
+    resultMessage.firstChild!.textContent = 'Something wrong. Please, try again!';
   }
 };
 

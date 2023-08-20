@@ -5,7 +5,7 @@ import getSpecifyError from '../model/inputErrorSpecifier';
 const checkPassword = (input: HTMLInputElement): boolean => {
   const secondPassword = input.value;
   const firstPasswordInput = input.parentElement?.previousElementSibling
-    ?.previousElementSibling?.children[1] as HTMLInputElement;
+    ?.children[1] as HTMLInputElement;
   const firstPassword = firstPasswordInput.value;
   return secondPassword === firstPassword;
 };
@@ -32,7 +32,7 @@ const changeStyle = (
   }
 };
 
-const inputValidationErrorHandler = (e: Event) => {
+export const inputValidationErrorHandler = (e: Event) => {
   const input = e.target as HTMLInputElement;
   if (input.pattern) {
     const regex = new RegExp(input.pattern);
