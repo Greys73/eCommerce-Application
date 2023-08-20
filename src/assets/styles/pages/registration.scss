@@ -83,7 +83,7 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   z-index: 1;
@@ -91,7 +91,7 @@
 }
 
 .reg-form__result-text {
-  max-width: 400px;
+  max-width: 600px;
   max-height: 80vh;
   background-color: rgba($color: #FF8C00, $alpha: .9);
   text-align: center;

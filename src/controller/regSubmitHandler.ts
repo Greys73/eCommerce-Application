@@ -72,8 +72,9 @@ const submitHandler = async (e: Event) => {
     const regResponse = await createCustomer(newCustomer);
     const regMessage = regResponse.message;
     console.log('regMessage=', regMessage);
+    resultMessage.classList.remove('hidden');
     if (regResponse.statusCode === 201) {
-      resultMessage.firstChild!.textContent = `Successfully registered`;
+      resultMessage.firstChild!.textContent = 'Successfully registered';
 
       const logResponse = await loginCustomer(
         newCustomer.email,
@@ -81,23 +82,51 @@ const submitHandler = async (e: Event) => {
       );
       if (logResponse.statusCode === 200) {
         setLoacalCustomer(logResponse.body.customer);
-        resultMessage.firstChild!.textContent = 'Logged in';
-        window.routeLocation = '/';
+        console.log('reg resultMessage=', logResponse.body.customer);
+        setTimeout(() => {
+          resultMessage.firstChild!.textContent = `Welcome to the club, ${logResponse.body.customer.firstName}`;
+        }, 1000);
+        setTimeout(() => {
+          window.routeLocation = '/';
+          resultMessage.firstChild!.textContent = '';
+          resultMessage.classList.add('hidden');
+        }, 3000);
       } else {
-        resultMessage.firstChild!.textContent += 'Error with login';
+        setTimeout(() => {
+          resultMessage.firstChild!.textContent += 'Authentication error';
+        }, 1000);
+        setTimeout(() => {
+          window.routeLocation = '/login';
+          resultMessage.firstChild!.textContent = '';
+          resultMessage.classList.add('hidden');
+        }, 4000);
       }
     } else if (`${regResponse.statusCode}`.startsWith('4')) {
       if (regMessage.includes(newCustomer.customerNumber)) {
         resultMessage.firstChild!.textContent =
-          'There is already an existing customer with provided phone number.';
+          'A customer with the provided credentials already exists';
       } else {
         resultMessage.firstChild!.textContent = regMessage;
       }
+      setTimeout(() => {
+        resultMessage.firstChild!.textContent = '';
+        resultMessage.classList.add('hidden');
+      }, 3000);
     } else if (`${regResponse.statusCode}`.startsWith('5')) {
       resultMessage.firstChild!.textContent = `Server error. Please, try again later!`;
+      setTimeout(() => {
+        resultMessage.firstChild!.textContent = '';
+        resultMessage.classList.add('hidden');
+      }, 3000);
     }
   } catch {
-    resultMessage.firstChild!.textContent = 'Something wrong. Please, try again!';
+    resultMessage.classList.remove('hidden');
+    resultMessage.firstChild!.textContent =
+      'Something wrong. Please, try again!';
+    setTimeout(() => {
+      resultMessage.firstChild!.textContent = '';
+      resultMessage.classList.add('hidden');
+    }, 3000);
   }
 };
 
