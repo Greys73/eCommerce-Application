@@ -1,9 +1,14 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ctpClient } from '../../lib/BuildClient';
+import { vrfClient } from '../../lib/ConstructClient';
 import { CustomerDraft } from '../../types/API-interfaces';
 
+//        !!! Current version (need local storage getters/setters)
+const customerId = undefined; // get LocalStorage func;
+
 // Create apiRoot from the imported ClientBuilder and include your Project key
-const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+const client = customerId ? vrfClient : ctpClient;
+const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: 'ddt-e-commerce-rss-app',
 });
 
