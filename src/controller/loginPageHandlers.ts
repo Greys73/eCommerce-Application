@@ -30,12 +30,14 @@ async function submitHandler(e: Event) {
     resultMessage.firstChild!.textContent = `Welcome to MotoDream, ${response.body.customer.firstName}!`;
     setTimeout(() => {
       window.routeLocation = '/';
-      resultMessage.firstChild!.textContent = '';
-      resultMessage.classList.add('hidden');
     }, 3000);
   } else {
     resultMessage.firstChild!.textContent = response.message;
   }
+  setTimeout(() => {
+    resultMessage.firstChild!.textContent = '';
+    resultMessage.classList.add('hidden');
+  }, 3000);
 }
 
 function checkCustomer() {
