@@ -3,11 +3,11 @@ import { JSDOM } from 'jsdom'
 import { getAllByRole, getByRole, getByText } from '@testing-library/dom'
 import '@testing-library/jest-dom'
 
-import countries from "../src/model/data/countries"
-import createFormBlock from '../src/utils/view/createFormBlock'
-import registrationPage, { addressButton } from '../src/view/pages/registration/registration'
-import mainPage from '../src/view/pages/main/main'
-import page404 from '../src/view/pages/404/404'
+import countries from "../../src/model/data/countries"
+import createFormBlock from '../../src/utils/view/createFormBlock'
+import registrationPage, { addressButton } from '../../src/view/pages/registration/registration'
+import mainPage from '../../src/view/pages/main/main'
+import page404 from '../../src/view/pages/404/404'
 
 
 test('Amount of countries', () => {

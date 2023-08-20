@@ -52,3 +52,5 @@ function checkCustomer() {
 chkBox?.addEventListener('click', changeType);
 loginForm.addEventListener('submit', submitHandler);
 window.addEventListener('DOMContentLoaded', checkCustomer);
+
+export { changeType, submitHandler, checkCustomer };

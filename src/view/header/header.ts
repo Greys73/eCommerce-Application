@@ -64,7 +64,7 @@ const navObj: NavObjType = {
   },
   logout: {
     text: 'Log out 🔐',
-    routing: '/login',
+    routing: '/logout',
   },
 };
 
@@ -119,4 +119,4 @@ navContainer.childNodes.forEach((el) =>
 const event = new CustomEvent('DOMContentLoaded', { detail: navObj });
 logoImg.addEventListener('load', () => window.dispatchEvent(event));
 
-export { header, changeRegStatus };
+export { header, changeRegStatus, navObj };
