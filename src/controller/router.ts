@@ -44,7 +44,6 @@ function contentLoaded() {
   document.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', linkClick);
   });
-  locationHandler();
 }
 
 Object.defineProperty(window, 'routeLocation', {
@@ -58,5 +57,6 @@ Object.defineProperty(window, 'routeLocation', {
   },
 });
 
+window.addEventListener('load', locationHandler);
 window.addEventListener('popstate', locationHandler);
 window.addEventListener('DOMContentLoaded', contentLoaded);
