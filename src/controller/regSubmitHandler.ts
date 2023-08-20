@@ -69,8 +69,9 @@ const submitHandler = async (e: Event) => {
   const newCustomer = getRegFormData(e);
   try {
     const response = await createCustomer(newCustomer);
+    console.log('regResponse=', response);
     if (response.statusCode === 201) {
-      resultMessage.textContent = `Successfully registered`;
+      resultMessage.firstChild!.textContent = `Successfully registered`;
 
       const logResponse = await loginCustomer(
         newCustomer.email,
@@ -78,15 +79,15 @@ const submitHandler = async (e: Event) => {
       );
       if (logResponse.statusCode === 200) {
         window.location.pathname = '/';
-        resultMessage.textContent = 'Logged in';
+        resultMessage.firstChild!.textContent = 'Logged in';
       } else {
-        resultMessage.textContent += 'Error with login';
+        resultMessage.firstChild!.textContent += 'Error with login';
       }
     } else {
       resultMessage.textContent = response.message;
     }
   } catch {
-    resultMessage.textContent = 'Something went wrong. Try again.';
+    resultMessage.textContent = 'Something wrong. Please, try again!';
   }
 };
 
