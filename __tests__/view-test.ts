@@ -1,12 +1,13 @@
 
 import { JSDOM } from 'jsdom'
-import { getByRole, getByText } from '@testing-library/dom'
+import { getAllByRole, getByRole, getByText } from '@testing-library/dom'
 import '@testing-library/jest-dom'
 
 import countries from "../src/model/data/countries"
 import createFormBlock from '../src/utils/view/createFormBlock'
 import registrationPage, { addressButton } from '../src/view/pages/registration/registration'
 import mainPage from '../src/view/pages/main/main'
+import page404 from '../src/view/pages/404/404'
 
 
 test('Amount of countries', () => {
@@ -53,5 +54,18 @@ describe('Main page tests', () => {
   container.innerHTML = mainPage.outerHTML;
   test('Link is on the page', () => {
     expect(getByRole(container, 'link')).toBeInTheDocument();
+  })
+
+  test('Contains only one h1', () => {
+    expect(getAllByRole(container, 'heading').length).toBe(1)
+  })
+})
+
+describe('404 page tests', () => {
+  const dom = new JSDOM(`<html></head><body></body></html>`)
+  const container = dom.window.document.body
+  container.innerHTML = page404.outerHTML;
+  test('link to main page is visible', () => {
+    expect(getByRole(container, 'link')).toBeVisible();
   })
 })
