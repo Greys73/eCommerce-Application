@@ -1,5 +1,6 @@
 import { createCustomer, loginCustomer } from '../model/api/apiRoot';
 import countries from '../model/data/countries';
+import { setLoacalCustomer } from '../model/login';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
 import resultMessage from '../view/pages/registration/resultMessage';
@@ -68,9 +69,10 @@ const submitHandler = async (e: Event) => {
   e.preventDefault();
   const newCustomer = getRegFormData(e);
   try {
-    const response = await createCustomer(newCustomer);
-    console.log('regResponse=', response);
-    if (response.statusCode === 201) {
+    const regResponse = await createCustomer(newCustomer);
+    const regMessage = regResponse.message;
+    console.log('regMessage=', regMessage);
+    if (regResponse.statusCode === 201) {
       resultMessage.firstChild!.textContent = `Successfully registered`;
 
       const logResponse = await loginCustomer(
@@ -78,16 +80,24 @@ const submitHandler = async (e: Event) => {
         newCustomer.password,
       );
       if (logResponse.statusCode === 200) {
-        window.location.pathname = '/';
+        setLoacalCustomer(logResponse.body.customer);
         resultMessage.firstChild!.textContent = 'Logged in';
+        window.routeLocation = '/';
       } else {
         resultMessage.firstChild!.textContent += 'Error with login';
       }
-    } else {
-      resultMessage.textContent = response.message;
+    } else if (`${regResponse.statusCode}`.startsWith('4')) {
+      if (regMessage.includes(newCustomer.customerNumber)) {
+        resultMessage.firstChild!.textContent =
+          'There is already an existing customer with provided phone number.';
+      } else {
+        resultMessage.firstChild!.textContent = regMessage;
+      }
+    } else if (`${regResponse.statusCode}`.startsWith('5')) {
+      resultMessage.firstChild!.textContent = `Server error. Please, try again later!`;
     }
   } catch {
-    resultMessage.textContent = 'Something wrong. Please, try again!';
+    resultMessage.firstChild!.textContent = 'Something wrong. Please, try again!';
   }
 };
 

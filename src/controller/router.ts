@@ -24,6 +24,7 @@ function locationHandler() {
   const page: HTMLElement = routes[path] || routes['404'];
   mainSection.default.innerHTML = '';
   mainSection.default.append(page);
+  window.dispatchEvent(new Event('DOMContentLoaded'));
 }
 
 function route(e: Event) {
@@ -43,8 +44,19 @@ function contentLoaded() {
   document.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', linkClick);
   });
-  locationHandler();
 }
 
+Object.defineProperty(window, 'routeLocation', {
+  get() {
+    return this.value;
+  },
+  set(_value: string) {
+    this.value = _value;
+    window.history.pushState({}, '', this.value);
+    locationHandler();
+  },
+});
+
+window.addEventListener('load', locationHandler);
 window.addEventListener('popstate', locationHandler);
 window.addEventListener('DOMContentLoaded', contentLoaded);

@@ -1,4 +1,3 @@
-import { header } from '../view/header/header';
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
 import { NavObjType } from '../types/type';
 
@@ -19,14 +18,16 @@ function switchElements(_logined: boolean) {
 }
 
 function navChanger(_menu: NavObjType) {
-  menu = _menu;
-  const customer = getLoacalCustomer();
-  switchElements('id' in customer);
-  menu.logout.obj?.addEventListener('click', () => {
-    setLoacalCustomer({});
-    switchElements(false);
-  });
+  if (_menu) menu = _menu;
+  if (Object.keys(menu).length !== 0) {
+    const customer = getLoacalCustomer();
+    switchElements('id' in customer);
+    menu.logout.obj?.addEventListener('click', () => {
+      setLoacalCustomer({});
+      switchElements(false);
+    });
+  }
 }
 
-header.addEventListener('load', ((e: CustomEvent) =>
+window.addEventListener('DOMContentLoaded', ((e: CustomEvent) =>
   navChanger(e.detail)) as EventListener);

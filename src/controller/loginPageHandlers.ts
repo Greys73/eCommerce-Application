@@ -16,18 +16,20 @@ function changeType() {
 
 async function submitHandler(e: Event) {
   e.preventDefault();
+
   const regForm = e.target as HTMLFormElement;
   const formData = new FormData(regForm);
   const mail = formData.get('email')?.toString() || '';
   const password = formData.get('password')?.toString() || '';
   const response = await loginCustomer(mail, password);
-  console.log(response.body.customer);
+
   resultMessage.classList.toggle('hidden');
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body.customer);
     resultMessage.firstChild!.textContent = `Welcome to MotoDream, ${response.body.customer.firstName}!`;
     setTimeout(() => {
-      window.location.pathname = '/';
+      window.routeLocation = '/';
+      resultMessage.textContent = '';
     }, 3000);
   } else {
     resultMessage.firstChild!.textContent = response.message;
@@ -37,9 +39,10 @@ async function submitHandler(e: Event) {
 function checkCustomer() {
   const location = window.location.pathname;
   if (location === '/login') {
-    const customer = getLoacalCustomer();
-    console.log(customer);
-    if ('id' in customer) window.location.pathname = '/';
+    setTimeout(() => {
+      const customer = getLoacalCustomer();
+      if ('id' in customer) window.routeLocation = '/';
+    }, 500);
   }
 }
 
