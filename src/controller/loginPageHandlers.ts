@@ -23,13 +23,14 @@ async function submitHandler(e: Event) {
   const password = formData.get('password')?.toString() || '';
   const response = await loginCustomer(mail, password);
 
-  resultMessage.classList.toggle('hidden');
+  resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body.customer);
     resultMessage.firstChild!.textContent = `Welcome to MotoDream, ${response.body.customer.firstName}!`;
     setTimeout(() => {
       window.routeLocation = '/';
       resultMessage.textContent = '';
+      resultMessage.classList.add('hidden');
     }, 3000);
   } else {
     resultMessage.firstChild!.textContent = response.message;
