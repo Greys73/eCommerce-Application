@@ -2,6 +2,7 @@ import loginForm from '../view/pages/login/login';
 import { loginCustomer } from '../model/api/apiRoot';
 import resultMessage from '../view/pages/login/resultMessage';
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
+import { locationHandler } from './router';
 
 const input: HTMLInputElement = loginForm.querySelector(
   'input[name="password"]',
@@ -26,7 +27,8 @@ async function submitHandler(e: Event) {
     setLoacalCustomer(response.body.customer);
     resultMessage.textContent = `Successfully login!`;
     setTimeout(() => {
-      window.location.pathname = '/';
+      window.history.pushState({}, '', '/');
+      locationHandler();
     }, 3000);
   } else {
     resultMessage.textContent = response.message;
