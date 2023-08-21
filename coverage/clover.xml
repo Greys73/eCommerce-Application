@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1692575532062" clover="3.2.0">
-  <project timestamp="1692575532062" name="All files">
-    <metrics statements="579" coveredstatements="262" conditionals="148" coveredconditionals="14" methods="66" coveredmethods="13" elements="793" coveredelements="289" complexity="0" loc="579" ncloc="579" packages="17" files="28" classes="28"/>
+<coverage generated="1692576830915" clover="3.2.0">
+  <project timestamp="1692576830916" name="All files">
+    <metrics statements="579" coveredstatements="266" conditionals="148" coveredconditionals="17" methods="66" coveredmethods="15" elements="793" coveredelements="298" complexity="0" loc="579" ncloc="579" packages="17" files="28" classes="28"/>
     <package name="src">
       <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.ts" path="C:\Users\User\OneDrive\Рабочий стол\RSSchool\e-commerce\eCommerce-Application\src\index.ts">
@@ -441,9 +441,9 @@
       </file>
     </package>
     <package name="src.view.header">
-      <metrics statements="55" coveredstatements="45" conditionals="5" coveredconditionals="0" methods="7" coveredmethods="2"/>
+      <metrics statements="55" coveredstatements="49" conditionals="5" coveredconditionals="3" methods="7" coveredmethods="4"/>
       <file name="header.ts" path="C:\Users\User\OneDrive\Рабочий стол\RSSchool\e-commerce\eCommerce-Application\src\view\header\header.ts">
-        <metrics statements="55" coveredstatements="45" conditionals="5" coveredconditionals="0" methods="7" coveredmethods="2"/>
+        <metrics statements="55" coveredstatements="49" conditionals="5" coveredconditionals="3" methods="7" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -475,10 +475,10 @@
         <line num="78" count="8" type="stmt"/>
         <line num="79" count="8" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="83" count="4" type="stmt"/>
+        <line num="84" count="4" type="stmt"/>
+        <line num="85" count="16" type="stmt"/>
+        <line num="86" count="16" type="cond" truecount="3" falsecount="1"/>
         <line num="92" count="1" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
         <line num="95" count="1" type="stmt"/>

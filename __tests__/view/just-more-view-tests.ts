@@ -1,8 +1,14 @@
+import { JSDOM } from 'jsdom';
 import loginPage from '../../src/view/pages/login/login';
-import { header, navObj } from '../../src/view/header/header';
+import { header, navObj, changeRegStatus } from '../../src/view/header/header';
 
 // loginPage, header, footer
 
+
+const dom = new JSDOM();
+global.document = dom.window.document;
+
+// header
 
 describe('login page tests', () => {
   describe('result message tests', () => {
@@ -200,5 +206,32 @@ describe('header tests', () => {
         expect(value.routing).toBeDefined();
       });
     })
+  });
+
+  describe('changeRegStatus', () => {
+    const arr = ['sigin', 'login', 'profile', 'logout'];
+
+    beforeEach(() => {
+      const createElement = (id: string) => {
+        const element = document.createElement('div');
+        element.id = id;
+        document.body.appendChild(element);
+      };
+
+      arr.forEach(el => createElement(el));
+    });
+
+    afterEach(() => {
+      document.body.innerHTML = '';
+    });
+
+    function checkHidden(id: string): void {
+      test(`toggle hidden in ${id} link`, () => {
+        changeRegStatus();
+
+        expect(document.getElementById(`${id}`)?.classList.contains('hidden')).toBe(true);
+      });
+    }
+    arr.forEach(el => checkHidden(el));
   });
 });
