@@ -11,7 +11,6 @@ const shippingDefaultCheckbox = shippingAddressBlock.children[4]
 
 const toggleBlock = (e: Event) => {
   const target = e.target as HTMLInputElement;
-  console.log(shippingDefaultCheckbox);
   if (target.tagName !== 'INPUT') return;
 
   if (target.checked === true) {

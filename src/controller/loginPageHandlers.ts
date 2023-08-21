@@ -23,7 +23,6 @@ async function submitHandler(e: Event) {
   const password = formData.get('password')?.toString() || '';
   const response = await loginCustomer(mail, password);
 
-  console.log(resultMessage);
   resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body.customer);

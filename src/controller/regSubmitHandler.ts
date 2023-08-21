@@ -71,7 +71,6 @@ const submitHandler = async (e: Event) => {
   try {
     const regResponse = await createCustomer(newCustomer);
     const regMessage = regResponse.message;
-    console.log('regMessage=', regMessage);
     resultMessage.classList.remove('hidden');
     if (regResponse.statusCode === 201) {
       resultMessage.firstChild!.textContent = 'Successfully registered';
@@ -82,7 +81,6 @@ const submitHandler = async (e: Event) => {
       );
       if (logResponse.statusCode === 200) {
         setLoacalCustomer(logResponse.body.customer);
-        console.log('reg resultMessage=', logResponse.body.customer);
         setTimeout(() => {
           resultMessage.firstChild!.textContent = `Welcome to the club, ${logResponse.body.customer.firstName}`;
         }, 1000);
