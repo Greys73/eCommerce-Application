@@ -65,7 +65,7 @@ const getRegFormData = (e: Event): CustomerDraft => {
   return newCustomer;
 };
 
-const submitHandler = async (e: Event) => {
+export const submitHandler = async (e: Event) => {
   e.preventDefault();
   const newCustomer = getRegFormData(e);
   try {

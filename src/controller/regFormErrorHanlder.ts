@@ -2,7 +2,7 @@ import registrationForm from '../view/pages/registration/registration';
 import loginForm from '../view/pages/login/login';
 import getSpecifyError from '../model/inputErrorSpecifier';
 
-const checkPassword = (input: HTMLInputElement): boolean => {
+export const checkPassword = (input: HTMLInputElement): boolean => {
   const secondPassword = input.value;
   const firstPasswordInput = input.parentElement?.previousElementSibling
     ?.children[1] as HTMLInputElement;
@@ -14,7 +14,7 @@ const regInputs = [...registrationForm.querySelectorAll('input')];
 const loginInputs = [...loginForm.querySelectorAll('input')];
 const regSelects = [...registrationForm.querySelectorAll('select')];
 
-const changeStyle = (
+export const changeStyle = (
   elem: HTMLInputElement | HTMLSelectElement,
   isValid: boolean,
 ) => {

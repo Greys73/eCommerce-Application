@@ -2,8 +2,12 @@
 
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node', // jsdom ??
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
+  setupFiles: [`<rootDir>/jest-shim.ts`],
+  moduleNameMapper: {
+    '^.+\\.(css|scss|png)$': 'babel-jest',
+  }
 };
