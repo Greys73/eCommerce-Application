@@ -32,4 +32,32 @@ textArr.forEach((text) => {
   mainPage.append(catalogText);
 });
 
+// Cross-Check
+
+const crossCheckContainer = document.createElement('div');
+crossCheckContainer.classList.add('login-page__form');
+
+const crossCheckHeader = document.createElement('h3');
+crossCheckHeader.classList.add('login-page__header');
+crossCheckHeader.textContent = 'Cross-check links:';
+
+crossCheckContainer.append(crossCheckHeader);
+
+const linksArr = [
+  ['Registration page', '/registration'],
+  ['Log in page', '/login'],
+];
+
+linksArr.forEach(([text, href]) => {
+  const link = document.createElement('a');
+  link.classList.add('login-page__redirect-link');
+  link.textContent = text;
+  link.href = href;
+  link.style.display = 'block';
+
+  crossCheckContainer.append(link);
+});
+
+mainPage.append(crossCheckContainer);
+
 export default mainPage;
