@@ -46,9 +46,9 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     text: 'Postal code:',
     name: `${addressType}PostCode`,
     required: true,
-    pattern: /[0-9]{5,7}/,
-    title: 'Must contain from 5 to 7 digits',
-    placeholder: 'Postal code (5-7 digits)',
+    pattern: /^[0-9]{5,5}$/,
+    title: 'Must contain 5 digits',
+    placeholder: 'Postal code (5 digits)',
   };
 
   const city = createFormBlock(cityOptions);
