@@ -1,0 +1,133 @@
+@import './general.scss';
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  background-color: cornflowerblue;
+  @include _tablet {
+    height: 60px;
+  }
+  @include _mobile {
+    height: 50px;
+  }
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - $marginDesctop);
+  max-width: 1920px;
+  @include _tablet {
+    width: calc(100% - $marginTablet);
+  }
+  @include _mobile {
+    width: calc(100% - $marginMobile);   
+  }
+}
+
+.header__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo__image {
+  width: 320px;
+  @include _tablet {
+    width: 150px;
+  }
+  @include _mobile {
+    width: 250px;
+  }
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include _mobile {
+    display: none;
+    justify-content: center;
+  }
+}
+
+.header__nav_visable {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba($color: #000000, $alpha: 0.9);
+  left: 0px;
+  top: 0px;
+}
+
+.header__nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include _mobile {
+    display: block;
+  }
+}
+
+.nav__item {
+  display: block;
+  list-style-type: none;
+  @include _font(20px);
+  margin: calc($marginDesctop / 2);
+  padding: 0px;
+  @include _tablet {
+    margin: calc($marginTablet / 4);
+    font-size: 14px;
+    text-align: center;
+  }
+  @include _mobile {
+    font-size: 20px;
+    margin: calc($marginMobile * 4);
+  }
+}
+
+.nav__item:hover {
+  cursor: pointer;
+  color: antiquewhite;
+}
+
+.header__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 30px;
+  height: 25px;
+  margin-right: $marginMobile;
+  @include _mobile {
+    display: flex;
+  }
+}
+
+.burger__span {
+  width: 30px;
+  border: 1px solid rgba($color: #ffffff, $alpha: .5);
+}
+
+.rotated,
+.rotated-reverse {
+  display: flex;
+  position: absolute;
+  width: 35px;
+  margin-top: 12px;
+  rotate: 45deg;
+}
+
+.rotated {
+  rotate: 45deg;
+}
+
+.rotated-reverse {
+  rotate: -45deg;
+}

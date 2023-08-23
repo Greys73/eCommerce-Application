@@ -1,0 +1,134 @@
+@import '../general.scss';
+
+.form__block {
+  display: block;
+  margin: $marginDesctop;
+  @include _tablet {
+    margin: $marginTablet;
+  }
+  @include _mobile {
+    margin: $marginMobile;
+  }
+}
+
+.form__block_marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__label {
+  display: block;
+  @include _mainFont(25px);
+  text-align: center;
+  @include _tablet {
+    font-size: 20px;
+  }
+  @include _mobile {
+    font-size: 16px;
+  }
+}
+
+.form__label_marker {
+  @include _mainFont(16px);
+  margin: 0 5px 0 10px;
+  @include _tablet {
+    font-size: 12px;
+  }
+  @include _mobile {
+    font-size: 12px;
+  }
+}
+
+.form__input {
+  display: block;
+  width: 400px;
+  min-height: 35px;
+  @include _mainFont(20px);
+  margin: calc($marginDesctop / 2) auto 0 auto;
+  text-align: center;
+  border-radius: 20px;
+  border: solid 1px cornflowerblue;
+  padding: 0 15px;
+  @include _tablet {
+    width: 300px;
+    min-height: 25px;
+    font-size: 16px;
+    margin-top: calc($marginTablet / 2);
+    border-radius: 16px;
+  };
+  @include _mobile {
+    width: 250px;
+    min-height: 20px;
+    font-size: 12px;
+    margin-top: calc($marginMobile / 2);
+    border-radius: 12px;
+  };
+  &:focus {
+    outline-color: royalblue;
+  }
+  &::placeholder {
+    color: LightSteelBlue;
+  }
+}
+
+.form__input_marker {
+  width: 15px;
+  height: 15px;
+  margin: 0 10px 0 5px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.form__error {
+  display: block;
+  text-align: center;
+  @include _mainFont(16px);
+  color: crimson;
+  margin: calc($marginDesctop / 4);
+  @include _tablet {
+    font-size: 12px;
+  }
+}
+
+.form__error_marker {
+  display: none;
+  margin: 0;
+}
+
+.form__block_marker {
+  margin: 0px;
+}
+
+.form__label_selection {
+  margin-left: 10px;
+}
+
+.form__flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 432px;
+  margin: 0 auto;
+  @include _tablet {
+    width: 332px;
+  }
+  @include _mobile {
+    width: 282px;
+  }
+}
+
+.selection__country {
+  width: 280px;
+  margin: 0;
+  border-radius: 5px;
+  padding: 0px;
+  color: darkslategray;
+  @include _tablet {
+    width: 200px;
+  }
+  @include _mobile {
+    width: 180px;
+  }
+}

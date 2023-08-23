@@ -1,0 +1,98 @@
+@import '../general.scss';
+@import '../elements/form.scss';
+
+.login-page {
+  width: 100%;
+}
+
+.login-page__header {
+  @include _mainFont(35px);
+  margin: $marginDesctop 0;
+  text-align: center;
+  @include _tablet {
+    font-size: 25px;
+    margin: $marginTablet;
+  }
+  @include _mobile {
+    font-size: 20px;
+    margin: $marginMobile;
+  }
+}
+
+.login-page__form { 
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+.login-form__button {
+  margin: $marginDesctop auto;
+  border: none;
+  @include _button(100px, 30px, 20px);
+  @include _tablet {
+    margin: $marginTablet auto;
+  }
+  @include _mobile {
+    @include _button(80px, 25px, 16px);
+  }
+
+  &:hover {
+    background-color: LimeGreen;
+  }
+}
+
+.login-page__redirect,
+.login-page__redirect-link {
+  @include _mainFont(20px);
+  text-align: center;
+  margin: $marginDesctop 0;
+  @include _tablet {
+    font-size: 16px;
+    margin: $marginTablet 0;
+  }
+  @include _mobile {
+    font-size: 12px;
+  }
+}
+
+.login-page__redirect-link {
+  color: darkcyan;
+  text-decoration: underline;
+  &:hover {
+    color: lightseagreen;
+  }
+}
+
+.login-form__result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  cursor: none;
+}
+
+.login-form__result-text {
+  max-width: 400px;
+  max-height: 400px;
+  background-color: rgba($color: #FF8C00, $alpha: .9);
+  text-align: center;
+  padding: $marginDesctop;
+  border-radius: calc($marginDesctop / 2);
+  @include _font(20px);
+  @include _tablet {
+    font-size: 16px;
+    padding: $marginTablet;
+    border-radius: calc($marginTablet / 2);
+  }
+  @include _mobile {
+    max-width: 80vw;
+    font-size: 12px;
+    padding: $marginMobile;
+    border-radius: calc($marginMobile / 2);
+  }
+}

@@ -1,0 +1,59 @@
+@import '../general.scss';
+
+.main-page {
+    width: 100%;
+}
+
+.main-page__header {
+    @include _mainFont(35px);
+    margin: $marginDesctop 0px;
+    text-align: center;
+    @include _tablet {
+        font-size: 25px;
+        margin: $marginTablet 0;
+    }
+    @include _mobile {
+        font-size: 20px;
+        margin: $marginMobile 0;
+    }
+}
+
+.main-page__catalog-paragraph {
+    margin: $marginDesctop auto;
+    @include _mainFont(25px);
+    text-align: center;
+    @include _tablet {
+        font-size: 20px;
+        margin: $marginTablet 0;
+    }
+    @include _mobile {
+        font-size: 16px;
+    }   
+}
+
+.main-page__catalog-text {
+    margin: calc($marginDesctop / 4) auto;
+    @include _mainFont(20px);
+    text-align: center;
+    line-height: 30px;
+    @include _tablet {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    @include _mobile {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+.main-page__link {
+    display: block;
+    @include _button(250px, 30px, 20px);
+    margin: $marginDesctop auto;
+    @include _tablet {
+        margin: $marginTablet auto;
+    }
+    @include _mobile {
+        @include _button(200px, 30px, 16px);
+    }
+}
