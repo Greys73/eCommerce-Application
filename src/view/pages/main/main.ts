@@ -46,6 +46,7 @@ crossCheckContainer.append(crossCheckHeader);
 const linksArr = [
   ['Registration page', '/registration'],
   ['Log in page', '/login'],
+  ['About us page', '/about'],
 ];
 
 linksArr.forEach(([text, href]) => {
