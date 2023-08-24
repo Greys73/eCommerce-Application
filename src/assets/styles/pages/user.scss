@@ -55,7 +55,7 @@
   }
 }
 
-.user-data__container {
+.user-data__data-block {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -105,6 +105,17 @@
   @include _mobile {
     width: 250px;
     min-height: 20px;
+  }
+}
+
+.user-data__error-block {
+  display: block;
+  text-align: center;
+  @include _mainFont(16px);
+  color: crimson;
+  margin-bottom: calc($marginDesctop / 4);
+  @include _tablet {
+    font-size: 12px;
   }
 }
 

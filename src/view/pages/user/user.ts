@@ -19,6 +19,9 @@ function createProfileBlock(
   container.classList.add('user-data__container');
   container.id = fieldName.toLowerCase().replace(' ', '-');
 
+  const dataBlock = document.createElement('div');
+  dataBlock.classList.add('user-data__data-block');
+
   const description = document.createElement('p');
   description.classList.add('user-data__description');
   description.textContent = fieldName.concat(':');
@@ -27,7 +30,9 @@ function createProfileBlock(
   fieldValue.classList.add('user-data__value');
   fieldValue.textContent = value;
 
-  container.append(description, fieldValue);
+  dataBlock.append(description, fieldValue);
+
+  container.append(dataBlock);
 
   if (isEdited === true) {
     // console.log('fieldName', fieldName);
@@ -42,7 +47,13 @@ function createProfileBlock(
     input.value = value;
     input.type = inputType;
 
-    container.append(input);
+    dataBlock.append(input);
+
+    const errorBlock = document.createElement('p');
+    errorBlock.classList.add('user-data__error-block');
+    errorBlock.textContent = 'some error';
+
+    container.append(errorBlock);
   }
 
   return container;
@@ -99,8 +110,8 @@ function createAddressContainer(/* AddressData: AddressType , isShipping: boolea
   editButton.addEventListener('click', () => {
     [country, city, address, postalCode].forEach((el) => {
       // console.log(el.children);
-      el.children[1].classList.add('hidden');
-      el.children[2].classList.remove('hidden');
+      el.children[0].children[1].classList.add('hidden');
+      el.children[0].children[2].classList.remove('hidden');
     });
     editButton.classList.add('hidden');
     confirmButton.classList.remove('hidden');
@@ -109,8 +120,8 @@ function createAddressContainer(/* AddressData: AddressType , isShipping: boolea
   confirmButton.addEventListener('click', () => {
     [country, city, address, postalCode].forEach((el) => {
       console.log(el.children);
-      el.children[1].classList.remove('hidden');
-      el.children[2].classList.add('hidden');
+      el.children[0].children[1].classList.remove('hidden');
+      el.children[0].children[2].classList.add('hidden');
     });
     editButton.classList.remove('hidden');
     confirmButton.classList.add('hidden');
@@ -224,8 +235,8 @@ profilePage.append(
 editButton.addEventListener('click', () => {
   [name, lastName, birthDate].forEach((el) => {
     // console.log(el.children);
-    el.children[1].classList.add('hidden');
-    el.children[2].classList.remove('hidden');
+    el.children[0].children[1].classList.add('hidden');
+    el.children[0].children[2].classList.remove('hidden');
   });
   editButton.classList.add('hidden');
   confirmButton.classList.remove('hidden');
@@ -234,8 +245,8 @@ editButton.addEventListener('click', () => {
 confirmButton.addEventListener('click', () => {
   [name, lastName, birthDate].forEach((el) => {
     console.log(el.children);
-    el.children[1].classList.remove('hidden');
-    el.children[2].classList.add('hidden');
+    el.children[0].children[1].classList.remove('hidden');
+    el.children[0].children[2].classList.add('hidden');
   });
   editButton.classList.remove('hidden');
   confirmButton.classList.add('hidden');
