@@ -4,13 +4,15 @@ import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
 import * as productPage from '../view/pages/product/product';
+import * as productsPage from '../view/pages/catalog/catalog';
 
 type RoutesType = {
   [key: string]: HTMLElement;
 };
 const routes: RoutesType = {
   '/': mainPage.default,
-  '/products': productPage.default,
+  '/products': productsPage.default,
+  '/product': productPage.default,
   // '/basket':
   // '/about':
   '/registration': regPage.default,
