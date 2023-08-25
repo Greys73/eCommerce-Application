@@ -48,3 +48,34 @@ export const loginCustomer = (userEmail: string, userPassword: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
+export const getProductsBySearchField = (searchValue: string) =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        'text.en': searchValue,
+      },
+    })
+    .execute()
+    .then((obj) => obj.body.results)
+    .catch((err) => err);
+
+export const getProductByID = (productID: string) =>
+  apiRoot
+    .products()
+    .withId({ ID: productID })
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getProductByKey = (productKey: string) =>
+  apiRoot
+    .products()
+    .withKey({ key: productKey })
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
