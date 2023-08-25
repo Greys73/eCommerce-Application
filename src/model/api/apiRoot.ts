@@ -79,3 +79,16 @@ export const getProductByKey = (productKey: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
+export const getProductBySKU = (SKU: string) =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        filter: [`variants.sku:"${SKU}"`],
+      },
+    })
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
