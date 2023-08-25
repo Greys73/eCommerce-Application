@@ -1,19 +1,20 @@
 import { header } from './header/header';
 import footer from './footer/footer';
-import createProductPage from './pages/product/product';
-// import { getProductsBySearchField } from '../model/api/apiRoot';
+// import createProductPage from './pages/product/product';
 
 const main = document.createElement('main');
 main.classList.add('main');
 
 const mainContainer = document.createElement('div');
 mainContainer.classList.add('main__container');
-// temporary
 
-// main.append(mainContainer);
-createProductPage('kawasaki-versysx250-green').then((page) =>
-  main.append(page),
-);
+// temporary
+// comment next line
+main.append(mainContainer);
+// and uncomment next lines and import to see product page on main
+// createProductPage('honda-gl1800-black').then((page) =>
+//   main.append(page),
+// );
 
 document.body.append(header, main, footer);
 
