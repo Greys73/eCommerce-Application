@@ -1,4 +1,4 @@
-import { showProductPage } from '../../../controller/showProduct';
+import { showProductPage } from '../../../controller/getProduct';
 import { AttrValue, ProductVariant } from '../../../types/type';
 
 const createSliderControls = (): HTMLDivElement => {
