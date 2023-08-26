@@ -35,8 +35,6 @@ function createProfileBlock(
   container.append(dataBlock);
 
   if (isEdited === true) {
-    // console.log('fieldName', fieldName);
-    // console.log('form', fieldName.includes('password'));
     const input = document.createElement('input');
     input.classList.add('user-data__input');
     if (fieldName.includes('password') === false) {
@@ -59,7 +57,7 @@ function createProfileBlock(
   return container;
 }
 
-function createAddressContainer(/* AddressData: AddressType , isShipping: boolean, isBilling: boolean, isDefault: boolean */): HTMLElement {
+function createAddressContainer(): HTMLElement {
   const container = document.createElement('div');
   container.classList.add('address__container');
 
@@ -137,7 +135,6 @@ function createAddressContainer(/* AddressData: AddressType , isShipping: boolea
     container.classList.add('background-billing');
   });
 
-  // return
   return container;
 }
 
@@ -234,7 +231,6 @@ profilePage.append(
 
 editButton.addEventListener('click', () => {
   [name, lastName, birthDate].forEach((el) => {
-    // console.log(el.children);
     el.children[0].children[1].classList.add('hidden');
     el.children[0].children[2].classList.remove('hidden');
   });
@@ -244,7 +240,6 @@ editButton.addEventListener('click', () => {
 
 confirmButton.addEventListener('click', () => {
   [name, lastName, birthDate].forEach((el) => {
-    console.log(el.children);
     el.children[0].children[1].classList.remove('hidden');
     el.children[0].children[2].classList.add('hidden');
   });

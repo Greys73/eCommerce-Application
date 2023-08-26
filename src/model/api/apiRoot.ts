@@ -12,6 +12,21 @@ const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: 'ddt-e-commerce-rss-app',
 });
 
+export const getCustomerById = (id: string) => {
+  try {
+    if (!id) return false;
+    return apiRoot
+      .customers()
+      .withId({ ID: id })
+      .get()
+      .execute()
+      .then((obj) => obj)
+      .catch((err) => err);
+  } catch {
+    return false;
+  }
+};
+
 export const viewCustomers = () =>
   apiRoot
     .customers()
