@@ -18,8 +18,7 @@ export type NavObjType = {
 export type ProductOptions = {
   name: string;
   description?: string;
-  masterVariant: ProductVariant;
-  variants: ProductVariant[];
+  currentVariant: ProductVariant;
 };
 
 export type ProductVariant = {
