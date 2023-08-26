@@ -1,3 +1,4 @@
+import { Price } from '@commercetools/platform-sdk';
 import { showProductPage } from '../../../controller/getProduct';
 import { AttrValue, ProductVariant } from '../../../types/type';
 
@@ -53,6 +54,51 @@ const createImageSlider = (
   }
 
   return imgWrapper;
+};
+
+const createPriceCont = (priceOptions: Price): HTMLDivElement => {
+  const cont = document.createElement('div');
+  cont.className = 'price';
+  console.log(priceOptions);
+
+  const discountCont = document.createElement('div');
+  discountCont.className = 'price__discount';
+
+  const basePrice = document.createElement('div');
+  basePrice.className = 'price__base';
+
+  const discount = document.createElement('div');
+  discount.className = 'price__disc';
+
+  const currentPrice = document.createElement('div');
+  currentPrice.className = 'price__cur';
+
+  discountCont.append(basePrice, discount);
+  cont.append(discountCont, currentPrice);
+
+  const centsPerEuro = 100;
+  const price = `${+priceOptions.value.centAmount / centsPerEuro} ${
+    priceOptions.value.currencyCode
+  }`;
+
+  if (priceOptions.discounted) {
+    console.log('disc');
+    currentPrice.textContent = `${
+      priceOptions.discounted.value.centAmount / centsPerEuro
+    } ${priceOptions.discounted.value.currencyCode}`;
+    basePrice.textContent = price;
+    const discountValue = Math.round(
+      (1 -
+        priceOptions.discounted.value.centAmount /
+          priceOptions.value.centAmount) *
+        100,
+    );
+    discount.textContent = `${discountValue}%`;
+  } else {
+    currentPrice.textContent = price;
+  }
+
+  return cont;
 };
 
 const createFeaturesCont = (
@@ -114,11 +160,14 @@ const createProductPage = async (id: string): Promise<HTMLDivElement> => {
   productDescription.textContent = options.description || '';
   productDescription.className = 'product__description';
 
+  const priceCont = createPriceCont(options.currentVariant.prices[0]);
+
   const productImageSlider = createImageSlider(options.currentVariant.images);
   const featureCont = createFeaturesCont(options.currentVariant.attributes);
 
   productPage.append(
     productName,
+    priceCont,
     productImageSlider,
     productDescription,
     featureCont,

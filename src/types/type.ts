@@ -1,3 +1,5 @@
+import { Price } from '@commercetools/platform-sdk';
+
 export type FormBlock = {
   type: string;
   placeholder?: string;
@@ -25,7 +27,7 @@ export type ProductVariant = {
   id: number;
   attributes: Attribute[];
   images: Images[];
-  prices: [];
+  prices: Price[];
 };
 
 type Attribute = {
