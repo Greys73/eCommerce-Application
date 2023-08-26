@@ -1,13 +1,31 @@
 import { showProductPage } from '../../../controller/getProduct';
 import { AttrValue, ProductVariant } from '../../../types/type';
 
-const createSliderControls = (): HTMLDivElement => {
+export const imgUrls: string[] = [];
+// export const dots: HTMLDivElement[] = []
+
+const createSliderControls = (n: number): HTMLDivElement => {
   const cont = document.createElement('div');
   cont.className = 'image__controls';
   // create and append arrows or dots
+  for (let i = 0; i < n; i += 1) {
+    const dot = document.createElement('div');
+    dot.className = 'controls__item';
+    // move to css
+    dot.style.width = '20px';
+    dot.style.height = '20px';
+    dot.style.backgroundColor = 'grey';
+    dot.style.borderRadius = '50%';
+    // move to controllers
+    dot.addEventListener('click', () => {
+      const img = cont.previousElementSibling
+        ?.firstElementChild as HTMLImageElement;
+      img.src = imgUrls[i];
+    });
+    cont.append(dot);
+  }
   return cont;
 };
-const sliderControls = createSliderControls();
 
 const createImageSlider = (
   imageArray: ProductVariant['images'],
@@ -17,17 +35,23 @@ const createImageSlider = (
 
   const imgCont = document.createElement('div');
   imgCont.className = 'image__cont';
+  const img = document.createElement('img');
+  img.src = imageArray[0].url;
+  img.alt = imageArray[0].label;
+  // remove here and add in css
+  img.width = 600;
+  // make the page wait until foto load
+  img.onload = () => imgCont.append(img);
   for (let i = 0; i < imageArray.length; i += 1) {
-    const img = document.createElement('img');
-    img.src = imageArray[i].url;
-    img.alt = imageArray[i].label;
-    // remove here and add in css
-    img.width = 600;
-    // make the page wait until foto load
-    img.onload = () => imgCont.append(img);
+    const { url } = imageArray[i];
+    imgUrls.push(url);
+  }
+  imgWrapper.append(imgCont);
+  if (imageArray.length > 1) {
+    const sliderControls = createSliderControls(imageArray.length);
+    imgWrapper.append(sliderControls);
   }
 
-  imgWrapper.append(imgCont, sliderControls);
   return imgWrapper;
 };
 
@@ -90,8 +114,8 @@ const createProductPage = async (id: string): Promise<HTMLDivElement> => {
   productDescription.textContent = options.description || '';
   productDescription.className = 'product__description';
 
-  const productImageSlider = createImageSlider(options.masterVariant.images);
-  const featureCont = createFeaturesCont(options.masterVariant.attributes);
+  const productImageSlider = createImageSlider(options.currentVariant.images);
+  const featureCont = createFeaturesCont(options.currentVariant.attributes);
 
   productPage.append(
     productName,
