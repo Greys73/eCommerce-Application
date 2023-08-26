@@ -12,7 +12,7 @@ mainContainer.classList.add('main__container');
 // comment next line
 main.append(mainContainer);
 // and uncomment next lines and import to see product page on main
-// createProductPage('honda-gl1800-black').then((page) =>
+// createProductPage('honda-cb400sf-red').then((page) =>
 //   main.append(page),
 // );
 
