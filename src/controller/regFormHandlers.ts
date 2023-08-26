@@ -4,7 +4,7 @@ import registrationForm, {
   billingAddressBlock,
   shippingAddressBlock,
 } from '../view/pages/registration/registration';
-import { inputValidationErrorHandler } from './regFormErrorHanlder';
+import { inputValidationErrorHandler } from './errorHanlders';
 
 const shippingDefaultCheckbox = shippingAddressBlock.children[4]
   .children[1] as HTMLInputElement;
