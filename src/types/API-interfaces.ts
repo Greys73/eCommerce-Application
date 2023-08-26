@@ -9,6 +9,7 @@ export interface Address {
   lastName: string;
   phone: string;
   email?: string;
+  id?: string;
 }
 
 export interface CustomerDraft {

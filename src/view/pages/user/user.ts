@@ -1,4 +1,7 @@
-const profilePage = document.createElement('div');
+import { createProfileBlock } from '../../../utils/view/createProfileBlock';
+import resultMessage from './resultMessage';
+
+const profilePage: HTMLElement = document.createElement('div');
 profilePage.classList.add('profile-page');
 
 const header = document.createElement('h1');
@@ -9,57 +12,10 @@ const userDataHeader = document.createElement('h2');
 userDataHeader.classList.add('user-data__header');
 userDataHeader.textContent = 'User data:';
 
-function createProfileBlock(
-  fieldName: string,
-  value: string,
-  inputType: string,
-  isEdited: boolean,
-): HTMLElement {
-  const container = document.createElement('div');
-  container.classList.add('user-data__container');
-  container.id = fieldName.toLowerCase().replace(' ', '-');
-
-  const dataBlock = document.createElement('div');
-  dataBlock.classList.add('user-data__data-block');
-
-  const description = document.createElement('p');
-  description.classList.add('user-data__description');
-  description.textContent = fieldName.concat(':');
-
-  const fieldValue = document.createElement('p');
-  fieldValue.classList.add('user-data__value');
-  fieldValue.textContent = value;
-
-  dataBlock.append(description, fieldValue);
-
-  container.append(dataBlock);
-
-  if (isEdited === true) {
-    const input = document.createElement('input');
-    input.classList.add('user-data__input');
-    if (fieldName.includes('password') === false) {
-      input.classList.add('hidden');
-    } else {
-      description.classList.add('user-data__description_password');
-    }
-    input.value = value;
-    input.type = inputType;
-
-    dataBlock.append(input);
-
-    const errorBlock = document.createElement('p');
-    errorBlock.classList.add('user-data__error-block');
-    errorBlock.textContent = 'some error';
-
-    container.append(errorBlock);
-  }
-
-  return container;
-}
-
-function createAddressContainer(): HTMLElement {
+export function createAddressContainer(id: string): HTMLElement {
   const container = document.createElement('div');
   container.classList.add('address__container');
+  container.id = id;
 
   const defaultShippingMarker = document.createElement('p');
   defaultShippingMarker.classList.add('address__marker_shipping', 'hidden');
@@ -85,10 +41,12 @@ function createAddressContainer(): HTMLElement {
   const defaultBillingButton = document.createElement('button');
   defaultBillingButton.textContent = 'set as default billing';
   defaultBillingButton.classList.add('address__default-button');
+  defaultBillingButton.setAttribute('name', 'defaultBillingButton');
 
   const defaultShippingButton = document.createElement('button');
   defaultShippingButton.textContent = 'set as default shipping';
   defaultShippingButton.classList.add('address__default-button');
+  defaultShippingButton.setAttribute('name', 'defaultShippingButton');
 
   container.append(
     defaultShippingMarker,
@@ -143,10 +101,20 @@ function createAddressContainer(): HTMLElement {
 const userDataSection = document.createElement('div');
 userDataSection.classList.add('profile-page__user-data');
 
-const name = createProfileBlock('Name', '{{User}}', 'text', true);
-const lastName = createProfileBlock('Last name', '{{LastUser}}', 'text', true);
-const phone = createProfileBlock('Phone', '{{+333445556677}}', 'tel', false);
-const birthDate = createProfileBlock(
+export const name = createProfileBlock('Name', '{{User}}', 'text', true);
+export const lastName = createProfileBlock(
+  'Last name',
+  '{{LastUser}}',
+  'text',
+  true,
+);
+export const phone = createProfileBlock(
+  'Phone',
+  '{{+333445556677}}',
+  'tel',
+  false,
+);
+export const birthDate = createProfileBlock(
   'Date of Birth',
   '2018-08-23',
   'date',
@@ -213,11 +181,11 @@ const addressHeader = document.createElement('h2');
 addressHeader.classList.add('address__header');
 addressHeader.textContent = 'Addresses:';
 
-const addressBlock = createAddressContainer();
+/* const addressBlock = createAddressContainer();
 addressSection.append(addressBlock);
 
 const addressBlock2 = createAddressContainer();
-addressSection.append(addressBlock2);
+addressSection.append(addressBlock2); */
 
 profilePage.append(
   header,
@@ -225,6 +193,7 @@ profilePage.append(
   userDataSection,
   addressHeader,
   addressSection,
+  resultMessage,
 );
 
 // eventListners

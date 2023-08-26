@@ -1,4 +1,8 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import {
+  Customer,
+  CustomerUpdateAction,
+  createApiBuilderFromCtpClient,
+} from '@commercetools/platform-sdk';
 import { ctpClient } from '../../lib/BuildClient';
 import { vrfClient } from '../../lib/ConstructClient';
 import { CustomerDraft } from '../../types/API-interfaces';
@@ -23,6 +27,29 @@ export const getCustomerById = (id: string) => {
       .then((obj) => obj)
       .catch((err) => err);
   } catch {
+    return false;
+  }
+};
+
+export const updateCustomerData = (
+  customer: Customer,
+  data: CustomerUpdateAction[],
+) => {
+  try {
+    return apiRoot
+      .customers()
+      .withId({ ID: customer.id })
+      .post({
+        body: {
+          version: customer.version,
+          actions: data,
+        },
+      })
+      .execute()
+      .then((arg) => arg)
+      .catch((err) => err);
+  } catch (error) {
+    console.log(error);
     return false;
   }
 };
