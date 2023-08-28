@@ -3,7 +3,7 @@ import * as mainPage from '../view/pages/main/main';
 import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
-import * as profilePage from '../view/pages/user/user';
+import * as profilePage from '../view/pages/profile/profile';
 
 type RoutesType = {
   [key: string]: HTMLElement;

@@ -29,7 +29,7 @@ const createFormBlock = (options: FormBlock): HTMLDivElement => {
   if (input.type === 'checkbox')
     errorMessage.classList.add('form__error_marker');
 
-  if (options.type === 'date') {
+  if (options.type === 'date' || options.display === 'inline') {
     const flexCont = document.createElement('div');
     flexCont.className = 'form__flex-container';
     flexCont.append(label, input);

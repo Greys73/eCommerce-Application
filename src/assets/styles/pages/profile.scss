@@ -276,3 +276,39 @@
     border-radius: calc($marginMobile / 2);
   }
 }
+
+// MENU ===============
+.profile-page__menu {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+.profile-page__menu-tabs__label {
+  margin: 0;
+  padding: .5rem;
+  cursor: pointer;
+  user-select: none;
+  background-color: #BBBBBB;
+  color: #555555;
+}
+.profile-page__menu-tabs__radio {
+  display: none;
+}
+.profile-page__menu-tabs {
+  order: 1;
+  width: 100%;
+  display: none;
+  padding: 1rem;
+}
+.profile-page__menu-tabs__radio:checked
++.profile-page__menu-tabs__label {
+  font-weight: bold;
+  background-color: #EEEEEE;
+  color: #000000;
+}
+.profile-page__menu-tabs__radio:checked
++.profile-page__menu-tabs__label
++.profile-page__menu-tabs {
+  display: block;
+  background-color: #EEEEEE;
+}

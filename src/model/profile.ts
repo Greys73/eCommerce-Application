@@ -4,7 +4,7 @@ import {
 } from '@commercetools/platform-sdk';
 import { getLoacalCustomer, setLoacalCustomer } from './login';
 import { updateCustomerData } from './api/apiRoot';
-import resultMessage from '../view/pages/user/resultMessage';
+import resultMessage from '../view/pages/profile/resultMessage';
 
 export async function submitUserData(user: CustomerDraft) {
   const customer = getLoacalCustomer();

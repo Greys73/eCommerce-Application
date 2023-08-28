@@ -1,5 +1,6 @@
 import registrationForm from '../view/pages/registration/registration';
 import loginForm from '../view/pages/login/login';
+import profilePage from '../view/pages/profile/profile';
 import getSpecifyError from '../model/inputErrorSpecifier';
 
 export const checkPassword = (input: HTMLInputElement): boolean => {
@@ -12,6 +13,7 @@ export const checkPassword = (input: HTMLInputElement): boolean => {
 
 const regInputs = [...registrationForm.querySelectorAll('input')];
 const loginInputs = [...loginForm.querySelectorAll('input')];
+const profileInputs = [...profilePage.querySelectorAll('input')];
 const regSelects = [...registrationForm.querySelectorAll('select')];
 
 export const changeStyle = (
@@ -55,6 +57,10 @@ regInputs.forEach((input) => {
 });
 
 loginInputs.forEach((input) => {
+  input.addEventListener('input', inputValidationErrorHandler);
+});
+
+profileInputs.forEach((input) => {
   input.addEventListener('input', inputValidationErrorHandler);
 });
 

@@ -7,6 +7,7 @@ export type FormBlock = {
   pattern?: RegExp;
   max?: string;
   title?: string;
+  display?: string;
 };
 
 export type AddressType = 'billing' | 'shipping';
