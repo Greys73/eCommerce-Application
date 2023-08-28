@@ -1,37 +1,34 @@
 @import '../general.scss';
 
 .products-page {  
-  width: 100%;  
-}
-
-.products-page__category {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 1320px;
-}
-
-.category__logo {
-  margin: 3%;
-  width: 30%;
-  min-width: 250px;
-  border: 1px solid white;
-  &:hover {
-    cursor: pointer;
-    scale: .95;
-    border: 1px solid rgba($color: #B0C4DE, $alpha: .3);;
-    border-radius: 5%;
-    background-color: rgba($color: #1E90FF, $alpha: .05);
-  }
-}
-
-.products-page__catalog {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
   border: 1px solid rgba($color: #4682B4, $alpha: .3);
-  border-top: 0px;
+  border-top: 0px; 
+}
+
+.items__category {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  background-color: rgba($color: #778899, $alpha: .03);
+}
+
+.category__logo {
+  margin: 3%;
+  width: 15%;
+  min-width: 150px;
+  border-radius: 5%;
+  border: 1px solid rgba($color: #4682B4, $alpha: .1);
+  &:hover {
+    cursor: pointer;
+    scale: .95;
+    border: 1px solid rgba($color: #B0C4DE, $alpha: .3);
+    background-color: rgba($color: #1E90FF, $alpha: .05);
+  }
 }
 
 .catalog__filters {
@@ -108,7 +105,7 @@
   grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: auto;
   gap: calc($marginDesctop / 2);
-  
+
   margin: calc($marginDesctop / 2);
 
   @media (max-width: 1905.98px) {
@@ -133,6 +130,13 @@
   border: 1px solid rgba($color: #4682B4, $alpha: .3);
   border-radius: calc($marginDesctop / 2);
   margin: 0 auto;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($color: #4682B4, $alpha: .1);
+    transform: scale(1.02);
+    box-shadow: 0px 0px $marginTablet calc($marginMobile / 2 - $marginMobile) steelblue;
+  }
 }
 
 .card__name {
@@ -181,6 +185,7 @@
   @include _mainFont(12px);
   font-weight: 700;
   color: crimson;
+  margin-left: calc($marginDesctop / 8);
 }
 
 .card__button {
