@@ -2,6 +2,15 @@ $marginDesctop: 40px;
 $marginTablet: 20px;
 $marginMobile: 10px;
 
+$marginDesctopDiv2: calc($marginDesctop / 2);
+$marginTabletDiv2: calc($marginTablet / 2);
+$marginMobileDiv2: calc($marginMobile / 2);;
+
+$marginDesctopDiv4: calc($marginDesctop / 4);
+$marginTabletDiv4: calc($marginTablet / 4);
+
+$marginDesctopDiv8: calc($marginDesctop / 8);
+
 @mixin _tablet {
   @media (max-width: 1279.98px) {
     @content;
