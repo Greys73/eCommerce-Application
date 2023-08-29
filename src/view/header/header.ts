@@ -64,7 +64,7 @@ const navObj: NavObjType = {
   },
   logout: {
     text: 'Log out 🔐',
-    routing: '/logout',
+    routing: '/login',
   },
 };
 
