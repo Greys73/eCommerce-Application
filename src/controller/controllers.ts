@@ -4,4 +4,4 @@ import './router';
 import './regSubmitHandler';
 import './regFormHandlers';
 import './headerHandlers';
-import './getProduct';
+import './fillProductPage';
