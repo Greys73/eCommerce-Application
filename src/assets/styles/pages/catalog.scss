@@ -22,10 +22,26 @@
   margin: $marginDesctopDiv2;
 }
 
+.filters__icon-block {
+  display: none;
+  @include _mobile {
+    display: block;
+  }
+}
+
+.icon-block__icon {
+  width: 20vw;
+  max-width: 100px;
+}
+
 .filter__header {
   @include _mainFont(16px);
   font-weight: 700;
   margin: $marginDesctopDiv4 0;
+  color: steelblue;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .filter__range-container {
@@ -51,7 +67,7 @@
   @include _mainFont(16px);
   text-align: center;
   border-radius: 5px;
-  border: solid 1px cornflowerblue;
+  border: solid 1px steelblue;
   padding: 0 5px;
   margin: 0 $marginDesctopDiv8;
   &::-webkit-inner-spin-button,

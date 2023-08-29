@@ -1,5 +1,20 @@
+import filterImg from '../../../assets/images/filter-ico.png';
+
 const filters = document.createElement('div');
 filters.classList.add('catalog__filters');
+
+const filtersBlock = document.createElement('div');
+filtersBlock.classList.add('filters__filter-block');
+
+const iconBlock = document.createElement('div');
+iconBlock.classList.add('filters__icon-block');
+
+const icon = document.createElement('img');
+icon.classList.add('icon-block__icon');
+icon.src = filterImg;
+icon.alt = 'filter-icon';
+
+iconBlock.append(icon);
 
 // get arr from API
 const companyArr = ['Honda', 'Yamaha', 'Suzuki', 'Kawasaki'];
@@ -114,7 +129,7 @@ const drivetrain = createCheckboxFilter(
 );
 const brakes = createCheckboxFilter('Brakes type', 'filter-brakes', brakesArr);
 
-filters.append(
+filtersBlock.append(
   price,
   company,
   type,
@@ -126,5 +141,7 @@ filters.append(
   brakes,
   drivetrain,
 );
+
+filters.append(iconBlock, filtersBlock);
 
 export default filters;
