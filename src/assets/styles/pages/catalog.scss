@@ -9,35 +9,63 @@
   border-top: 0px; 
 }
 
-.items__category {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  background-color: rgba($color: #778899, $alpha: .03);
-}
-
-.category__logo {
-  margin: 3%;
-  width: 15%;
-  min-width: 150px;
-  border-radius: 5%;
-  border: 1px solid rgba($color: #4682B4, $alpha: .1);
-  &:hover {
-    cursor: pointer;
-    scale: .95;
-    border: 1px solid rgba($color: #B0C4DE, $alpha: .3);
-    background-color: rgba($color: #1E90FF, $alpha: .05);
-  }
-}
-
 .catalog__filters {
   width: 25%;
   max-width: 400px;
   min-width: 250px;
-  height: 900px;
+  height: 100%;
   border-right: 1px solid rgba($color: #4682B4, $alpha: .3);
   border-top: 0px;
+}
+
+.filters__filter {
+  margin: $marginDesctopDiv2;
+}
+
+.filter__header {
+  @include _mainFont(16px);
+  font-weight: 700;
+  margin: $marginDesctopDiv4 0;
+}
+
+.filter__range-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: $marginDesctopDiv4 0;
+}
+
+.filter__label {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  @include _mainFont(16px);
+  margin: $marginDesctopDiv8 0;
+  margin-top: 0;
+}
+
+.filter__range-input {
+  display: block;
+  width: 50px;
+  min-height: 25px;
+  @include _mainFont(16px);
+  text-align: center;
+  border-radius: 5px;
+  border: solid 1px cornflowerblue;
+  padding: 0 5px;
+  margin: 0 $marginDesctopDiv8;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.filter__checkbox-input {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: $marginDesctopDiv8;
 }
 
 .catalog__items {
@@ -97,6 +125,28 @@
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.items__category {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  background-color: rgba($color: #778899, $alpha: .03);
+}
+
+.category__logo {
+  margin: 3%;
+  width: 15%;
+  min-width: 150px;
+  border-radius: 5%;
+  border: 1px solid rgba($color: #778899, $alpha: .03);
+  &:hover {
+    cursor: pointer;
+    scale: 1.05;
+    border: 1px solid rgba($color: #B0C4DE, $alpha: .3);
+    background-color: rgba($color: #1E90FF, $alpha: .05);
   }
 }
 

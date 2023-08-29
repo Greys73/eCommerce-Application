@@ -35,7 +35,7 @@ searchInput.placeholder = 'Search';
 
 const searchFilter = document.createElement('p');
 searchFilter.classList.add('search__filter');
-searchFilter.textContent = 'Filter ▼';
+searchFilter.textContent = 'Sorting ▼';
 
 searchingBlock.append(searchInput, searchFilter);
 
