@@ -28,6 +28,7 @@ export type ProductVariant = {
   attributes: Attribute[];
   images: Images[];
   prices: Price[];
+  sku: string;
 };
 
 type Attribute = {

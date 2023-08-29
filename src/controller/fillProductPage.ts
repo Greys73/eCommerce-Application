@@ -91,7 +91,6 @@ const fillVariants = (variants: ProductVariant[]) => {
     const colorAttr = variant.attributes.find(
       (attr) => attr.name === 'attr-colour',
     );
-    console.log(colorAttr);
     if (colorAttr) {
       const colorValue = colorAttr.value as AttrValue;
       return colorValue.label;
@@ -100,6 +99,25 @@ const fillVariants = (variants: ProductVariant[]) => {
   });
   // eslint-disable-next-line prefer-destructuring
   product.mainVariant.style.backgroundColor = colors[0];
+  if (colors.length > 1) {
+    for (let i = 1; i < colors.length; i += 1) {
+      const variant = document.createElement('a');
+      variant.className = 'variants__links';
+      // css
+      variant.style.display = 'block';
+      variant.style.width = '40px';
+      variant.style.height = '40px';
+      variant.style.borderRadius = '50%';
+      variant.style.borderColor = 'black';
+      variant.style.borderStyle = 'solid';
+
+      variant.style.backgroundColor = colors[i];
+      variant.title = variants[i].sku;
+      // add correct link
+      variant.href = `/product/${variants[i].sku}`;
+      product.variants.append(variant);
+    }
+  }
 };
 
 export const fillProductPage = async (SKU: string) => {
