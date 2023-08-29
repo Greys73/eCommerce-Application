@@ -20,7 +20,8 @@ export const changeStyle = (
   elem: HTMLInputElement | HTMLSelectElement,
   isValid: boolean,
 ) => {
-  const errorMessage = elem.nextElementSibling;
+  const errorMessage =
+    elem.nextElementSibling || elem.parentElement?.nextElementSibling;
   const el = elem;
   if (isValid) {
     el.classList.remove('invalid');

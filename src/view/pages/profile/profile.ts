@@ -1,7 +1,8 @@
+import countries from '../../../model/data/countries';
 import { FormBlock } from '../../../types/type';
 import checkAgeParams from '../../../utils/checkAgeParams';
 import createFormBlock from '../../../utils/view/createFormBlock';
-import { createProfileBlock } from '../../../utils/view/createProfileBlock';
+import createButtonsFor from './buttons';
 import { createMenu } from './menu';
 import resultMessage from './resultMessage';
 
@@ -80,117 +81,214 @@ export function createUserDataForm(): HTMLFormElement {
     birthDateOptions,
   ];
 
-  const regForm = document.createElement('form');
-  regForm.className = 'reg-page__form';
+  const form = document.createElement('form');
+  form.className = 'reg-page__form';
 
   blocksArr.forEach((opt) => {
     const block = createFormBlock(opt);
-    /* if (opt.type === 'password') {
-      const showPassword = createFormBlock(showPasswordOptions);
-      block.append(showPassword);
-    } */
-    regForm.append(block);
+    form.append(block);
   });
 
-  const submitBtn = document.createElement('button');
-  submitBtn.textContent = 'edit';
-  submitBtn.type = 'submit';
-  submitBtn.className = 'reg-page__button';
+  createButtonsFor(form);
 
-  regForm.append(submitBtn);
-  regForm.prepend(resultMessage);
-
-  return regForm;
+  return form;
 }
 
-// Addresses
-
+// Change password
 const changePasswordButton = document.createElement('button');
 changePasswordButton.classList.add('user-data__password-button');
 changePasswordButton.textContent = 'Change Password';
+export function createChangePasswordForm(): HTMLFormElement {
+  const passwordOptions: FormBlock = {
+    type: 'password',
+    placeholder: 'Password',
+    name: 'password',
+    text: 'Current password:',
+    required: true,
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
+    title:
+      'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+    display: 'inline',
+  };
 
-const passwordBlock = document.createElement('div');
-passwordBlock.classList.add('user-data__password-block', 'hidden');
+  const newPasswordOptions: FormBlock = {
+    type: 'password',
+    placeholder: 'Password',
+    name: 'newPassword',
+    text: 'New password:',
+    required: true,
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
+    title:
+      'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+    display: 'inline',
+  };
 
-const prevPassword = createProfileBlock(
-  'Current password',
-  '',
-  'password',
-  true,
-);
-const password = createProfileBlock('New password', '', 'password', true);
-const confirmPassword = createProfileBlock(
-  'Confirm new password',
-  '',
-  'password',
-  true,
-);
+  const repeatPasswordOptions: FormBlock = {
+    type: 'password',
+    placeholder: 'Repeat password',
+    name: 'checkPassword',
+    text: 'Repeat password:',
+    required: true,
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.* ).{8,}/,
+    title: 'Must match the password',
+    display: 'inline',
+  };
 
-const sendPasswordRequest = document.createElement('button');
-sendPasswordRequest.classList.add('password__request-button');
-sendPasswordRequest.textContent = 'Update password';
+  const showPasswordOptions: FormBlock = {
+    type: 'checkbox',
+    name: `showPassword`,
+    text: 'Show password:',
+    required: false,
+    placeholder: '',
+  };
 
-passwordBlock.append(
-  prevPassword,
-  password,
-  confirmPassword,
-  sendPasswordRequest,
-);
+  const blocksArr = [
+    passwordOptions,
+    newPasswordOptions,
+    repeatPasswordOptions,
+    showPasswordOptions,
+  ];
 
-const editButton = document.createElement('button');
-editButton.classList.add('user-data__edit-button');
-editButton.textContent = 'edit';
+  const form = document.createElement('form');
+  form.className = 'reg-page__form';
 
-const confirmButton = document.createElement('button');
-confirmButton.classList.add('user-data__confirm-button', 'hidden');
-confirmButton.textContent = 'confirm';
-
-userDataSection.append(
-  editButton,
-  confirmButton,
-  changePasswordButton,
-  passwordBlock,
-);
-
-// Adress section
-
-export const addressSection = document.createElement('div');
-addressSection.classList.add('profile-page__address');
-
-profilePage.append(
-  header,
-  createMenu(userDataSection, addressSection),
-  resultMessage,
-);
-
-// eventListners
-
-/* editButton.addEventListener('click', () => {
-  [name, lastName, birthDate].forEach((el) => {
-    el.children[0].children[1].classList.add('hidden');
-    el.children[0].children[2].classList.remove('hidden');
+  blocksArr.forEach((opt) => {
+    const block = createFormBlock(opt);
+    form.append(block);
   });
-  editButton.classList.add('hidden');
-  confirmButton.classList.remove('hidden');
-});
 
-confirmButton.addEventListener('click', () => {
-  [name, lastName, birthDate].forEach((el) => {
-    el.children[0].children[1].classList.remove('hidden');
-    el.children[0].children[2].classList.add('hidden');
+  const submitBtn = document.createElement('button');
+  submitBtn.textContent = 'apply';
+  submitBtn.type = 'submit';
+  submitBtn.className = 'reg-page__button';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.textContent = 'cancel';
+  cancelBtn.className = 'reg-page__button';
+  cancelBtn.addEventListener('click', (e: Event) => {
+    (e.target as HTMLElement).parentElement?.remove();
+    changePasswordButton.classList.remove('hidden');
   });
-  editButton.classList.remove('hidden');
-  confirmButton.classList.add('hidden');
-});
+
+  form.append(submitBtn, cancelBtn);
+
+  return form;
+}
 
 changePasswordButton.addEventListener('click', () => {
-  passwordBlock.classList.remove('hidden');
+  userDataSection.append(createChangePasswordForm());
   changePasswordButton.classList.add('hidden');
 });
 
-sendPasswordRequest.addEventListener('click', () => {
-  passwordBlock.classList.add('hidden');
-  sendPasswordRequest.classList.remove('hidden');
-}); */
+userDataSection.append(changePasswordButton);
+
+// Adress section
+export const addressSection = document.createElement('div');
+addressSection.classList.add('profile-page__address');
+
+export const addressesSection = document.createElement('div');
+addressesSection.classList.add('reg-page__form');
+export function createAddressForm(): HTMLFormElement {
+  const form = document.createElement('form');
+  form.className = 'profile-page__user-data';
+
+  const defaultShippingBlock = createFormBlock({
+    type: 'checkbox',
+    name: 'defaultShippingAddress',
+    text: 'Address as default Shipping',
+    required: false,
+  });
+
+  const defaultBillingBlock = createFormBlock({
+    type: 'checkbox',
+    name: 'defaultBillingAddress',
+    text: 'Address as default Billing',
+    required: false,
+  });
+
+  const streetOptions: FormBlock = {
+    type: 'text',
+    text: 'Street:',
+    name: 'Street',
+    required: true,
+    pattern: /.+/,
+    title: 'Must contain at least one character',
+    display: 'inline',
+  };
+
+  const cityOptions: FormBlock = {
+    type: 'text',
+    text: 'City:',
+    name: 'City',
+    required: true,
+    pattern: /[A-Za-z]+/,
+    title:
+      'Must contain at least one character and no special characters or numbers',
+    display: 'inline',
+  };
+
+  const postCodeOptions: FormBlock = {
+    type: 'text',
+    text: 'Postal code:',
+    name: 'PostCode',
+    required: true,
+    pattern: /[0-9]{5,7}/,
+    title: 'Must contain from 5 to 7 digits',
+    display: 'inline',
+  };
+
+  const city = createFormBlock(cityOptions);
+  const street = createFormBlock(streetOptions);
+  const postCode = createFormBlock(postCodeOptions);
+
+  const countryBlock = document.createElement('div');
+  countryBlock.classList.add('form__block');
+
+  const countryContainer = document.createElement('div');
+  countryContainer.classList.add('form__flex-container');
+
+  const countryLabel = document.createElement('label');
+  countryLabel.htmlFor = 'Country';
+  countryLabel.textContent = 'Country:';
+  countryLabel.classList.add('form__label');
+
+  const countrySelection = document.createElement('select');
+  countrySelection.name = 'Country';
+  countrySelection.title = 'You should select a country to save this address';
+  countrySelection.classList.add('form__input', 'selection__country');
+
+  const countryMessage = document.createElement('p');
+  countryMessage.classList.add('form__error');
+
+  countryContainer.append(countryLabel, countrySelection);
+
+  countryBlock.append(countryContainer, countryMessage);
+
+  Object.keys(countries).forEach((el) => {
+    const option = document.createElement('option');
+    option.value = el;
+    option.textContent = el;
+    countrySelection.append(option);
+  });
+
+  form.append(
+    countryBlock,
+    city,
+    street,
+    postCode,
+    defaultShippingBlock,
+    defaultBillingBlock,
+  );
+
+  createButtonsFor(form);
+
+  return form;
+}
+
+profilePage.append(
+  resultMessage,
+  header,
+  createMenu(userDataSection, addressesSection),
+);
 
 export default profilePage;

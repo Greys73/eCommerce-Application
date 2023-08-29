@@ -28,4 +28,10 @@ const countries = {
   Sweden: 'SE',
 };
 
+export function getCountryName(code: string): string {
+  const country = Object.entries(countries).find((item) => item[1] === code);
+  const result = country ? country[0] : '';
+  return result;
+}
+
 export default countries;

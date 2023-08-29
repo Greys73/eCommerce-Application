@@ -1,9 +1,11 @@
 // import { lastName, birthDate } from './../view/pages/profile/profile';
-// import { CustomerDraft } from '@commercetools/platform-sdk';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 // import { Address } from '../types/API-interfaces';
 import { getLoacalCustomer } from '../model/login';
 import * as HTML from '../view/pages/profile/profile';
-// import { submitUserData } from '../model/profile';
+import { submitUserData } from '../model/profile';
+import { inputValidationErrorHandler } from './errorHanlders';
+import { getCountryName } from '../model/data/countries';
 // import { createAddressContainer } from '../view/pages/profile/profile';
 
 const hideData = () => HTML.default.classList.add('hidden');
@@ -11,14 +13,18 @@ const showData = () => HTML.default.classList.remove('hidden');
 
 const submitUser = async (e: Event) => {
   e.preventDefault();
-  console.log(e);
-  /* const user: CustomerDraft = {
-    firstName: view.user.firstName.input.value,
-    lastName: view.user.lastName.input.value,
-    dateOfBirth: view.user.birthDate.input.value,
-    email: getLoacalCustomer().email,
+  const regForm = e.target as HTMLFormElement;
+  const formData = new FormData(regForm);
+  const user: CustomerDraft = {
+    email: `${formData.get('email')}`,
+    password: `${formData.get('password')}`,
+    customerNumber: `${formData.get('tel')}`,
+    firstName: `${formData.get('firstName')}`,
+    lastName: `${formData.get('lastName')}`,
+    dateOfBirth: `${formData.get('dateOfBirth')}`,
+    addresses: [],
   };
-  submitUserData(user); */
+  submitUserData(user);
 };
 
 const submitAddress = async (e: Event) => {
@@ -47,22 +53,46 @@ interface FormElements extends HTMLFormControlsCollection {
   lastName: HTMLInputElement;
   phone: HTMLInputElement;
   dateOfBirth: HTMLInputElement;
+
+  defaultShippingAddress: HTMLInputElement;
+  defaultBillingAddress: HTMLInputElement;
+  Street: HTMLInputElement;
+  City: HTMLInputElement;
+  PostCode: HTMLInputElement;
+  Country: HTMLInputElement;
 }
 
-function fillForm() {
+function fillForms() {
+  Array.from(document.forms).forEach((form) => {
+    form.remove();
+  });
+
   const customer = getLoacalCustomer();
-  const form = HTML.createUserDataForm();
-  const elements = form.elements as FormElements;
 
-  elements.email.value = customer.email;
-  elements.firstName.value = customer.firstName;
-  elements.lastName.value = customer.lastName;
-  elements.phone.value = customer.customerNumber;
-  elements.dateOfBirth.value = customer.dateOfBirth;
+  const userDataForm = HTML.createUserDataForm();
+  const user = userDataForm.elements as FormElements;
 
-  HTML.userDataSection.innerHTML = '';
-  HTML.userDataSection.append(form);
-  form.addEventListener('submit', submitUser);
+  user.email.value = customer.email;
+  user.firstName.value = customer.firstName;
+  user.lastName.value = customer.lastName;
+  user.phone.value = customer.customerNumber;
+  user.dateOfBirth.value = customer.dateOfBirth;
+
+  HTML.userDataSection.prepend(userDataForm);
+  userDataForm.addEventListener('submit', submitUser);
+
+  Array.from(customer.addresses).forEach((val, id) => {
+    const addressForm = HTML.createAddressForm();
+    const address = addressForm.elements as FormElements;
+    // element.defaultShippingAddress.value = customer.
+    // element.defaultBillingAddress.value = customer.
+    address.Country.value = getCountryName(customer.addresses[id].country);
+    address.City.value = customer.addresses[id].city || '';
+    address.Street.value = customer.addresses[id].streetName || '';
+    address.PostCode.value = customer.addresses[id].postalCode || '';
+    HTML.addressesSection.prepend(addressForm);
+    addressForm.addEventListener('submit', submitAddress);
+  });
 
   /* customer.addresses.forEach((val, id) => {
     const address = view.adresses[id];
@@ -82,7 +112,11 @@ function fillForm() {
     // address.btnDefShip.addEventListener('click', submitUser);
     // address.btnDefBill.addEventListener('click', submitUser);
   }); */
-  form.addEventListener('click', submitAddress);
+
+  const profileInputs = [...HTML.default.querySelectorAll('input')];
+  profileInputs.forEach((input) => {
+    input.addEventListener('input', inputValidationErrorHandler);
+  });
 }
 
 function pageLoaded() {
@@ -93,7 +127,7 @@ function pageLoaded() {
       if ('id' in customer) {
         hideData();
         showData();
-        fillForm();
+        fillForms();
       } else window.routeLocation = '/login';
     }, 50);
   }
