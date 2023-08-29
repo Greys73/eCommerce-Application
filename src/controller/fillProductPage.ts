@@ -137,6 +137,7 @@ export const fillProductPage = async (SKU: string) => {
   if (currentVariant.prices.length > 0) fillPriceCont(currentVariant.prices[0]);
   fillFeatures(currentVariant.attributes);
   fillImageSlider(currentVariant.images);
-  fillSliderControls(currentVariant.images);
+  if (currentVariant.images.length > 1)
+    fillSliderControls(currentVariant.images);
   fillVariants(variants);
 };
