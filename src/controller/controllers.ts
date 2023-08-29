@@ -5,3 +5,4 @@ import './regSubmitHandler';
 import './regFormHandlers';
 import './headerHandlers';
 import './profilePageHandlers';
+import './fillProductPage';
