@@ -1,22 +1,11 @@
-import filterImg from '../../../assets/images/filter-ico.png';
-
 const filters = document.createElement('div');
 filters.classList.add('catalog__filters');
 
 const filtersBlock = document.createElement('div');
 filtersBlock.classList.add('filters__filter-block');
 
-const iconBlock = document.createElement('div');
-iconBlock.classList.add('filters__icon-block');
+// get arrs from API
 
-const icon = document.createElement('img');
-icon.classList.add('icon-block__icon');
-icon.src = filterImg;
-icon.alt = 'filter-icon';
-
-iconBlock.append(icon);
-
-// get arr from API
 const companyArr = ['Honda', 'Yamaha', 'Suzuki', 'Kawasaki'];
 
 const typesArr = ['Standard', 'Sport', 'Cruiser', 'Touring'];
@@ -26,6 +15,8 @@ const colorsArr = ['Black', 'Blue', 'Red', 'Yellow', 'Green'];
 const drivetrainsArr = ['Chain', 'Belt', 'Shaft'];
 
 const brakesArr = ['Disc', 'Drum', 'Disc and drum'];
+
+// finish with API
 
 function createFilter(filterName: string, id: string): HTMLElement {
   const filter = document.createElement('div');
@@ -142,6 +133,6 @@ filtersBlock.append(
   drivetrain,
 );
 
-filters.append(iconBlock, filtersBlock);
+filters.append(filtersBlock);
 
 export default filters;
