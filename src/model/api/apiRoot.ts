@@ -12,6 +12,21 @@ const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: 'ddt-e-commerce-rss-app',
 });
 
+export const getCustomerById = (id: string) => {
+  try {
+    if (!id) return false;
+    return apiRoot
+      .customers()
+      .withId({ ID: id })
+      .get()
+      .execute()
+      .then((obj) => obj)
+      .catch((err) => err);
+  } catch {
+    return false;
+  }
+};
+
 export const viewCustomers = () =>
   apiRoot
     .customers()
@@ -43,6 +58,50 @@ export const loginCustomer = (userEmail: string, userPassword: string) =>
         password: userPassword,
         activeCartSignInMode: 'MergeWithExistingCustomerCart',
         updateProductData: true,
+      },
+    })
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getProductsBySearchField = (searchValue: string) =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        'text.en': searchValue,
+      },
+    })
+    .execute()
+    .then((obj) => obj.body.results)
+    .catch((err) => err);
+
+export const getProductByID = (productID: string) =>
+  apiRoot
+    .products()
+    .withId({ ID: productID })
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getProductByKey = (productKey: string) =>
+  apiRoot
+    .products()
+    .withKey({ key: productKey })
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getProductBySKU = (SKU: string) =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        filter: [`variants.sku:"${SKU}"`],
       },
     })
     .execute()

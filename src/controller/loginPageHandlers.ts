@@ -45,7 +45,7 @@ function checkCustomer() {
     setTimeout(() => {
       const customer = getLoacalCustomer();
       if ('id' in customer) window.routeLocation = '/';
-    }, 500);
+    }, 50);
   }
 }
 

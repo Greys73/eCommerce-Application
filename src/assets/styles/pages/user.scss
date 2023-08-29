@@ -1,0 +1,244 @@
+@import '../general.scss';
+@import '../elements/form.scss';
+
+.profile-page {
+  // width: 100%;  
+}
+
+.profile-page__header {
+  @include _mainFont(35px);
+  margin: calc($marginDesctop / 2) 0;
+  text-align: center;
+  @include _tablet {
+    font-size: 25px;
+    margin: calc($marginTablet / 2) 0;
+  }
+  @include _mobile {
+    font-size: 20px;
+    margin: calc($marginMobile / 2) 0;
+  }
+}
+
+.profile-page__user-data,
+.address__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid rgba($color: #2F4F4F, $alpha: 0.2);
+  border-radius: 20px;
+  padding: calc($marginDesctop / 4);
+  margin-bottom: calc($marginDesctop / 4);
+  @include _mobile {
+    padding: calc($marginTablet / 4);
+    margin-bottom: calc($marginTablet / 4);
+  }
+  @include _mobile {
+    padding: calc($marginMobile / 4);
+    margin-bottom: calc($marginMobile / 4);
+  }
+}
+
+.user-data__header,
+.address__header {
+  @include _mainFont(25px);
+  margin-top: calc($marginDesctop / 2);
+  margin-bottom: calc($marginDesctop / 4);
+  text-align: center;
+  @include _tablet {
+    font-size: 20px;
+    margin-top: calc($marginTablet / 2);
+    margin-bottom: calc($marginTablet / 4);
+  }
+  @include _mobile {
+    font-size: 16px;
+    margin-top: calc($marginMobile / 2);
+    margin-bottom: calc($marginMobile / 4);
+  }
+}
+
+.user-data__data-block {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: calc($marginDesctop / 4);
+  @include _tablet {
+    margin: calc($marginTablet / 4);
+  }
+  @include _mobile {
+    justify-content: center;
+    margin: calc($marginMobile / 2);
+  }
+}
+
+.user-data__description,
+.user-data__value,
+.user-data__input {
+  @include _mainFont(20px);
+  text-align: center;
+  margin: 0 calc($marginDesctop / 4);
+  @include _tablet {
+    font-size: 16px;
+    margin: 0 calc($marginTablet / 4);
+  }
+  @include _mobile {
+    font-size: 12px;
+    margin: 0 calc($marginMobile / 2);
+  }
+}
+
+.user-data__value {
+  font-weight: 700;
+  color: darkcyan;
+}
+
+.user-data__input {
+  display: block;
+  width: 400px;
+  min-height: 30px;
+  text-align: center;
+  border: solid 1px cornflowerblue;
+  border-radius: 10px;
+  padding: 0 15px;
+  @include _tablet {
+    width: 300px;
+    min-height: 25px;
+  }
+  @include _mobile {
+    width: 250px;
+    min-height: 20px;
+  }
+}
+
+.user-data__error-block {
+  display: block;
+  text-align: center;
+  @include _mainFont(16px);
+  color: crimson;
+  margin-bottom: calc($marginDesctop / 4);
+  @include _tablet {
+    font-size: 12px;
+  }
+}
+
+.user-data__edit-button,
+.user-data__confirm-button {
+  margin: 0 auto;
+  border: none;
+  @include _button(80px, 30px, 16px);
+  @include _tablet {
+    @include _button(65px, 25px, 14px);
+  }
+  @include _mobile {
+    @include _button(55px, 20px, 12px);
+    border-radius: 8px;
+  }
+}
+
+.user-data__confirm-button {
+  &:hover {
+    background-color: limegreen;
+  }
+}
+
+.user-data__password-button {
+  display: block;
+  margin: calc($marginDesctop / 2) auto;
+  border: none;
+  @include _button(220px, 30px, 20px);
+  @include _tablet {
+    margin: calc($marginTablet / 2) auto;
+    @include _button(180px, 25px, 16px);
+  }
+  @include _mobile {
+    margin: calc($marginMobile) auto;
+    @include _button(150px, 20px, 14px);
+    border-radius: 8px;
+  }
+}
+
+.user-data__description_password {
+  width: 210px;
+  text-align: start;
+  @include _tablet {
+    width: 170px;
+  }
+  @include _mobile {
+    width: 130px;
+    text-align: center;
+  }
+}
+
+.password__request-button {
+  display: block;
+  margin: calc($marginDesctop / 2) auto;
+  border: none;
+  @include _button(210px, 30px, 20px);
+  @include _tablet {
+    margin: calc($marginTablet / 2) auto;
+    @include _button(175px, 25px, 16px);
+  }
+  @include _mobile {
+    margin: calc($marginMobile) auto;
+    @include _button(145px, 20px, 14px);
+    border-radius: 8px;
+  }
+  &:hover {
+    background-color: limegreen;
+  }
+}
+
+.address__default-button {
+  display: block;
+  margin: calc($marginDesctop / 4) auto;
+  border: none;
+  @include _button(200px, 30px, 16px);
+  @include _tablet {
+    @include _button(175px, 25px, 14px);
+  }
+  @include _mobile {
+    @include _button(150px, 20px, 12px);
+    border-radius: 8px;
+  }
+  &:hover {
+    background-color: limegreen;
+  }
+}
+
+.address__marker_shipping,
+.address__marker_billing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include _font(16px);
+  width: 130px;
+  height: 22px;
+  border-radius: 8px;
+  margin: calc($marginDesctop / 8);
+  @include _tablet {
+    font-size: 12px;
+    width: 110px;
+    height: 18px;
+    margin: calc($marginTablet / 8);
+  }
+  @include _mobile {
+    font-size: 10px;
+    width: 80px;
+    height: 14px;
+    margin: calc($marginTablet / 8);
+  }
+}
+
+.address__marker_shipping {
+  background-color: MidnightBlue;
+}
+
+.address__marker_billing {
+  background-color: DarkOrchid;
+}
+
+.background-shipping {
+  background-color: rgba($color: #4169E1, $alpha: .2);
+}
+
+.background-billing {
+  background-color: rgba($color: #9932CC, $alpha: .2);
+}
