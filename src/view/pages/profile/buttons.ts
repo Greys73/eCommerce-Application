@@ -19,13 +19,14 @@ function createButtonsFor(form: HTMLFormElement) {
 
   form.append(editBtn);
 
-  const editMode = (mode: boolean) => {
-    if (mode) {
+  const editMode = (isEdit: boolean) => {
+    if (isEdit) {
       editBtn.remove();
       form.append(btnBlock);
       Array.from(form.elements).forEach((element) => {
         const el = element as HTMLInputElement;
         if (el.tagName.toLocaleLowerCase() !== 'button') el.disabled = false;
+        if (el.name === 'phone') el.disabled = true;
       });
     } else {
       btnBlock.remove();
@@ -36,7 +37,10 @@ function createButtonsFor(form: HTMLFormElement) {
       });
     }
   };
-  cancelBtn.addEventListener('click', () => editMode(false));
+  cancelBtn.addEventListener('click', () => {
+    window.dispatchEvent(new Event('DOMContentLoaded'));
+    editMode(false);
+  });
   editBtn.addEventListener('click', () => editMode(true));
   editMode(false);
 }

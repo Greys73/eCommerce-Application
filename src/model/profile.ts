@@ -6,7 +6,6 @@ import {
 import { getLoacalCustomer, setLoacalCustomer } from './login';
 import { updateCustomerData } from './api/apiRoot';
 import resultMessage from '../view/pages/profile/resultMessage';
-import countries from './data/countries';
 import { AddressVariant } from '../types/type';
 
 async function update(data: CustomerUpdateAction[]) {
@@ -26,6 +25,15 @@ async function update(data: CustomerUpdateAction[]) {
     resultMessage.classList.add('hidden');
   }, 3000);
   return response;
+}
+
+export async function deleteAddress(id: string) {
+  const data: CustomerUpdateAction[] = [];
+  data.push({
+    action: 'removeAddress',
+    addressId: id,
+  });
+  update(data);
 }
 
 export async function submitUserData(user: CustomerDraft) {
@@ -60,7 +68,7 @@ export async function submitAddressData(
   );
   const data: CustomerUpdateAction[] = [];
   if (lsAddress) {
-    lsAddress.country = countries[address.country as keyof typeof countries];
+    lsAddress.country = address.country;
     lsAddress.city = address.city;
     lsAddress.streetName = address.streetName;
     lsAddress.postalCode = address.postalCode;
@@ -70,6 +78,10 @@ export async function submitAddressData(
       address: lsAddress,
     });
 
+    if (customer.billingAddressIds.find((el: string) => el === address.id))
+      data.push({ action: 'removeBillingAddressId', addressId: address.id });
+    if (customer.shippingAddressIds.find((el: string) => el === address.id))
+      data.push({ action: 'removeShippingAddressId', addressId: address.id });
     if (type.billing)
       data.push({ action: 'addBillingAddressId', addressId: address.id });
     if (type.shipping)
@@ -78,16 +90,32 @@ export async function submitAddressData(
       data.push({ action: 'setDefaultBillingAddress', addressId: address.id });
     if (type.defShipping)
       data.push({ action: 'setDefaultShippingAddress', addressId: address.id });
+
+    update(data);
   } else {
     data.push({
       action: 'addAddress',
       address: {
-        country: countries[address.country as keyof typeof countries],
+        country: address.country,
         city: address.city,
         streetName: address.streetName,
         postalCode: address.postalCode,
       },
     });
+
+    update(data).then((response) => {
+      response.body.addresses.forEach((adr: AddressDraft) => {
+        try {
+          const emerged: boolean =
+            customer.addresses.findIndex(
+              (el: AddressDraft) => el.id === adr.id,
+            ) < 0;
+          if (emerged) submitAddressData(adr, type);
+          return true;
+        } catch {
+          return false;
+        }
+      });
+    });
   }
-  update(data);
 }

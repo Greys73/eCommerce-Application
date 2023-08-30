@@ -1,13 +1,23 @@
 import { AddressDraft, CustomerDraft } from '@commercetools/platform-sdk';
 import { getLoacalCustomer } from '../model/login';
 import * as HTML from '../view/pages/profile/profile';
-import { submitAddressData, submitUserData } from '../model/profile';
+import {
+  deleteAddress,
+  submitAddressData,
+  submitUserData,
+} from '../model/profile';
 import { inputValidationErrorHandler } from './errorHanlders';
-import { getCountryName } from '../model/data/countries';
+import countries, { getCountryName } from '../model/data/countries';
 import { AddressVariant, FormElements } from '../types/type';
 
 const hideData = () => HTML.default.classList.add('hidden');
 const showData = () => HTML.default.classList.remove('hidden');
+
+const removeForm = async (e: Event) => {
+  e.preventDefault();
+  const form = (e.target as HTMLElement).parentElement as HTMLFormElement;
+  deleteAddress(form.id);
+};
 
 const submitUser = async (e: Event) => {
   e.preventDefault();
@@ -30,15 +40,16 @@ const submitAddress = async (e: Event) => {
   const formData = form.elements as FormElements;
   const address: AddressDraft = {
     id: form.id,
-    country: formData.Country.value,
+    country: countries[formData.Country.value as keyof typeof countries],
     city: formData.City.value,
     streetName: formData.Street.value,
     postalCode: formData.PostCode.value,
   };
-  // const addressIndex = customer.addresses.findIndex((el: AddressDraft) => el.id === form.id);
+
+  const { selectedIndex } = formData.addressType;
   const type: AddressVariant = {
-    billing: formData.addressType.selectedIndex === 1,
-    shipping: formData.addressType.selectedIndex === 2,
+    billing: selectedIndex === 1 || selectedIndex === 3,
+    shipping: selectedIndex === 2 || selectedIndex === 3,
     defbilling: formData.defaultBillingAddress.checked,
     defShipping: formData.defaultShippingAddress.checked,
   };
@@ -47,12 +58,11 @@ const submitAddress = async (e: Event) => {
 
 function getAddressType(id: string): number {
   const customer = getLoacalCustomer();
-  console.log(customer);
   let type = 0;
-  if (customer.billingAddressIds.findIndex((el: string) => el === id) >= 0)
-    type = 1;
   if (customer.shippingAddressIds.findIndex((el: string) => el === id) >= 0)
     type = 2;
+  if (customer.billingAddressIds.findIndex((el: string) => el === id) >= 0)
+    type += 1;
   return type;
 }
 
@@ -101,6 +111,7 @@ function fillForms() {
     HTML.addressesSection.append(addressForm);
 
     addressForm.addEventListener('submit', submitAddress);
+    address.deleteBtn.addEventListener('click', removeForm);
   });
 
   HTML.createAddressBtn.addEventListener('click', createNewAddress);

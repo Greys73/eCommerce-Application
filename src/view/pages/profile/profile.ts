@@ -242,7 +242,7 @@ export function createAddressForm(): HTMLFormElement {
     text: 'Adress type:',
     name: 'addressType',
     required: true,
-    selectOptions: ['', 'billing', 'shipping'],
+    selectOptions: ['', 'billing', 'shipping', 'shipping + billing'],
   };
 
   const countryOptions: FormBlock = {
@@ -258,6 +258,7 @@ export function createAddressForm(): HTMLFormElement {
   delBtn.classList.add('user-data__password-button');
   delBtn.style.marginRight = '0';
   delBtn.style.width = 'auto';
+  delBtn.name = 'deleteBtn';
   delBtn.type = 'button';
   delBtn.textContent = 'Delete';
 

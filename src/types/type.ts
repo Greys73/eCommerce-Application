@@ -38,4 +38,5 @@ export interface FormElements extends HTMLFormControlsCollection {
   PostCode: HTMLInputElement;
   Country: HTMLInputElement;
   addressType: HTMLSelectElement;
+  deleteBtn: HTMLButtonElement;
 }
