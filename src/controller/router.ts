@@ -3,13 +3,13 @@ import * as mainPage from '../view/pages/main/main';
 import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
-import * as profilePage from '../view/pages/user/user';
-import * as productPage from '../view/pages/product/product';
 import * as productsPage from '../view/pages/catalog/catalog';
-
+import * as productPage from '../view/pages/product/product';
+import * as profilePage from '../view/pages/user/user';
 type RoutesType = {
   [key: string]: HTMLElement;
 };
+
 const routes: RoutesType = {
   '/': mainPage.default,
   '/products': productsPage.default,
