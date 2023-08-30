@@ -1,3 +1,5 @@
+import { Price } from '@commercetools/platform-sdk';
+
 export type FormBlock = {
   type: string;
   placeholder?: string;
@@ -40,3 +42,32 @@ export interface FormElements extends HTMLFormControlsCollection {
   addressType: HTMLSelectElement;
   deleteBtn: HTMLButtonElement;
 }
+
+export type ProductOptions = {
+  name: string;
+  description?: string;
+  currentVariant: ProductVariant;
+};
+
+export type ProductVariant = {
+  id: number;
+  attributes: Attribute[];
+  images: Images[];
+  prices: Price[];
+  sku: string;
+};
+
+type Attribute = {
+  name: string;
+  value: number | AttrValue | string;
+};
+
+export type AttrValue = {
+  key: string;
+  label: string;
+};
+type Images = {
+  dimensions: object;
+  label: string;
+  url: string;
+};
