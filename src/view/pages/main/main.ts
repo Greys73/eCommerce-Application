@@ -1,5 +1,4 @@
-// const dummy = document.createElement('div');
-// dummy.textContent = 'This is MAIN page';
+import categoryLogoObj from '../../../model/data/images-src';
 
 const mainPage = document.createElement('div');
 mainPage.classList.add('main-page');
@@ -31,5 +30,21 @@ textArr.forEach((text) => {
   catalogText.textContent = text;
   mainPage.append(catalogText);
 });
+
+const categoryArr = ['Honda', 'Kawasaki', 'Yamaha', 'Suzuki'];
+
+const categorySection = document.createElement('div');
+categorySection.classList.add('main-page__brands');
+
+categoryArr.forEach((el) => {
+  const logo = document.createElement('img');
+  logo.classList.add('brands__logo');
+  logo.src = categoryLogoObj[el];
+  logo.alt = `${el}-logo`;
+
+  categorySection.append(logo);
+});
+
+mainPage.append(categorySection);
 
 export default mainPage;

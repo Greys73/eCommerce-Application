@@ -1,0 +1,401 @@
+@import '../general.scss';
+
+.products-page {  
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  border: 1px solid rgba($color: #4682B4, $alpha: .3);
+  border-top: 0px;
+  @include _mobile {
+    border: none;
+  }
+}
+
+.catalog__filters {
+  width: 25%;
+  max-width: 400px;
+  min-width: 250px;
+  min-height: 100%;
+  border-right: 1px solid rgba($color: #4682B4, $alpha: .3);
+  border-top: 0px;
+  @include _tablet {
+    min-width: 200px;
+  }
+  @include _mobile {
+    display: none;
+    position: absolute;
+    background-color: rgba($color: #6495ED, $alpha: .95);
+    border-radius: 0 0 $marginMobile 0;
+    left: 0px;
+  }
+}
+
+.filters__filter {
+  margin: $marginDesctopDiv2;
+  @include _tablet {
+    margin: $marginTabletDiv2;
+  }
+}
+
+.filters__icon-block {
+  display: none;
+  @include _mobile {
+    display: block;
+    position: absolute;
+    top: 55px;
+    right: $marginMobile;
+  }
+}
+
+.icon-block__icon {
+  width: 25px;
+}
+
+.filter__header {
+  @include _mainFont(16px);
+  font-weight: 700;
+  margin: $marginDesctopDiv4 0;
+  color: steelblue;
+  @include _tablet {
+    font-size: 14px;
+    margin: $marginTabletDiv4 0;
+  }
+  @include _mobile {
+    color: DarkSlateGray;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.filter__range-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: $marginDesctopDiv4 0;
+  @include _tablet {
+    margin: $marginTabletDiv4 0;
+  }
+}
+
+.filter__label {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  @include _mainFont(16px);
+  margin: $marginDesctopDiv8 0;
+  margin-top: 0;
+  @include _tablet {
+    font-size: 14px;
+  }
+}
+
+.filter__range-input {
+  display: block;
+  width: 50px;
+  min-height: 25px;
+  @include _mainFont(16px);
+  text-align: center;
+  border-radius: 5px;
+  border: solid 1px steelblue;
+  padding: 0 5px;
+  margin: 0 $marginDesctopDiv8;
+  @include _tablet {
+    width: 45px;
+    font-size: 14px;
+    min-height: 20px;
+  }
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.filter__checkbox-input {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: $marginDesctopDiv8;
+}
+
+.catalog__items {
+  width: max-content;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.items__routing {
+  display: flex;
+  background-color: rgba($color: #778899, $alpha: .1);
+  @include _mobile {
+    background-color: white;
+  }
+}
+
+.routing__text {
+  @include _mainFont(16px);
+  color: darkcyan;
+  white-space: pre;
+  margin: calc($marginDesctop / 4) 0;
+  @include _tablet {
+    font-size: 14px;
+    margin: $marginTabletDiv4 0;
+    margin-top: $marginTabletDiv2;
+  }
+  &:hover {
+    cursor: pointer;
+    color: lightseagreen;
+  }
+  &:first-child {
+    margin-left: calc($marginDesctop / 4);
+  }
+}
+
+.items__search {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba($color: #778899, $alpha: .05);
+  @include _mobile {
+    background-color: white;
+  }
+}
+
+.search__search-field {
+  display: block;
+  width: 300px;
+  min-height: 25px;
+  @include _mainFont(16px);
+  margin: calc($marginDesctop / 4) calc($marginDesctop / 2);
+  text-align: center;
+  border-radius: 5px;
+  border: solid 1px steelblue;
+  padding: 0 15px;
+  color: #346085;
+  @include _tablet {
+    width: 250px;
+    min-height: 20px;
+    font-size: 14px;
+    margin: $marginTabletDiv4 $marginTabletDiv2;
+  }
+  @include _mobile {
+    width: 150px;
+    min-height: 16px;
+    font-size: 12px;
+  }
+  &:focus {
+    outline-color: steelblue;
+  }
+  &::placeholder {
+    color: LightSteelBlue;
+  }
+}
+
+.search__filter {
+  @include _mainFont(16px);
+  color: darkslategray;
+  margin: auto calc($marginDesctop);
+  @include _tablet {
+    font-size: 14px;
+    margin: auto $marginTablet;
+  }
+  @include _mobile {
+    font-size: 12px;
+    margin: auto $marginMobile;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.items__category {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  background-color: rgba($color: #778899, $alpha: .03);
+  @include _mobile {
+    background-color: white;
+    border-bottom: 1px solid rgba($color: #4682B4, $alpha: .3);
+    border-radius: 50px;
+  }
+}
+
+.category__logo {
+  margin: 3%;
+  width: 15%;
+  min-width: 150px;
+  border-radius: 5%;
+  border: 1px solid rgba($color: #778899, $alpha: .03);
+  @media (max-width: 390px) {
+    min-width: 120px;
+  }
+  &:hover {
+    cursor: pointer;
+    scale: 1.05;
+    border: 1px solid rgba($color: #B0C4DE, $alpha: .3);
+    background-color: rgba($color: #1E90FF, $alpha: .05);
+  }
+}
+
+.items__cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  gap: calc($marginDesctop / 2);
+
+  margin: calc($marginDesctop / 2);
+
+  @media (max-width: 1699.98px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 1449.98px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include _tablet {
+    gap: $marginTablet;
+    grid-template-columns: repeat(4, 1fr);
+    @media (max-width: 1149.98px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 929.98px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @include _mobile {
+    gap: $marginMobile;
+    grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 689.98px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 479.98px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.cards__card {
+  width: 250px;
+  border: 1px solid rgba($color: #4682B4, $alpha: .3);
+  border-radius: calc($marginDesctop / 2);
+  margin: 0 auto;
+  @include _tablet {
+    width: 200px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($color: #4682B4, $alpha: .1);
+    transform: scale(1.02);
+    box-shadow: 0px 0px $marginTablet calc($marginMobile / 2 - $marginMobile) steelblue;
+  }
+}
+
+.card__name {
+  @include _mainFont(20px);
+  margin: calc($marginDesctop / 2) calc($marginDesctop / 4);
+  margin-bottom: 0px;
+  text-align: center;
+  font-weight: 700;
+  @include _tablet {
+    font-size: 16px;
+    margin: $marginTabletDiv2 $marginTabletDiv4;
+  }
+  @include _mobile {
+    font-size: 14px;
+    margin: $marginMobile $marginMobileDiv2;
+  }
+}
+
+.card__image {
+  width: 250px;
+  margin: calc($marginDesctop / 2) auto;
+  margin-bottom: 0px;
+  @include _tablet {
+    width: 200px;
+    margin: $marginTabletDiv2 auto;
+  }
+}
+
+.card__text {
+  @include _mainFont(16px);
+  margin: calc($marginDesctop / 2) calc($marginDesctop / 4);
+  margin-bottom: 0px;
+  text-align: center;
+  @include _tablet {
+    font-size: 14px;
+    margin: $marginTabletDiv2 $marginTabletDiv4;
+    margin-bottom: 0;
+  }
+  // @include _mobile {
+  //   font-size: 12px;
+  //   margin: $marginMobileDiv2;
+  //   margin-bottom: 0;
+  // }
+}
+
+.card__price-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: pre;
+  margin: calc($marginDesctop / 2) calc($marginDesctop / 4);
+  margin-bottom: 0px;
+  @include _tablet {
+    margin: $marginTabletDiv2 $marginTabletDiv4;
+    margin-bottom: 0;
+  }
+  // @include _mobile {
+  //   margin: $marginMobileDiv2;
+  //   margin-bottom: 0;
+  // }
+}
+
+.price-block__price {
+  @include _mainFont(16px);
+  font-weight: 700;
+  margin-right: calc($marginDesctop / 8);
+  @include _tablet {
+    font-size: 14px;
+  }
+}
+
+.price-block__discont-price {
+  display: flex;
+  @include _mainFont(16px);
+  font-weight: 700;
+  color: crimson;
+  @include _tablet {
+    font-size: 14px;
+  }
+}
+
+.price-block__discont {
+  @include _mainFont(12px);
+  font-weight: 700;
+  color: crimson;
+  margin-left: calc($marginDesctop / 8);
+  @include _tablet {
+    margin-left: 2px;
+  }
+}
+
+.card__button {
+  @include _button(120px, 25px, 16px);
+  border: 0px;
+  margin: calc($marginDesctop / 2) auto;
+  @include _tablet {
+    margin: $marginTablet auto;
+  }
+  // @include _mobile {
+  //   margin: $marginMobile auto;
+  //   @include _button(100px, 20px, 14px);
+  // }
+
+  &:hover {
+    background-color: limegreen;
+  };
+}
