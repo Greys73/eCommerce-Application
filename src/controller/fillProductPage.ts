@@ -22,7 +22,8 @@ const fillPriceCont = (priceOptions: Price) => {
           priceOptions.value.centAmount) *
         100,
     );
-    product.discount.textContent = `${discountValue}%`;
+    product.discount.textContent = `-${discountValue}%`;
+    product.basePrice.classList.add('price__base_discont');
   } else {
     product.currentPrice.textContent = price;
   }
@@ -98,24 +99,24 @@ const fillVariants = (variants: ProductVariant[]) => {
     return 'default';
   });
   // eslint-disable-next-line prefer-destructuring
-  product.mainVariant.style.backgroundColor = colors[0];
+  const mainVariantColor = colors[0];
+  product.mainVariant.style.backgroundColor = mainVariantColor;
+  product.mainVariant.style.borderColor = mainVariantColor;
   if (colors.length > 1) {
     for (let i = 1; i < colors.length; i += 1) {
       const variant = document.createElement('a');
       variant.className = 'variants__links';
       // css
-      variant.style.display = 'block';
-      variant.style.width = '40px';
-      variant.style.height = '40px';
-      variant.style.borderRadius = '50%';
+
       variant.style.borderColor = 'black';
       variant.style.borderStyle = 'solid';
 
       variant.style.backgroundColor = colors[i];
+      variant.style.borderColor = colors[i];
       variant.title = variants[i].sku;
       // add correct link
       variant.href = `/product/${variants[i].sku}`;
-      product.variants.append(variant);
+      product.variantsBlock.append(variant);
     }
   }
 };

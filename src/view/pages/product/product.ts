@@ -4,33 +4,32 @@ name.className = 'product__name';
 
 // price
 const priceCont = document.createElement('div');
-priceCont.className = 'price';
+priceCont.className = 'product__price';
 
 const discountCont = document.createElement('div');
-discountCont.className = 'price__discount';
+discountCont.className = 'price__base-block';
 
 const basePrice = document.createElement('div');
-basePrice.className = 'price__base';
+basePrice.classList.add('price__base');
 
 const discount = document.createElement('div');
-discount.className = 'price__disc';
+discount.classList.add('price__discont');
 
 const currentPrice = document.createElement('div');
-currentPrice.className = 'price__cur';
+currentPrice.className = 'price__curent';
 
 discountCont.append(basePrice, discount);
-priceCont.append(discountCont, currentPrice);
+priceCont.append(currentPrice, discountCont);
 
 // image
 const imgSlider = document.createElement('div');
-imgSlider.className = 'image';
+imgSlider.className = 'product__image';
 
 const imgCont = document.createElement('div');
-imgCont.className = 'image__cont';
+imgCont.className = 'image__image-block';
 
 const img = document.createElement('img');
-// remove here and add in css
-img.width = 600;
+img.className = 'image-block__picture';
 imgCont.append(img);
 
 const sliderControls = document.createElement('div');
@@ -40,17 +39,19 @@ imgSlider.append(imgCont, sliderControls);
 
 // variants
 const variants = document.createElement('div');
-variants.className = 'variants';
-variants.textContent = 'Choose color';
+variants.className = 'product__variants';
+variants.textContent = 'Variants:';
+
+const variantsBlock = document.createElement('div');
+variantsBlock.className = 'variants__variants-block';
+
 const mainVariant = document.createElement('div');
-mainVariant.className = 'variants__main';
-variants.append(mainVariant);
+mainVariant.classList.add('variants__main', 'variants__selected');
+
+variantsBlock.append(mainVariant);
+
+variants.append(variantsBlock);
 // css
-mainVariant.style.width = '40px';
-mainVariant.style.height = '40px';
-mainVariant.style.borderRadius = '50%';
-mainVariant.style.borderColor = 'black';
-mainVariant.style.borderStyle = 'solid';
 
 // description
 const description = document.createElement('p');
@@ -58,15 +59,15 @@ description.className = 'product__description';
 
 // features
 const features = document.createElement('div');
-features.className = 'features';
+features.className = 'product__features';
 
 const featureHeading = document.createElement('h4');
-featureHeading.textContent = 'Features';
-featureHeading.className = 'feature__heading';
+featureHeading.textContent = 'Features:';
+featureHeading.className = 'features__header';
 features.append(featureHeading);
 
 const productPage = document.createElement('div');
-productPage.className = 'product__cont';
+productPage.className = 'product-page';
 productPage.append(name, priceCont, imgSlider, variants, description, features);
 
 export default productPage;
@@ -81,7 +82,7 @@ export {
   imgCont,
   img,
   sliderControls,
-  variants,
+  variantsBlock,
   mainVariant,
   description,
   features,
