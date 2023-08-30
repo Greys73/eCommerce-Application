@@ -48,7 +48,7 @@ const fillFeatures = (attr: ProductVariant['attributes']) => {
     }
     switch (name) {
       case 'Power: ':
-        featureValue.textContent += ' pt';
+        featureValue.textContent += ' hp';
         break;
       case 'Weight: ':
         featureValue.textContent += ' kg';
