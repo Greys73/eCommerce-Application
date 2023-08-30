@@ -1,8 +1,8 @@
 import { Price } from '@commercetools/platform-sdk';
 import { getProductBySKU } from '../model/api/apiRoot';
-// import { ProductOptions } from '../types/type';
 import * as product from '../view/pages/product/product';
 import { AttrValue, ProductVariant } from '../types/type';
+import productImages from '../model/data/productImages';
 
 const fillPriceCont = (priceOptions: Price) => {
   const centsPerEuro = 100;
@@ -22,7 +22,8 @@ const fillPriceCont = (priceOptions: Price) => {
           priceOptions.value.centAmount) *
         100,
     );
-    product.discount.textContent = `${discountValue}%`;
+    product.discount.textContent = `-${discountValue}%`;
+    product.basePrice.classList.add('price__base_discont');
   } else {
     product.currentPrice.textContent = price;
   }
@@ -47,7 +48,7 @@ const fillFeatures = (attr: ProductVariant['attributes']) => {
     }
     switch (name) {
       case 'Power: ':
-        featureValue.textContent += ' pt';
+        featureValue.textContent += ' hp';
         break;
       case 'Weight: ':
         featureValue.textContent += ' kg';
@@ -66,21 +67,25 @@ const fillFeatures = (attr: ProductVariant['attributes']) => {
 const fillImageSlider = (images: ProductVariant['images']) => {
   product.img.src = images[0].url;
   product.img.alt = images[0].label;
-  //   for (let i = 0; i < images.length; i += 1) {
-  //     const { url } = images[i];
-  //  }
+  productImages.splice(0);
+  for (let i = 0; i < images.length; i += 1) {
+    const { url } = images[i];
+    productImages.push(url);
+  }
 };
 const fillSliderControls = (images: ProductVariant['images']) => {
   for (let i = 0; i < images.length; i += 1) {
     const dot = document.createElement('div');
     dot.className = 'controls__item';
-    // move to css
-    dot.style.width = '20px';
-    dot.style.height = '20px';
-    dot.style.backgroundColor = 'grey';
-    dot.style.borderRadius = '50%';
+    if (i === 0) {
+      dot.classList.add('controls__item_selected');
+    }
+
     dot.addEventListener('click', () => {
       product.img.src = images[i].url;
+      const dotsArr = document.querySelectorAll('.controls__item');
+      dotsArr.forEach((el) => el.classList.remove('controls__item_selected'));
+      dot.classList.add('controls__item_selected');
     });
     product.sliderControls.append(dot);
   }
@@ -98,24 +103,24 @@ const fillVariants = (variants: ProductVariant[]) => {
     return 'default';
   });
   // eslint-disable-next-line prefer-destructuring
-  product.mainVariant.style.backgroundColor = colors[0];
+  const mainVariantColor = colors[0];
+  product.mainVariant.style.backgroundColor = mainVariantColor;
+  product.mainVariant.style.borderColor = mainVariantColor;
   if (colors.length > 1) {
     for (let i = 1; i < colors.length; i += 1) {
       const variant = document.createElement('a');
       variant.className = 'variants__links';
       // css
-      variant.style.display = 'block';
-      variant.style.width = '40px';
-      variant.style.height = '40px';
-      variant.style.borderRadius = '50%';
+
       variant.style.borderColor = 'black';
       variant.style.borderStyle = 'solid';
 
       variant.style.backgroundColor = colors[i];
+      variant.style.borderColor = colors[i];
       variant.title = variants[i].sku;
       // add correct link
       variant.href = `/product/${variants[i].sku}`;
-      product.variants.append(variant);
+      product.variantsBlock.append(variant);
     }
   }
 };

@@ -6,3 +6,4 @@ import './regFormHandlers';
 import './headerHandlers';
 import './profilePageHandlers';
 import './fillProductPage';
+import './productModalHandlers';
