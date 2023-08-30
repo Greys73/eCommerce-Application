@@ -60,3 +60,7 @@ $marginDesctopDiv8: calc($marginDesctop / 8);
 .hidden {
   display: none;
 }
+
+.no-scroll {
+  overflow-y: hidden;
+}

@@ -1,8 +1,8 @@
 import { Price } from '@commercetools/platform-sdk';
 import { getProductBySKU } from '../model/api/apiRoot';
-// import { ProductOptions } from '../types/type';
 import * as product from '../view/pages/product/product';
 import { AttrValue, ProductVariant } from '../types/type';
+import productImages from '../model/data/productImages';
 
 const fillPriceCont = (priceOptions: Price) => {
   const centsPerEuro = 100;
@@ -67,9 +67,11 @@ const fillFeatures = (attr: ProductVariant['attributes']) => {
 const fillImageSlider = (images: ProductVariant['images']) => {
   product.img.src = images[0].url;
   product.img.alt = images[0].label;
-  //   for (let i = 0; i < images.length; i += 1) {
-  //     const { url } = images[i];
-  //  }
+  productImages.splice(0);
+  for (let i = 0; i < images.length; i += 1) {
+    const { url } = images[i];
+    productImages.push(url);
+  }
 };
 const fillSliderControls = (images: ProductVariant['images']) => {
   for (let i = 0; i < images.length; i += 1) {
