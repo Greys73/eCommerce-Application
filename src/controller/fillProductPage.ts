@@ -75,13 +75,15 @@ const fillSliderControls = (images: ProductVariant['images']) => {
   for (let i = 0; i < images.length; i += 1) {
     const dot = document.createElement('div');
     dot.className = 'controls__item';
-    // move to css
-    dot.style.width = '20px';
-    dot.style.height = '20px';
-    dot.style.backgroundColor = 'grey';
-    dot.style.borderRadius = '50%';
+    if (i === 0) {
+      dot.classList.add('controls__item_selected');
+    }
+
     dot.addEventListener('click', () => {
       product.img.src = images[i].url;
+      const dotsArr = document.querySelectorAll('.controls__item');
+      dotsArr.forEach((el) => el.classList.remove('controls__item_selected'));
+      dot.classList.add('controls__item_selected');
     });
     product.sliderControls.append(dot);
   }
