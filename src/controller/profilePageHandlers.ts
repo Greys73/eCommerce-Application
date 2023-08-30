@@ -1,20 +1,18 @@
-// import { lastName, birthDate } from './../view/pages/profile/profile';
-import { CustomerDraft } from '@commercetools/platform-sdk';
-// import { Address } from '../types/API-interfaces';
+import { AddressDraft, CustomerDraft } from '@commercetools/platform-sdk';
 import { getLoacalCustomer } from '../model/login';
 import * as HTML from '../view/pages/profile/profile';
-import { submitUserData } from '../model/profile';
+import { submitAddressData, submitUserData } from '../model/profile';
 import { inputValidationErrorHandler } from './errorHanlders';
 import { getCountryName } from '../model/data/countries';
-// import { createAddressContainer } from '../view/pages/profile/profile';
+import { AddressVariant, FormElements } from '../types/type';
 
 const hideData = () => HTML.default.classList.add('hidden');
 const showData = () => HTML.default.classList.remove('hidden');
 
 const submitUser = async (e: Event) => {
   e.preventDefault();
-  const regForm = e.target as HTMLFormElement;
-  const formData = new FormData(regForm);
+  const form = e.target as HTMLFormElement;
+  const formData = new FormData(form);
   const user: CustomerDraft = {
     email: `${formData.get('email')}`,
     password: `${formData.get('password')}`,
@@ -22,44 +20,47 @@ const submitUser = async (e: Event) => {
     firstName: `${formData.get('firstName')}`,
     lastName: `${formData.get('lastName')}`,
     dateOfBirth: `${formData.get('dateOfBirth')}`,
-    addresses: [],
   };
   submitUserData(user);
 };
 
 const submitAddress = async (e: Event) => {
   e.preventDefault();
-  console.log(e);
-  /* const parent: HTMLElement = (e.currentTarget as HTMLElement).parentElement!;
-  const address = view.adresses.find((el) => el.id === parent.id);
-  console.log(address)
-  const data: Address = {
-    id: address?.id,
-    firstName: view.user.firstName.input.value,
-    lastName: view.user.lastName.input.value,
-    phone: getLoacalCustomer().customerNumber,
-    email: getLoacalCustomer().email,
-    country: address?.country.input.value || '',
-    city: address?.city.input.value || '',
-    streetName: address?.adress.input.value || '',
-    postalCode: address?.postalcode.input.value || '',
+  const form = e.target as HTMLFormElement;
+  const formData = form.elements as FormElements;
+  const address: AddressDraft = {
+    id: form.id,
+    country: formData.Country.value,
+    city: formData.City.value,
+    streetName: formData.Street.value,
+    postalCode: formData.PostCode.value,
   };
-  console.log(data); */
+  // const addressIndex = customer.addresses.findIndex((el: AddressDraft) => el.id === form.id);
+  const type: AddressVariant = {
+    billing: formData.addressType.selectedIndex === 1,
+    shipping: formData.addressType.selectedIndex === 2,
+    defbilling: formData.defaultBillingAddress.checked,
+    defShipping: formData.defaultShippingAddress.checked,
+  };
+  submitAddressData(address, type);
 };
 
-interface FormElements extends HTMLFormControlsCollection {
-  email: HTMLInputElement;
-  firstName: HTMLInputElement;
-  lastName: HTMLInputElement;
-  phone: HTMLInputElement;
-  dateOfBirth: HTMLInputElement;
+function getAddressType(id: string): number {
+  const customer = getLoacalCustomer();
+  console.log(customer);
+  let type = 0;
+  if (customer.billingAddressIds.findIndex((el: string) => el === id) >= 0)
+    type = 1;
+  if (customer.shippingAddressIds.findIndex((el: string) => el === id) >= 0)
+    type = 2;
+  return type;
+}
 
-  defaultShippingAddress: HTMLInputElement;
-  defaultBillingAddress: HTMLInputElement;
-  Street: HTMLInputElement;
-  City: HTMLInputElement;
-  PostCode: HTMLInputElement;
-  Country: HTMLInputElement;
+function createNewAddress() {
+  const newForm = HTML.createAddressForm();
+  newForm.getElementsByTagName('button')[1].dispatchEvent(new Event('click'));
+  newForm.addEventListener('submit', submitAddress);
+  HTML.createAddressBtn.after(newForm);
 }
 
 function fillForms() {
@@ -84,34 +85,25 @@ function fillForms() {
   Array.from(customer.addresses).forEach((val, id) => {
     const addressForm = HTML.createAddressForm();
     const address = addressForm.elements as FormElements;
-    // element.defaultShippingAddress.value = customer.
-    // element.defaultBillingAddress.value = customer.
+    addressForm.id = customer.addresses[id].id;
+    address.addressType.selectedIndex = getAddressType(
+      customer.addresses[id].id,
+    );
+    address.defaultShippingAddress.checked =
+      customer.defaultShippingAddressId === customer.addresses[id].id;
+    address.defaultBillingAddress.checked =
+      customer.defaultBillingAddressId === customer.addresses[id].id;
     address.Country.value = getCountryName(customer.addresses[id].country);
     address.City.value = customer.addresses[id].city || '';
     address.Street.value = customer.addresses[id].streetName || '';
     address.PostCode.value = customer.addresses[id].postalCode || '';
-    HTML.addressesSection.prepend(addressForm);
+
+    HTML.addressesSection.append(addressForm);
+
     addressForm.addEventListener('submit', submitAddress);
   });
 
-  /* customer.addresses.forEach((val, id) => {
-    const address = view.adresses[id];
-    address.country.label.textContent = customer.addresses[id].country || '';
-    address.country.input.value = customer.addresses[id].country || '';
-
-    address.city.label.textContent = customer.addresses[id].city || '';
-    address.city.input.value = customer.addresses[id].city || '';
-
-    address.adress.label.textContent = customer.addresses[id].streetName || '';
-    address.adress.input.value = customer.addresses[id].streetName || '';
-
-    address.postalcode.label.textContent =
-      customer.addresses[id].postalCode || '';
-    address.postalcode.input.value = customer.addresses[id].postalCode || '';
-
-    // address.btnDefShip.addEventListener('click', submitUser);
-    // address.btnDefBill.addEventListener('click', submitUser);
-  }); */
+  HTML.createAddressBtn.addEventListener('click', createNewAddress);
 
   const profileInputs = [...HTML.default.querySelectorAll('input')];
   profileInputs.forEach((input) => {

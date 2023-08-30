@@ -40,6 +40,7 @@ export const updateCustomerData = (
       .customers()
       .withId({ ID: customer.id })
       .post({
+        headers: { 'Content-Type': 'application/json' },
         body: {
           version: customer.version,
           actions: data,

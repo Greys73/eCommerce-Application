@@ -195,14 +195,14 @@ export function createAddressForm(): HTMLFormElement {
   const defaultShippingBlock = createFormBlock({
     type: 'checkbox',
     name: 'defaultShippingAddress',
-    text: 'Address as default Shipping',
+    text: 'Default Shipping',
     required: false,
   });
 
   const defaultBillingBlock = createFormBlock({
     type: 'checkbox',
     name: 'defaultBillingAddress',
-    text: 'Address as default Billing',
+    text: 'Default Billing',
     required: false,
   });
 
@@ -237,45 +237,37 @@ export function createAddressForm(): HTMLFormElement {
     display: 'inline',
   };
 
-  const city = createFormBlock(cityOptions);
-  const street = createFormBlock(streetOptions);
-  const postCode = createFormBlock(postCodeOptions);
+  const typeOptions: FormBlock = {
+    type: 'select',
+    text: 'Adress type:',
+    name: 'addressType',
+    required: true,
+    selectOptions: ['', 'billing', 'shipping'],
+  };
 
-  const countryBlock = document.createElement('div');
-  countryBlock.classList.add('form__block');
+  const countryOptions: FormBlock = {
+    type: 'select',
+    text: 'Country:',
+    name: 'Country',
+    required: true,
+    title: 'You should select a country to save this address',
+    selectOptions: Object.keys(countries),
+  };
 
-  const countryContainer = document.createElement('div');
-  countryContainer.classList.add('form__flex-container');
-
-  const countryLabel = document.createElement('label');
-  countryLabel.htmlFor = 'Country';
-  countryLabel.textContent = 'Country:';
-  countryLabel.classList.add('form__label');
-
-  const countrySelection = document.createElement('select');
-  countrySelection.name = 'Country';
-  countrySelection.title = 'You should select a country to save this address';
-  countrySelection.classList.add('form__input', 'selection__country');
-
-  const countryMessage = document.createElement('p');
-  countryMessage.classList.add('form__error');
-
-  countryContainer.append(countryLabel, countrySelection);
-
-  countryBlock.append(countryContainer, countryMessage);
-
-  Object.keys(countries).forEach((el) => {
-    const option = document.createElement('option');
-    option.value = el;
-    option.textContent = el;
-    countrySelection.append(option);
-  });
+  const delBtn = document.createElement('button');
+  delBtn.classList.add('user-data__password-button');
+  delBtn.style.marginRight = '0';
+  delBtn.style.width = 'auto';
+  delBtn.type = 'button';
+  delBtn.textContent = 'Delete';
 
   form.append(
-    countryBlock,
-    city,
-    street,
-    postCode,
+    delBtn,
+    createFormBlock(typeOptions),
+    createFormBlock(countryOptions),
+    createFormBlock(cityOptions),
+    createFormBlock(streetOptions),
+    createFormBlock(postCodeOptions),
     defaultShippingBlock,
     defaultBillingBlock,
   );
@@ -284,6 +276,13 @@ export function createAddressForm(): HTMLFormElement {
 
   return form;
 }
+export const createAddressBtn = document.createElement('button');
+createAddressBtn.classList.add('user-data__password-button');
+createAddressBtn.style.marginLeft = '0';
+createAddressBtn.style.width = 'auto';
+createAddressBtn.type = 'button';
+createAddressBtn.textContent = 'Add new';
+addressesSection.append(createAddressBtn);
 
 profilePage.append(
   resultMessage,

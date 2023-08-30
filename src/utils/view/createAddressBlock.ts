@@ -1,3 +1,4 @@
+import { selectValidationHandler } from '../../controller/errorHanlders';
 import countries from '../../model/data/countries';
 import { AddressType, FormBlock } from '../../types/type';
 import bothDefaultAddressBlock from '../../view/pages/registration/defaultCheckbox';
@@ -79,7 +80,7 @@ const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
     option.textContent = el;
     countrySelection.append(option);
   });
-
+  countrySelection.addEventListener('change', selectValidationHandler);
   block.append(countryBlock, city, street, postCode, defaultAddressBlock);
 
   if (addressType === 'shipping') {
