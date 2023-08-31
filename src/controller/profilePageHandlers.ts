@@ -2,6 +2,7 @@ import { AddressDraft, CustomerDraft } from '@commercetools/platform-sdk';
 import { getLoacalCustomer } from '../model/login';
 import * as HTML from '../view/pages/profile/profile';
 import {
+  changePassword,
   deleteAddress,
   submitAddressData,
   submitUserData,
@@ -17,6 +18,13 @@ const removeForm = async (e: Event) => {
   e.preventDefault();
   const form = (e.target as HTMLElement).parentElement as HTMLFormElement;
   deleteAddress(form.id);
+};
+
+const submitPassword = async (e: Event) => {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  const formData = form.elements as FormElements;
+  changePassword(formData.password.value, formData.newPassword.value);
 };
 
 const submitUser = async (e: Event) => {
@@ -91,6 +99,8 @@ function fillForms() {
 
   HTML.userDataSection.prepend(userDataForm);
   userDataForm.addEventListener('submit', submitUser);
+
+  HTML.passwordForm.addEventListener('submit', submitPassword);
 
   Array.from(customer.addresses).forEach((val, id) => {
     const addressForm = HTML.createAddressForm();

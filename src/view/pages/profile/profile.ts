@@ -98,7 +98,7 @@ export function createUserDataForm(): HTMLFormElement {
 const changePasswordButton = document.createElement('button');
 changePasswordButton.classList.add('user-data__password-button');
 changePasswordButton.textContent = 'Change Password';
-export function createChangePasswordForm(): HTMLFormElement {
+function createChangePasswordForm(): HTMLFormElement {
   const passwordOptions: FormBlock = {
     type: 'password',
     placeholder: 'Password',
@@ -175,8 +175,9 @@ export function createChangePasswordForm(): HTMLFormElement {
   return form;
 }
 
+export const passwordForm = createChangePasswordForm();
 changePasswordButton.addEventListener('click', () => {
-  userDataSection.append(createChangePasswordForm());
+  userDataSection.append(passwordForm);
   changePasswordButton.classList.add('hidden');
 });
 
