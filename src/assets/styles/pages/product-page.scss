@@ -48,6 +48,10 @@
     width: 400px;
     margin: 0 auto;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .image__controls {
