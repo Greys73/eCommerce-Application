@@ -2,7 +2,6 @@ import { FormBlock } from '../../../types/type';
 import checkAgeParams from '../../../utils/checkAgeParams';
 import createAddressBlock from '../../../utils/view/createAddressBlock';
 import createFormBlock from '../../../utils/view/createFormBlock';
-import resultMessage from './resultMessage';
 
 const createAddressButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
@@ -125,7 +124,6 @@ function createRegistrationForm(): HTMLFormElement {
   submitBtn.className = 'reg-page__button';
 
   regForm.append(shippingAddressBlock, addressButton, submitBtn);
-  regForm.prepend(resultMessage);
 
   return regForm;
 }

@@ -3,7 +3,7 @@ import countries from '../model/data/countries';
 import { setLoacalCustomer } from '../model/login';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
-import resultMessage from '../view/pages/registration/resultMessage';
+import resultMessage from '../view/components/resultMessage';
 
 const getRegFormData = (e: Event): CustomerDraft => {
   const regForm = e.target as HTMLFormElement;

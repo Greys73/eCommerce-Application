@@ -5,7 +5,7 @@ import {
 } from '@commercetools/platform-sdk';
 import { getLoacalCustomer, setLoacalCustomer } from './login';
 import { changeCustomerPassword, updateCustomerData } from './api/apiRoot';
-import resultMessage from '../view/pages/profile/resultMessage';
+import resultMessage from '../view/components/resultMessage';
 import { AddressVariant, PromiseResponse } from '../types/type';
 
 function showResultMessage(response: PromiseResponse, msg: string) {

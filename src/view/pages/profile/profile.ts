@@ -4,7 +4,6 @@ import checkAgeParams from '../../../utils/checkAgeParams';
 import createFormBlock from '../../../utils/view/createFormBlock';
 import createButtonsFor from './buttons';
 import { createMenu } from './menu';
-import resultMessage from './resultMessage';
 
 const profilePage: HTMLElement = document.createElement('div');
 profilePage.classList.add('profile-page');
@@ -295,10 +294,6 @@ createAddressBtn.type = 'button';
 createAddressBtn.textContent = 'Add new';
 addressesSection.append(createAddressBtn);
 
-profilePage.append(
-  resultMessage,
-  header,
-  createMenu(userDataSection, addressesSection),
-);
+profilePage.append(header, createMenu(userDataSection, addressesSection));
 
 export default profilePage;
