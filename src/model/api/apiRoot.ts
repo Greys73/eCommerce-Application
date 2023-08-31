@@ -107,3 +107,30 @@ export const getProductBySKU = (SKU: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
+export const sortByParam = (param: string, order: string, limit: number) =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        sort: [`${param} ${order}`],
+        limit,
+      },
+    })
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const filterByParams = (filterOptions: string[]) =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        filter: filterOptions,
+      },
+    })
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
