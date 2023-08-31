@@ -95,7 +95,7 @@ export function createUserDataForm(): HTMLFormElement {
 }
 
 // Change password
-const changePasswordButton = document.createElement('button');
+export const changePasswordButton = document.createElement('button');
 changePasswordButton.classList.add('user-data__password-button');
 changePasswordButton.textContent = 'Change Password';
 function createChangePasswordForm(): HTMLFormElement {
@@ -172,6 +172,17 @@ function createChangePasswordForm(): HTMLFormElement {
 
   form.append(submitBtn, cancelBtn);
 
+  const showPassword = (e: Event) => {
+    const chkBox = e.target as HTMLInputElement;
+    form.querySelectorAll('input:not([type="checkbox"])').forEach((el) => {
+      const input = el as HTMLInputElement;
+      input.type = chkBox.checked ? 'text' : 'password';
+    });
+  };
+  form
+    .querySelector('[name="showPassword"]')
+    ?.addEventListener('click', showPassword);
+
   return form;
 }
 
@@ -180,8 +191,6 @@ changePasswordButton.addEventListener('click', () => {
   userDataSection.append(passwordForm);
   changePasswordButton.classList.add('hidden');
 });
-
-userDataSection.append(changePasswordButton);
 
 // Adress section
 export const addressSection = document.createElement('div');

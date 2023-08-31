@@ -97,9 +97,11 @@ function fillForms() {
   user.phone.value = customer.customerNumber;
   user.dateOfBirth.value = customer.dateOfBirth;
 
-  HTML.userDataSection.prepend(userDataForm);
+  HTML.userDataSection.append(userDataForm);
   userDataForm.addEventListener('submit', submitUser);
 
+  HTML.changePasswordButton.classList.remove('hidden');
+  HTML.userDataSection.append(HTML.changePasswordButton);
   HTML.passwordForm.addEventListener('submit', submitPassword);
 
   Array.from(customer.addresses).forEach((val, id) => {
@@ -139,8 +141,8 @@ function pageLoaded() {
       const customer = getLoacalCustomer();
       if ('id' in customer) {
         hideData();
-        showData();
         fillForms();
+        showData();
       } else window.routeLocation = '/login';
     }, 50);
   }
