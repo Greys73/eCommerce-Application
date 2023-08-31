@@ -1,56 +1,82 @@
-.modal {
+.product__modal-container {
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-rows: 1fr min-content 1fr;
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  background-color: rgba($color: #778899, $alpha: .9);
+}
 
+.modal__close-btn {
+  grid-column: 3 / 4;
+  margin: auto auto 0 0;
+  padding-right: $marginDesctopDiv8;
+  padding-top: $marginDesctopDiv4;
+  width: 20px;
+  height: 10px;
+  opacity: .6;
+  @include _mobile {
+    opacity: 1;
+  }
+
+  &::before,
+  &::after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: cornsilk;
+    transform: rotate(45deg);
+    @include _tablet {
+      width: 25px;
+    }
+    @include _mobile {
+      width: 20px;
+      height: 3px;
+    }
+  }
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+}
+
+.modal__image {
+  grid-column: 2 / 3;
+  display: table-cell;
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  vertical-align: middle;
+  object-fit: scale-down;
+  border-radius: $marginDesctopDiv2;
+}
+
+.modal__controls {
+  grid-column: 1 / 4;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin: $marginDesctopDiv4;
+}
 
-  &__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0.61);
-    z-index: -3;
-  }
-  &__img {
-    position: relative;
-    width: 50%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.controls__item_modal {
+  border-color: cornsilk;
+}
 
-    img {
-      width: 100%;
-      max-width: 70vw;
-    }
-  }
-
-  &__controls {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-   }
-  &__close-btn {
-    position: absolute;
-    top: -20px;
-    right: -20px;
-
-    width: 20px;
-    height: 20px;
-    background-image: url('./../../images/close.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
- 
+.controls__item_modal-selected {
+  background: cornsilk;
 }
