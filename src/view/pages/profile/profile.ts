@@ -4,7 +4,6 @@ import checkAgeParams from '../../../utils/checkAgeParams';
 import createFormBlock from '../../../utils/view/createFormBlock';
 import createButtonsFor from './buttons';
 import { createMenu } from './menu';
-import resultMessage from './resultMessage';
 
 const profilePage: HTMLElement = document.createElement('div');
 profilePage.classList.add('profile-page');
@@ -95,10 +94,10 @@ export function createUserDataForm(): HTMLFormElement {
 }
 
 // Change password
-const changePasswordButton = document.createElement('button');
+export const changePasswordButton = document.createElement('button');
 changePasswordButton.classList.add('user-data__password-button');
 changePasswordButton.textContent = 'Change Password';
-export function createChangePasswordForm(): HTMLFormElement {
+function createChangePasswordForm(): HTMLFormElement {
   const passwordOptions: FormBlock = {
     type: 'password',
     placeholder: 'Password',
@@ -158,29 +157,43 @@ export function createChangePasswordForm(): HTMLFormElement {
   });
 
   const submitBtn = document.createElement('button');
-  submitBtn.textContent = 'apply';
+  submitBtn.textContent = 'Apply';
   submitBtn.type = 'submit';
-  submitBtn.className = 'reg-page__button';
+  submitBtn.className = 'user-data__confirm-button';
 
   const cancelBtn = document.createElement('button');
-  cancelBtn.textContent = 'cancel';
-  cancelBtn.className = 'reg-page__button';
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.className = 'user-data__reject-button';
   cancelBtn.addEventListener('click', (e: Event) => {
-    (e.target as HTMLElement).parentElement?.remove();
+    (e.target as HTMLElement).parentElement?.parentElement?.remove();
     changePasswordButton.classList.remove('hidden');
   });
 
-  form.append(submitBtn, cancelBtn);
+  const btnBlock = document.createElement('div');
+  btnBlock.classList.add('user-data__button-block');
+  btnBlock.append(submitBtn, cancelBtn);
+
+  form.append(btnBlock);
+
+  const showPassword = (e: Event) => {
+    const chkBox = e.target as HTMLInputElement;
+    form.querySelectorAll('input:not([type="checkbox"])').forEach((el) => {
+      const input = el as HTMLInputElement;
+      input.type = chkBox.checked ? 'text' : 'password';
+    });
+  };
+  form
+    .querySelector('[name="showPassword"]')
+    ?.addEventListener('click', showPassword);
 
   return form;
 }
 
+export const passwordForm = createChangePasswordForm();
 changePasswordButton.addEventListener('click', () => {
-  userDataSection.append(createChangePasswordForm());
+  userDataSection.append(passwordForm);
   changePasswordButton.classList.add('hidden');
 });
-
-userDataSection.append(changePasswordButton);
 
 // Adress section
 export const addressSection = document.createElement('div');
@@ -208,7 +221,7 @@ export function createAddressForm(): HTMLFormElement {
 
   const streetOptions: FormBlock = {
     type: 'text',
-    text: 'Street:',
+    text: 'Address:',
     name: 'Street',
     required: true,
     pattern: /.+/,
@@ -255,15 +268,12 @@ export function createAddressForm(): HTMLFormElement {
   };
 
   const delBtn = document.createElement('button');
-  delBtn.classList.add('user-data__password-button');
-  delBtn.style.marginRight = '0';
-  delBtn.style.width = 'auto';
+  delBtn.classList.add('address__reject-button');
   delBtn.name = 'deleteBtn';
   delBtn.type = 'button';
   delBtn.textContent = 'Delete';
 
   form.append(
-    delBtn,
     createFormBlock(typeOptions),
     createFormBlock(countryOptions),
     createFormBlock(cityOptions),
@@ -271,6 +281,7 @@ export function createAddressForm(): HTMLFormElement {
     createFormBlock(postCodeOptions),
     defaultShippingBlock,
     defaultBillingBlock,
+    delBtn,
   );
 
   createButtonsFor(form);
@@ -278,17 +289,11 @@ export function createAddressForm(): HTMLFormElement {
   return form;
 }
 export const createAddressBtn = document.createElement('button');
-createAddressBtn.classList.add('user-data__password-button');
-createAddressBtn.style.marginLeft = '0';
-createAddressBtn.style.width = 'auto';
+createAddressBtn.classList.add('address__confirm-button');
 createAddressBtn.type = 'button';
-createAddressBtn.textContent = 'Add new';
+createAddressBtn.textContent = 'Add new address';
 addressesSection.append(createAddressBtn);
 
-profilePage.append(
-  resultMessage,
-  header,
-  createMenu(userDataSection, addressesSection),
-);
+profilePage.append(header, createMenu(userDataSection, addressesSection));
 
 export default profilePage;

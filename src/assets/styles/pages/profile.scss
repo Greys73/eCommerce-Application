@@ -23,8 +23,8 @@
 .address__container {
   max-width: 1200px;
   margin: 0 auto;
-  border: 1px solid rgba($color: #2F4F4F, $alpha: 0.2);
-  border-radius: 20px;
+  border: 1px solid rgba($color: #4682B4, $alpha: 0.2);
+  border-radius: calc($marginDesctop / 4);
   padding: calc($marginDesctop / 4);
   margin-bottom: calc($marginDesctop / 4);
   @include _mobile {
@@ -69,7 +69,8 @@
   }
 }
 
-.user-data__description,
+.user-data__description_left,
+.user-data__description_right,
 .user-data__value,
 .user-data__input {
   @include _mainFont(20px);
@@ -83,6 +84,14 @@
     font-size: 12px;
     margin: 0 calc($marginMobile / 2);
   }
+}
+
+.user-data__description_left {
+  border-radius: calc($marginDesctop / 4) 0 0 0;
+}
+
+.user-data__description_right {
+  border-radius: 0 calc($marginDesctop / 4) 0 0;
 }
 
 .user-data__value {
@@ -120,22 +129,43 @@
 }
 
 .user-data__edit-button,
-.user-data__confirm-button {
+.user-data__confirm-button,
+.user-data__reject-button {
   margin: 0 auto;
   border: none;
-  @include _button(80px, 30px, 16px);
+  @include _button(100px, 30px, 20px);
   @include _tablet {
-    @include _button(65px, 25px, 14px);
+    @include _button(65px, 25px, 16px);
   }
   @include _mobile {
-    @include _button(55px, 20px, 12px);
+    @include _button(55px, 20px, 14px);
     border-radius: 8px;
   }
 }
 
+.user-data__button-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .user-data__confirm-button {
+  margin: calc($marginDesctop / 4);
+  @include _tablet {
+    margin: calc($marginDesctop / 4) calc($marginDesctop / 2);
+  }
   &:hover {
     background-color: limegreen;
+  }
+}
+
+.user-data__reject-button {
+  margin: calc($marginDesctop / 8) calc($marginDesctop / 4);
+  @include _tablet {
+    margin: calc($marginDesctop / 4) calc($marginDesctop / 2);
+  }
+  &:hover {
+    background-color: crimson;
   }
 }
 
@@ -227,6 +257,48 @@
   }
 }
 
+.address__confirm-button,
+.address__reject-button {
+  margin: calc($marginDesctop / 4) auto;
+  border: none;
+  @include _button(220px, 30px, 20px);
+  @include _tablet {
+    @include _button(180px, 25px, 16px);
+  }
+  @include _mobile {
+    @include _button(150px, 20px, 14px);
+    border-radius: 8px;
+  }
+}
+
+.address__confirm-button {
+  &:hover {
+    background-color: limegreen;
+  }
+}
+
+.address__reject-button {
+  &:hover {
+    background-color: crimson;
+  }
+}
+
+.user-data__password-button {
+  display: block;
+  margin: calc($marginDesctop / 2) auto;
+  border: none;
+  @include _button(220px, 30px, 20px);
+  @include _tablet {
+    margin: calc($marginTablet / 2) auto;
+    @include _button(180px, 25px, 16px);
+  }
+  @include _mobile {
+    margin: calc($marginMobile) auto;
+    @include _button(150px, 20px, 14px);
+    border-radius: 8px;
+  }
+}
+
 .address__marker_shipping {
   background-color: MidnightBlue;
 }
@@ -281,15 +353,15 @@
 .profile-page__menu {
   display: flex;
   flex-wrap: wrap;
-  
+  margin-bottom: calc($marginDesctop / 4);
 }
 .profile-page__menu-tabs__label {
   margin: 0;
-  padding: .5rem;
+  padding: calc($marginDesctop / 2);
   cursor: pointer;
   user-select: none;
-  background-color: #BBBBBB;
-  color: #555555;
+  background-color: rgba($color: #6495ED, $alpha: .25);
+  color: rgba($color: #4682B4, $alpha: .6);
 }
 .profile-page__menu-tabs__radio {
   display: none;
@@ -298,17 +370,18 @@
   order: 1;
   width: 100%;
   display: none;
-  padding: 1rem;
+  padding: calc($marginDesctop / 2);
+  border-radius: 0 calc($marginDesctop / 2) calc($marginDesctop / 2) calc($marginDesctop / 2);
 }
 .profile-page__menu-tabs__radio:checked
 +.profile-page__menu-tabs__label {
-  font-weight: bold;
-  background-color: #EEEEEE;
-  color: #000000;
+  font-weight: 700;
+  background-color: rgba($color: #6495ED, $alpha: .1);
+  color: steelblue;
 }
 .profile-page__menu-tabs__radio:checked
 +.profile-page__menu-tabs__label
 +.profile-page__menu-tabs {
   display: block;
-  background-color: #EEEEEE;
+  background-color: rgba($color: #6495ED, $alpha: .1);
 }
