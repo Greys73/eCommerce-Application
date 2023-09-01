@@ -6,6 +6,7 @@ import * as er404Page from '../view/pages/404/404';
 import * as productsPage from '../view/pages/catalog/catalog';
 import * as productPage from '../view/pages/product/product';
 import * as profilePage from '../view/pages/user/user';
+
 type RoutesType = {
   [key: string]: HTMLElement;
 };
