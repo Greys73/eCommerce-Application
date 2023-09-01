@@ -11,6 +11,7 @@ const productsArr = [
     'Best motrcycle from Honda, ever, trust me',
     '2000',
     0.2,
+    'honda-cb400sf-red',
   ],
   [
     'Yamaha WR 450',
@@ -25,6 +26,7 @@ const productsArr = [
     'Best motrcycle from Honda, ever, trust me',
     '2000',
     0.2,
+    'honda-cb400sf-yellow',
   ],
   [
     'Yamaha WR 450',
@@ -55,9 +57,13 @@ function createCard(
   description: string,
   price: string,
   discont?: number,
+  sku?: string,
 ) {
   const card = document.createElement('div');
   card.classList.add('cards__card');
+  card.addEventListener('click', () => {
+    window.routeLocation = `/product?sku=${sku}`;
+  });
 
   const cardName = document.createElement('h4');
   cardName.classList.add('card__name');
@@ -112,6 +118,7 @@ productsArr.forEach((el) =>
     el[2] as string,
     el[3] as string,
     el[4] as number,
+    el[5] as string,
   ),
 );
 

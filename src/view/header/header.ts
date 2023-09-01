@@ -40,7 +40,7 @@ const navObj: NavObjType = {
   },
   products: {
     text: 'Products 📋',
-    routing: '/products',
+    routing: '/catalog',
   },
   basket: {
     text: 'Basket 🛒',
