@@ -10,7 +10,7 @@ const companyArr = ['Honda', 'Yamaha', 'Suzuki', 'Kawasaki'];
 
 const typesArr = ['Standard', 'Sport', 'Cruiser', 'Touring'];
 
-const colorsArr = ['Black', 'Blue', 'Red', 'Yellow', 'Green'];
+const colorsArr = ['Black', 'Blue', 'Red', 'Yellow', 'Green', 'White'];
 
 const drivetrainsArr = ['Chain', 'Belt', 'Shaft'];
 
