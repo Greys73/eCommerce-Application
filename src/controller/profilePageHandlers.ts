@@ -143,7 +143,7 @@ function pageLoaded() {
         hideData();
         fillForms();
         showData();
-      } else window.routeLocation = '/login';
+      }
     }, 50);
   }
 }
