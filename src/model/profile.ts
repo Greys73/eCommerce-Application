@@ -4,19 +4,16 @@ import {
   CustomerUpdateAction,
 } from '@commercetools/platform-sdk';
 import { getLoacalCustomer, setLoacalCustomer } from './login';
-import { updateCustomerData } from './api/apiRoot';
-import resultMessage from '../view/pages/profile/resultMessage';
-import { AddressVariant } from '../types/type';
+import { changeCustomerPassword, updateCustomerData } from './api/apiRoot';
+import resultMessage from '../view/components/resultMessage';
+import { AddressVariant, PromiseResponse } from '../types/type';
 
-async function update(data: CustomerUpdateAction[]) {
-  const customer = getLoacalCustomer();
-  const response = await updateCustomerData(customer, data);
-
+function showResultMessage(response: PromiseResponse, msg: string) {
   resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body);
     window.dispatchEvent(new Event('DOMContentLoaded'));
-    resultMessage.firstChild!.textContent = `Your details have been updated!`;
+    resultMessage.firstChild!.textContent = msg;
   } else {
     resultMessage.firstChild!.textContent = response.message;
   }
@@ -28,15 +25,18 @@ async function update(data: CustomerUpdateAction[]) {
 }
 
 export async function deleteAddress(id: string) {
+  const customer = getLoacalCustomer();
   const data: CustomerUpdateAction[] = [];
   data.push({
     action: 'removeAddress',
     addressId: id,
   });
-  update(data);
+  const response = await updateCustomerData(customer, data);
+  showResultMessage(response, `Address has been deleted!`);
 }
 
 export async function submitUserData(user: CustomerDraft) {
+  const customer = getLoacalCustomer();
   const data: CustomerUpdateAction[] = [];
   data.push({
     action: 'setFirstName',
@@ -55,7 +55,8 @@ export async function submitUserData(user: CustomerDraft) {
     email: user.email || '',
   });
 
-  update(data);
+  const response = await updateCustomerData(customer, data);
+  showResultMessage(response, `Your details has been updated!`);
 }
 
 export async function submitAddressData(
@@ -91,7 +92,8 @@ export async function submitAddressData(
     if (type.defShipping)
       data.push({ action: 'setDefaultShippingAddress', addressId: address.id });
 
-    update(data);
+    const response = await updateCustomerData(customer, data);
+    showResultMessage(response, `Address information has been updated!`);
   } else {
     data.push({
       action: 'addAddress',
@@ -103,7 +105,9 @@ export async function submitAddressData(
       },
     });
 
-    update(data).then((response) => {
+    const response = await updateCustomerData(customer, data);
+    if (response.statusCode === 200) {
+      setLoacalCustomer(response.body);
       response.body.addresses.forEach((adr: AddressDraft) => {
         try {
           const emerged: boolean =
@@ -116,6 +120,20 @@ export async function submitAddressData(
           return false;
         }
       });
-    });
+    }
   }
+}
+
+export async function changePassword(
+  currentPassword: string,
+  newPassword: string,
+) {
+  const customer = getLoacalCustomer();
+  const response = await changeCustomerPassword({
+    id: customer.id,
+    version: customer.version,
+    currentPassword,
+    newPassword,
+  });
+  showResultMessage(response, `Password has been changed!`);
 }

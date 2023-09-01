@@ -1,5 +1,11 @@
 import { Price } from '@commercetools/platform-sdk';
 
+export type PromiseResponse = {
+  statusCode: number;
+  body: object;
+  message: string | null;
+};
+
 export type FormBlock = {
   type: string;
   placeholder?: string;
@@ -41,6 +47,9 @@ export interface FormElements extends HTMLFormControlsCollection {
   Country: HTMLInputElement;
   addressType: HTMLSelectElement;
   deleteBtn: HTMLButtonElement;
+
+  password: HTMLInputElement;
+  newPassword: HTMLInputElement;
 }
 
 export type ProductOptions = {

@@ -4,7 +4,6 @@ import checkAgeParams from '../../../utils/checkAgeParams';
 import createFormBlock from '../../../utils/view/createFormBlock';
 import createButtonsFor from './buttons';
 import { createMenu } from './menu';
-import resultMessage from './resultMessage';
 
 const profilePage: HTMLElement = document.createElement('div');
 profilePage.classList.add('profile-page');
@@ -95,10 +94,10 @@ export function createUserDataForm(): HTMLFormElement {
 }
 
 // Change password
-const changePasswordButton = document.createElement('button');
+export const changePasswordButton = document.createElement('button');
 changePasswordButton.classList.add('user-data__password-button');
 changePasswordButton.textContent = 'Change Password';
-export function createChangePasswordForm(): HTMLFormElement {
+function createChangePasswordForm(): HTMLFormElement {
   const passwordOptions: FormBlock = {
     type: 'password',
     placeholder: 'Password',
@@ -172,15 +171,25 @@ export function createChangePasswordForm(): HTMLFormElement {
 
   form.append(submitBtn, cancelBtn);
 
+  const showPassword = (e: Event) => {
+    const chkBox = e.target as HTMLInputElement;
+    form.querySelectorAll('input:not([type="checkbox"])').forEach((el) => {
+      const input = el as HTMLInputElement;
+      input.type = chkBox.checked ? 'text' : 'password';
+    });
+  };
+  form
+    .querySelector('[name="showPassword"]')
+    ?.addEventListener('click', showPassword);
+
   return form;
 }
 
+export const passwordForm = createChangePasswordForm();
 changePasswordButton.addEventListener('click', () => {
-  userDataSection.append(createChangePasswordForm());
+  userDataSection.append(passwordForm);
   changePasswordButton.classList.add('hidden');
 });
-
-userDataSection.append(changePasswordButton);
 
 // Adress section
 export const addressSection = document.createElement('div');
@@ -285,10 +294,6 @@ createAddressBtn.type = 'button';
 createAddressBtn.textContent = 'Add new';
 addressesSection.append(createAddressBtn);
 
-profilePage.append(
-  resultMessage,
-  header,
-  createMenu(userDataSection, addressesSection),
-);
+profilePage.append(header, createMenu(userDataSection, addressesSection));
 
 export default profilePage;

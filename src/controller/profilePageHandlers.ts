@@ -2,6 +2,7 @@ import { AddressDraft, CustomerDraft } from '@commercetools/platform-sdk';
 import { getLoacalCustomer } from '../model/login';
 import * as HTML from '../view/pages/profile/profile';
 import {
+  changePassword,
   deleteAddress,
   submitAddressData,
   submitUserData,
@@ -17,6 +18,13 @@ const removeForm = async (e: Event) => {
   e.preventDefault();
   const form = (e.target as HTMLElement).parentElement as HTMLFormElement;
   deleteAddress(form.id);
+};
+
+const submitPassword = async (e: Event) => {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  const formData = form.elements as FormElements;
+  changePassword(formData.password.value, formData.newPassword.value);
 };
 
 const submitUser = async (e: Event) => {
@@ -89,8 +97,12 @@ function fillForms() {
   user.phone.value = customer.customerNumber;
   user.dateOfBirth.value = customer.dateOfBirth;
 
-  HTML.userDataSection.prepend(userDataForm);
+  HTML.userDataSection.append(userDataForm);
   userDataForm.addEventListener('submit', submitUser);
+
+  HTML.changePasswordButton.classList.remove('hidden');
+  HTML.userDataSection.append(HTML.changePasswordButton);
+  HTML.passwordForm.addEventListener('submit', submitPassword);
 
   Array.from(customer.addresses).forEach((val, id) => {
     const addressForm = HTML.createAddressForm();
@@ -129,8 +141,8 @@ function pageLoaded() {
       const customer = getLoacalCustomer();
       if ('id' in customer) {
         hideData();
-        showData();
         fillForms();
+        showData();
       } else window.routeLocation = '/login';
     }, 50);
   }

@@ -2,8 +2,11 @@ import getSpecifyError from '../model/inputErrorSpecifier';
 
 export const checkPassword = (input: HTMLInputElement): boolean => {
   const secondPassword = input.value;
-  const firstPasswordInput = input.parentElement?.previousElementSibling
+  let firstPasswordInput = input.parentElement?.previousElementSibling
     ?.children[1] as HTMLInputElement;
+  if (!input.parentElement?.previousElementSibling)
+    firstPasswordInput = input.parentElement?.parentElement
+      ?.previousElementSibling?.children[0].children[1] as HTMLInputElement;
   const firstPassword = firstPasswordInput.value;
   return secondPassword === firstPassword;
 };

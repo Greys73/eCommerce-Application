@@ -58,7 +58,7 @@ $marginDesctopDiv8: calc($marginDesctop / 8);
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .no-scroll {
