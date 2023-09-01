@@ -242,3 +242,73 @@
 .background-billing {
   background-color: rgba($color: #9932CC, $alpha: .2);
 }
+
+.user-data__result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  cursor: none;
+}
+
+.user-data__result-text {
+  max-width: 600px;
+  max-height: 80vh;
+  background-color: rgba($color: #FF8C00, $alpha: .9);
+  text-align: center;
+  padding: $marginDesctop;
+  border-radius: calc($marginDesctop / 2);
+  @include _font(20px);
+  @include _tablet {
+    font-size: 16px;
+    padding: $marginTablet;
+    border-radius: calc($marginTablet / 2);
+  }
+  @include _mobile {
+    max-width: 80vw;
+    font-size: 12px;
+    padding: $marginMobile;
+    border-radius: calc($marginMobile / 2);
+  }
+}
+
+// MENU ===============
+.profile-page__menu {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+.profile-page__menu-tabs__label {
+  margin: 0;
+  padding: .5rem;
+  cursor: pointer;
+  user-select: none;
+  background-color: #BBBBBB;
+  color: #555555;
+}
+.profile-page__menu-tabs__radio {
+  display: none;
+}
+.profile-page__menu-tabs {
+  order: 1;
+  width: 100%;
+  display: none;
+  padding: 1rem;
+}
+.profile-page__menu-tabs__radio:checked
++.profile-page__menu-tabs__label {
+  font-weight: bold;
+  background-color: #EEEEEE;
+  color: #000000;
+}
+.profile-page__menu-tabs__radio:checked
++.profile-page__menu-tabs__label
++.profile-page__menu-tabs {
+  display: block;
+  background-color: #EEEEEE;
+}
