@@ -1,5 +1,6 @@
 import cardsBlock from './cards';
 import categoryLogoObj from '../../../model/data/images-src';
+import setCategories from '../../../controller/fillCatalogPage';
 
 const items = document.createElement('div');
 items.classList.add('catalog__items');
@@ -11,15 +12,15 @@ routingBlock.classList.add('items__routing');
 
 const categoryName = document.createElement('p');
 categoryName.classList.add('routing__text');
-categoryName.textContent = 'Honda';
+categoryName.textContent = '';
 
 const subCategoryName = document.createElement('p');
 subCategoryName.classList.add('routing__text');
-subCategoryName.textContent = ' / Sport';
+subCategoryName.textContent = '';
 
 const modelName = document.createElement('p');
 modelName.classList.add('routing__text');
-modelName.textContent = ' / CBR 954RR';
+modelName.textContent = '';
 
 routingBlock.append(categoryName, subCategoryName, modelName);
 
@@ -39,30 +40,23 @@ searchFilter.textContent = 'Sorting ▼';
 
 searchingBlock.append(searchInput, searchFilter);
 
-// category block
-
-const categoryArr = [
-  'Honda',
-  'Kawasaki',
-  'Yamaha',
-  'Suzuki',
-  'Standard',
-  'Sport',
-  'Touring',
-  'Cruiser',
-]; // get from API
-
 const categoryBlock = document.createElement('div');
 categoryBlock.classList.add('items__category');
 
-categoryArr.forEach((el) => {
-  const logo = document.createElement('img');
-  logo.classList.add('category__logo');
-  logo.src = categoryLogoObj[el];
-  logo.alt = `${el}-logo`;
+(async () => {
+  const categoryArr = await setCategories(categoryName, subCategoryName);
 
-  categoryBlock.append(logo);
-});
+  if (categoryArr) {
+    categoryArr.forEach((el) => {
+      const logo = document.createElement('img');
+      logo.classList.add('category__logo');
+      logo.src = categoryLogoObj[el];
+      logo.alt = `${el}-logo`;
+
+      categoryBlock.append(logo);
+    });
+  }
+})();
 
 // compiling
 

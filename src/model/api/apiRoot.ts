@@ -159,3 +159,20 @@ export const getProductBySKU = (SKU: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
+export const getCategories = () =>
+  apiRoot
+    .categories()
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getCategoryById = (id: string) =>
+  apiRoot
+    .categories()
+    .withId({ ID: id })
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
