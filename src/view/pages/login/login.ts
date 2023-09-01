@@ -1,6 +1,5 @@
 import { FormBlock } from '../../../types/type';
 import createFormBlock from '../../../utils/view/createFormBlock';
-import resultMessage from './resultMessage';
 
 function createLoginForm(): HTMLFormElement {
   const loginForm = document.createElement('form');
@@ -49,7 +48,6 @@ function createLoginForm(): HTMLFormElement {
   submitBtn.className = 'login-form__button';
 
   loginForm.append(submitBtn);
-  loginForm.prepend(resultMessage);
 
   return loginForm;
 }

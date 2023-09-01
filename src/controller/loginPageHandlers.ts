@@ -1,6 +1,6 @@
 import loginForm from '../view/pages/login/login';
 import { loginCustomer } from '../model/api/apiRoot';
-import resultMessage from '../view/pages/login/resultMessage';
+import resultMessage from '../view/components/resultMessage';
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
 
 const input: HTMLInputElement = loginForm.querySelector(
