@@ -7,4 +7,6 @@ resultText.textContent = 'Successfuly registrated';
 
 resultMessage.append(resultText);
 
+document.body.append(resultMessage);
+
 export default resultMessage;

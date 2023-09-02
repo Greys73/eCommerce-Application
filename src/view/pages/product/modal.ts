@@ -6,34 +6,34 @@ export const closeBtn = document.createElement('div');
 
 const createModal = () => {
   const modal = document.createElement('div');
-  modal.className = 'modal';
-  productPage.append(modal);
-
-  const back = document.createElement('div');
-  back.className = 'modal__background';
-
-  const imgCont = document.createElement('div');
-  imgCont.className = 'modal__img';
+  modal.className = 'product__modal-container';
 
   const image = img.cloneNode(true) as HTMLImageElement;
-  imgCont.append(image);
+  image.className = 'modal__image';
 
   closeBtn.className = 'modal__close-btn';
-  imgCont.append(closeBtn);
-  modal.append(back, imgCont);
 
   const controls = sliderControls.cloneNode(true) as HTMLDivElement;
   controls.className = 'modal__controls';
   const dots = [...controls.children] as HTMLDivElement[];
   dots.forEach((dot, i) => {
+    if (dot.classList.contains('controls__item_selected')) {
+      dot.classList.remove('controls__item_selected');
+      dot.classList.add('controls__item_modal-selected');
+    }
+    dot.classList.add('controls__item_modal');
     dot.addEventListener('click', () => {
       image.src = productImages[i];
-      dots.forEach((el) => el.classList.remove('controls__item_selected'));
-      dot.classList.add('controls__item_selected');
+      dots.forEach((el) =>
+        el.classList.remove('controls__item_modal-selected'),
+      );
+      dot.classList.add('controls__item_modal-selected');
     });
   });
 
-  imgCont.append(controls);
+  modal.append(closeBtn, image, controls);
+
+  productPage.append(modal);
 };
 
 export default createModal;

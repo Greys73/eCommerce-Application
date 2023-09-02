@@ -1,6 +1,7 @@
 import { Price } from '@commercetools/platform-sdk';
 import { getProductBySKU } from '../model/api/apiRoot';
 import * as product from '../view/pages/product/product';
+import * as er404Page from '../view/pages/404/404';
 import { AttrValue, ProductVariant } from '../types/type';
 import productImages from '../model/data/productImages';
 
@@ -11,7 +12,7 @@ const fillPriceCont = (priceOptions: Price) => {
   }`;
 
   if (priceOptions.discounted) {
-    console.log('disc');
+    // console.log('disc');
     product.currentPrice.textContent = `${
       priceOptions.discounted.value.centAmount / centsPerEuro
     } ${priceOptions.discounted.value.currencyCode}`;
@@ -110,7 +111,10 @@ const fillVariants = (variants: ProductVariant[]) => {
   const mainVariantColor = colors[0];
   product.mainVariant.style.backgroundColor = mainVariantColor;
   product.mainVariant.style.borderColor = mainVariantColor;
-  if (colors.length > 1) {
+  if (
+    colors.length > 1 &&
+    product.variantsBlock.childNodes.length < colors.length
+  ) {
     for (let i = 1; i < colors.length; i += 1) {
       const variant = document.createElement('a');
       variant.className = 'variants__links';
@@ -123,7 +127,7 @@ const fillVariants = (variants: ProductVariant[]) => {
       variant.style.borderColor = colors[i];
       variant.title = variants[i].sku;
       // add correct link
-      variant.href = `/product/${variants[i].sku}`;
+      variant.href = `/product?sku=${variants[i].sku}`;
       product.variantsBlock.append(variant);
     }
   }
@@ -131,6 +135,14 @@ const fillVariants = (variants: ProductVariant[]) => {
 
 export const fillProductPage = async (SKU: string) => {
   const response = await getProductBySKU(SKU);
+
+  if (response.statusCode !== 200) {
+    product.default.parentElement?.append(er404Page.default);
+    product.default.parentElement?.removeChild(product.default);
+    return false;
+  }
+  product.features.innerHTML = '';
+  product.sliderControls.innerHTML = '';
 
   const prodOptions = response.body.results[0];
   const variants = [prodOptions.masterVariant, ...prodOptions.variants];
@@ -145,4 +157,5 @@ export const fillProductPage = async (SKU: string) => {
   if (currentVariant.images.length > 1)
     fillSliderControls(currentVariant.images);
   fillVariants(variants);
+  return true;
 };

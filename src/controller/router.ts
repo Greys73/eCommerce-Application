@@ -3,9 +3,10 @@ import * as mainPage from '../view/pages/main/main';
 import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
-import * as productsPage from '../view/pages/catalog/catalog';
+import * as catalogPage from '../view/pages/catalog/catalog';
 import * as productPage from '../view/pages/product/product';
-import * as profilePage from '../view/pages/user/user';
+import * as profilePage from '../view/pages/profile/profile';
+import { checkRedirection } from './redirection';
 
 type RoutesType = {
   [key: string]: HTMLElement;
@@ -13,7 +14,7 @@ type RoutesType = {
 
 const routes: RoutesType = {
   '/': mainPage.default,
-  '/products': productsPage.default,
+  '/catalog': catalogPage.default,
   '/product': productPage.default,
   // '/basket':
   // '/about':
@@ -25,11 +26,13 @@ const routes: RoutesType = {
 };
 
 function locationHandler() {
-  const path = window.location.pathname || '/';
-  const page: HTMLElement = routes[path] || routes['404'];
-  mainSection.default.innerHTML = '';
-  mainSection.default.append(page);
-  window.dispatchEvent(new Event('DOMContentLoaded'));
+  const pathName = window.location.pathname || '/';
+  if (!checkRedirection(pathName)) {
+    const page: HTMLElement = routes[pathName] || routes['404'];
+    mainSection.default.innerHTML = '';
+    mainSection.default.append(page);
+    window.dispatchEvent(new Event('DOMContentLoaded'));
+  }
 }
 
 function route(e: Event) {

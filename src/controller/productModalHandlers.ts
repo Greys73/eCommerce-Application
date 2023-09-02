@@ -7,7 +7,8 @@ img.addEventListener('click', () => {
 });
 
 closeBtn.addEventListener('click', () => {
-  const modal = closeBtn.closest('.modal');
-  modal?.remove();
+  const modal = document.querySelectorAll('.product__modal-container');
+  console.log('modal=', modal);
+  modal?.forEach((el) => el.remove());
   document.body.classList.remove('no-scroll');
 });

@@ -2,6 +2,7 @@ import items from './items';
 import filters from './filters';
 import filterImg from '../../../assets/images/filter-ico.png';
 import activeFilterImg from '../../../assets/images/filter-ico-active.png';
+import { showFilters } from '../../../controller/catalogPageHandlers';
 
 const productsPage = document.createElement('div');
 productsPage.classList.add('products-page');
@@ -15,9 +16,13 @@ icon.src = filterImg;
 icon.alt = 'filter-icon';
 
 const activeIcon = document.createElement('img');
-activeIcon.classList.add('icon-block__icon');
+activeIcon.classList.add('icon-block__icon', 'hidden');
 activeIcon.src = activeFilterImg;
 activeIcon.alt = 'active-filter-icon';
+
+[icon, activeIcon].forEach((el) =>
+  el.addEventListener('click', () => showFilters(filters)),
+);
 
 iconBlock.append(icon, activeIcon);
 

@@ -1,5 +1,4 @@
 import cardsBlock from './cards';
-import categoryLogoObj from '../../../model/data/images-src';
 
 const items = document.createElement('div');
 items.classList.add('catalog__items');
@@ -9,19 +8,20 @@ items.classList.add('catalog__items');
 const routingBlock = document.createElement('div');
 routingBlock.classList.add('items__routing');
 
-const categoryName = document.createElement('p');
+const catalogName = document.createElement('a');
+catalogName.classList.add('routing__text');
+catalogName.textContent = 'Catalog';
+catalogName.href = '/catalog';
+
+export const categoryName = document.createElement('a');
 categoryName.classList.add('routing__text');
-categoryName.textContent = 'Honda';
+categoryName.textContent = '';
 
-const subCategoryName = document.createElement('p');
+export const subCategoryName = document.createElement('a');
 subCategoryName.classList.add('routing__text');
-subCategoryName.textContent = ' / Sport';
+subCategoryName.textContent = '';
 
-const modelName = document.createElement('p');
-modelName.classList.add('routing__text');
-modelName.textContent = ' / CBR 954RR';
-
-routingBlock.append(categoryName, subCategoryName, modelName);
+routingBlock.append(catalogName, categoryName, subCategoryName);
 
 // searching block
 
@@ -33,36 +33,38 @@ searchInput.type = 'text';
 searchInput.classList.add('search__search-field');
 searchInput.placeholder = 'Search';
 
-const searchFilter = document.createElement('p');
-searchFilter.classList.add('search__filter');
-searchFilter.textContent = 'Sorting ▼';
+const searchFilterBlock = document.createElement('select');
+searchFilterBlock.classList.add('search__filter-block');
+searchFilterBlock.name = 'sorting';
 
-searchingBlock.append(searchInput, searchFilter);
+const searchFilterNameASC = document.createElement('option');
+searchFilterNameASC.classList.add('search__filter');
+searchFilterNameASC.textContent = 'Sort by Name: A-Z';
+searchFilterNameASC.selected = true;
 
-// category block
+const searchFilterNameDESC = document.createElement('option');
+searchFilterNameDESC.classList.add('search__filter');
+searchFilterNameDESC.textContent = 'Sort by Name: Z-A';
 
-const categoryArr = [
-  'Honda',
-  'Kawasaki',
-  'Yamaha',
-  'Suzuki',
-  'Standard',
-  'Sport',
-  'Touring',
-  'Cruiser',
-]; // get from API
+const searchFiltePriceASC = document.createElement('option');
+searchFiltePriceASC.classList.add('search__filter');
+searchFiltePriceASC.textContent = 'Sort by Lowest Price';
 
-const categoryBlock = document.createElement('div');
+const searchFiltePriceDESC = document.createElement('option');
+searchFiltePriceDESC.classList.add('search__filter');
+searchFiltePriceDESC.textContent = 'Sort by Highest Price';
+
+searchFilterBlock.append(
+  searchFilterNameASC,
+  searchFilterNameDESC,
+  searchFiltePriceASC,
+  searchFiltePriceDESC,
+);
+
+searchingBlock.append(searchInput, searchFilterBlock);
+
+export const categoryBlock = document.createElement('div');
 categoryBlock.classList.add('items__category');
-
-categoryArr.forEach((el) => {
-  const logo = document.createElement('img');
-  logo.classList.add('category__logo');
-  logo.src = categoryLogoObj[el];
-  logo.alt = `${el}-logo`;
-
-  categoryBlock.append(logo);
-});
 
 // compiling
 
