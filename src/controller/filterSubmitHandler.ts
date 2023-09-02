@@ -4,7 +4,7 @@ import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
 import { fillProductPage } from './fillProductPage';
 
-const getCategory = async (): Promise<string> => {
+export const getCategory = async (): Promise<string> => {
   const { search } = window.location;
   if (!search) return '';
   const categoryKey = search.slice(search.indexOf('=') + 1);
