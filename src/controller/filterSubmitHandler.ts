@@ -43,9 +43,9 @@ const getFilterData = () => {
         attrFilter = `variants.attributes.${attr}:range (${startValue} to ${endValue})`;
       } else {
         const centPerEuro = 100;
-        attrFilter = `variants.${attr}.centAmount:range (${
-          +startValue * centPerEuro
-        } to ${+endValue * centPerEuro})`;
+        const start = startValue === '*' ? '*' : +startValue * centPerEuro;
+        const end = endValue === '*' ? '*' : +endValue * centPerEuro;
+        attrFilter = `variants.${attr}.centAmount:range (${start} to ${end})`;
       }
       filterOptions.push(attrFilter);
     }
