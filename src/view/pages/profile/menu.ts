@@ -17,7 +17,7 @@ export function createMenu(
   const userDataTabLabel = document.createElement('label');
   userDataTabLabel.htmlFor = 'menu-tab-user';
   userDataTabLabel.className = 'profile-page__menu-tabs__label';
-  userDataTabLabel.classList.add('user-data__description');
+  userDataTabLabel.classList.add('user-data__description_left');
   userDataTabLabel.textContent = 'User data';
   menu.append(userDataTabInput, userDataTabLabel, userDataTab);
 
@@ -33,7 +33,7 @@ export function createMenu(
   const addressDataTabLabel = document.createElement('label');
   addressDataTabLabel.htmlFor = 'menu-tab-address';
   addressDataTabLabel.className = 'profile-page__menu-tabs__label';
-  addressDataTabLabel.classList.add('user-data__description');
+  addressDataTabLabel.classList.add('user-data__description_right');
   addressDataTabLabel.textContent = 'Addresses';
   menu.append(addressDataTabInput, addressDataTabLabel, addressDataTab);
 

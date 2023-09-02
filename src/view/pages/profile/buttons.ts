@@ -5,16 +5,17 @@ function createButtonsFor(form: HTMLFormElement) {
   editBtn.textContent = 'Edit';
 
   const submitBtn = document.createElement('button');
-  submitBtn.textContent = 'apply';
+  submitBtn.textContent = 'Apply';
   submitBtn.type = 'submit';
-  submitBtn.className = 'reg-page__button';
+  submitBtn.className = 'user-data__confirm-button';
 
   const cancelBtn = document.createElement('button');
   editBtn.type = 'button';
-  cancelBtn.textContent = 'cancel';
-  cancelBtn.className = 'reg-page__button';
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.className = 'user-data__reject-button';
 
   const btnBlock = document.createElement('div');
+  btnBlock.classList.add('user-data__button-block');
   btnBlock.append(submitBtn, cancelBtn);
 
   form.append(editBtn);
