@@ -22,9 +22,13 @@ function navChanger(_menu: NavObjType) {
   if (Object.keys(menu).length !== 0) {
     const customer = getLoacalCustomer();
     switchElements('id' in customer);
-    menu.logout.obj?.addEventListener('click', () => {
+    menu.logout.obj?.addEventListener('click', (e: Event) => {
+      e.preventDefault();
       setLoacalCustomer({});
       switchElements(false);
+      setTimeout(() => {
+        window.routeLocation = (e.target as HTMLLinkElement).href;
+      }, 50);
     });
   }
 }

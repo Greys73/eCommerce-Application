@@ -50,6 +50,10 @@
 
 .icon-block__icon {
   width: 25px;
+  margin-right: $marginMobile;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .filter__header {
@@ -130,6 +134,7 @@
   display: flex;
   background-color: rgba($color: #778899, $alpha: .1);
   @include _mobile {
+    min-height: 31px;
     background-color: white;
   }
 }
@@ -156,7 +161,10 @@
 .items__search {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   background-color: rgba($color: #778899, $alpha: .05);
+  @include _tablet {
+  }
   @include _mobile {
     background-color: white;
   }
@@ -165,9 +173,8 @@
 .search__search-field {
   display: block;
   width: 300px;
-  min-height: 25px;
   @include _mainFont(16px);
-  margin: calc($marginDesctop / 4) calc($marginDesctop / 2);
+  margin: $marginDesctopDiv4 $marginDesctopDiv2;
   text-align: center;
   border-radius: 5px;
   border: solid 1px steelblue;
@@ -175,13 +182,11 @@
   color: #346085;
   @include _tablet {
     width: 250px;
-    min-height: 20px;
     font-size: 14px;
     margin: $marginTabletDiv4 $marginTabletDiv2;
   }
   @include _mobile {
     width: 150px;
-    min-height: 16px;
     font-size: 12px;
   }
   &:focus {
@@ -192,20 +197,39 @@
   }
 }
 
-.search__filter {
-  @include _mainFont(16px);
-  color: darkslategray;
-  margin: auto calc($marginDesctop);
+.search__filter-block {
+  border: 1px steelblue solid;
+  border-radius: 5px;
+  margin: $marginDesctopDiv4 $marginDesctopDiv2;
+  @include _mainFont(14px);
+  color: slategray;
+  outline: none;
+  &:after {
+    border: 1px steelblue solid;
+  }
   @include _tablet {
-    font-size: 14px;
+    margin: $marginTabletDiv4 $marginTabletDiv2;
+    font-size: 12px;
+  }
+}
+
+.search__filter {
+  @include _mainFont(14px);
+  color: slategray;
+  font-size: 14px;
+  margin: $marginDesctopDiv8 calc($marginDesctop);
+
+  @include _tablet {
+    font-size: 12px;
     margin: auto $marginTablet;
   }
   @include _mobile {
-    font-size: 12px;
+    font-size: 11px;
     margin: auto $marginMobile;
   }
   &:hover {
     cursor: pointer;
+    color: darkcyan;
   }
 }
 

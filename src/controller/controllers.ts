@@ -1,3 +1,4 @@
+import './application';
 import './errorHanlders';
 import './loginPageHandlers';
 import './router';

@@ -1,7 +1,12 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import {
+  Customer,
+  CustomerDraft,
+  CustomerUpdateAction,
+  CustomerChangePassword,
+  createApiBuilderFromCtpClient,
+} from '@commercetools/platform-sdk';
 import { ctpClient } from '../../lib/BuildClient';
 import { vrfClient } from '../../lib/ConstructClient';
-import { CustomerDraft } from '../../types/API-interfaces';
 
 //        !!! Current version (need local storage getters/setters)
 const customerId = undefined; // get LocalStorage func;
@@ -23,6 +28,53 @@ export const getCustomerById = (id: string) => {
       .then((obj) => obj)
       .catch((err) => err);
   } catch {
+    return false;
+  }
+};
+
+export const changeCustomerPassword = (customer: CustomerChangePassword) => {
+  try {
+    return apiRoot
+      .customers()
+      .password()
+      .post({
+        headers: { 'Content-Type': 'application/json' },
+        body: {
+          id: customer.id,
+          version: customer.version,
+          currentPassword: customer.currentPassword,
+          newPassword: customer.newPassword,
+        },
+      })
+      .execute()
+      .then((arg) => arg)
+      .catch((err) => err);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const updateCustomerData = (
+  customer: Customer,
+  data: CustomerUpdateAction[],
+) => {
+  try {
+    return apiRoot
+      .customers()
+      .withId({ ID: customer.id })
+      .post({
+        headers: { 'Content-Type': 'application/json' },
+        body: {
+          version: customer.version,
+          actions: data,
+        },
+      })
+      .execute()
+      .then((arg) => arg)
+      .catch((err) => err);
+  } catch (error) {
+    console.log(error);
     return false;
   }
 };
@@ -131,6 +183,23 @@ export const filterByParams = (filterOptions: string[]) =>
         filter: filterOptions,
       },
     })
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getCategories = () =>
+  apiRoot
+    .categories()
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
+export const getCategoryById = (id: string) =>
+  apiRoot
+    .categories()
+    .withId({ ID: id })
+    .get()
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
