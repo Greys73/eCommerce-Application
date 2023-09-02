@@ -134,3 +134,12 @@ export const filterByParams = (filterOptions: string[]) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
+export const getAllProducts = () =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);

@@ -54,9 +54,9 @@ const getFilterData = () => {
   return filterOptions;
 };
 
-const placeCards = (cards: ProductDraft[]) => {
+export const placeCards = (cards: ProductDraft[]) => {
   cardsBlock.innerHTML = '';
-  // if (cards.length === 0) return;
+  if (cards.length === 0) return;
   cards.forEach((card) => {
     let createdCard;
     const name = card.name.en;

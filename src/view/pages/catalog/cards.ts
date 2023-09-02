@@ -1,53 +1,7 @@
-import categoryLogoObj from '../../../model/data/images-src';
+// import categoryLogoObj from '../../../model/data/images-src';
 
 const cardsBlock = document.createElement('div');
 cardsBlock.classList.add('items__cards');
-
-const productsArr = [
-  // get from API
-  [
-    'Honda CB 400',
-    categoryLogoObj.Honda,
-    'Best motrcycle from Honda, ever, trust me',
-    '2000',
-    0.2,
-  ],
-  [
-    'Yamaha WR 450',
-    categoryLogoObj.Yamaha,
-    'Best enduro motrcycle from Yamaha, it is not a lie',
-    '4000',
-    0.1,
-  ],
-  [
-    'Honda CB 400',
-    categoryLogoObj.Honda,
-    'Best motrcycle from Honda, ever, trust me',
-    '2000',
-    0.2,
-  ],
-  [
-    'Yamaha WR 450',
-    categoryLogoObj.Kawasaki,
-    'Best enduro motrcycle from Yamaha, it is not a lie',
-    '4000',
-    0.1,
-  ],
-  [
-    'Honda CB 400',
-    categoryLogoObj.Suzuki,
-    'Best motrcycle from Honda, ever, trust me',
-    '2000',
-    0.2,
-  ],
-  [
-    'Yamaha WR 450',
-    categoryLogoObj.Honda,
-    'Best enduro motrcycle from Yamaha, it is not a lie',
-    '4000',
-    0.1,
-  ],
-];
 
 export function createCard(
   name: string,
@@ -105,15 +59,5 @@ export function createCard(
   cardsBlock.append(card);
   return card;
 }
-
-productsArr.forEach((el) =>
-  createCard(
-    el[0] as string,
-    el[1] as string,
-    el[2] as string,
-    el[3] as string,
-    el[4] as number,
-  ),
-);
 
 export default cardsBlock;
