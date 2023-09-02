@@ -1,3 +1,5 @@
+import { hideFilter } from '../../../controller/catalogPageHandlers';
+
 const filters = document.createElement('form');
 filters.classList.add('catalog__filters');
 
