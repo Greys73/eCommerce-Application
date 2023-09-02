@@ -1,20 +1,15 @@
 const cardsBlock = document.createElement('div');
 cardsBlock.classList.add('items__cards');
 
-
 export function createCard(
   name: string,
   img: string,
   description: string,
   price: string,
   discont?: number,
-  sku?: string,
 ) {
   const card = document.createElement('div');
   card.classList.add('cards__card');
-  card.addEventListener('click', () => {
-    window.routeLocation = `/product?sku=${sku}`;
-  });
 
   const cardName = document.createElement('h4');
   cardName.classList.add('card__name');
