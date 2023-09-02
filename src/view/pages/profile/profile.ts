@@ -186,17 +186,6 @@ function createChangePasswordForm(): HTMLFormElement {
     .querySelector('[name="showPassword"]')
     ?.addEventListener('click', showPassword);
 
-  const showPassword = (e: Event) => {
-    const chkBox = e.target as HTMLInputElement;
-    form.querySelectorAll('input:not([type="checkbox"])').forEach((el) => {
-      const input = el as HTMLInputElement;
-      input.type = chkBox.checked ? 'text' : 'password';
-    });
-  };
-  form
-    .querySelector('[name="showPassword"]')
-    ?.addEventListener('click', showPassword);
-
   return form;
 }
 
