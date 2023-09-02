@@ -2,6 +2,7 @@ import { ProductDraft } from '@commercetools/platform-sdk';
 import { filterByParams } from '../model/api/apiRoot';
 import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
+import { fillProductPage } from './fillProductPage';
 
 const getFilterData = () => {
   const data = new FormData(filters);
@@ -55,8 +56,9 @@ const getFilterData = () => {
 
 const placeCards = (cards: ProductDraft[]) => {
   cardsBlock.innerHTML = '';
-  if (cards.length === 0) return;
+  // if (cards.length === 0) return;
   cards.forEach((card) => {
+    let createdCard;
     const name = card.name.en;
     const description = card.description
       ? `${card.description.en.slice(0, 51)}...`
@@ -64,7 +66,7 @@ const placeCards = (cards: ProductDraft[]) => {
     let img = '';
     let price = '000';
     const centPerEuro = 100;
-    const sku = card.masterVariant?.sku;
+    const sku = card.masterVariant?.sku || '';
     if (card.masterVariant && card.masterVariant.images)
       img = card.masterVariant.images[0].url;
     if (
@@ -83,21 +85,22 @@ const placeCards = (cards: ProductDraft[]) => {
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
         const discount = (1 - +price / basePrice).toFixed(2);
         console.log(discount);
-        const createdCard = createCard(
+        createdCard = createCard(
           name,
           img,
           description,
           `${basePrice}`,
           +discount,
         );
-        createdCard.addEventListener('click', () => {
-          window.routeLocation = `/product?sku=${sku}`;
-        });
       } else {
         const centPrice = card.masterVariant.prices[0].value.centAmount || 100;
         price = `${centPrice / centPerEuro}`;
-        createCard(name, img, description, price);
+        createdCard = createCard(name, img, description, price);
       }
+      createdCard.addEventListener('click', () => {
+        window.routeLocation = `/product?sku=${sku}`;
+        fillProductPage(sku);
+      });
     }
   });
 };

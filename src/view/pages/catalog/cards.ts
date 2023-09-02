@@ -89,7 +89,7 @@ export function createCard(
 
     const cardDiscont = document.createElement('p');
     cardDiscont.classList.add('price-block__discont');
-    cardDiscont.textContent = (discont * 100).toString().concat('%');
+    cardDiscont.textContent = `-${discont * 100}%`;
 
     cardDiscontPrice.append(cardDiscont);
 
