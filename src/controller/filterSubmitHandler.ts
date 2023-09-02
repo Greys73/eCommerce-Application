@@ -1,9 +1,22 @@
-import { ProductDraft } from '@commercetools/platform-sdk';
-import { filterByParams } from '../model/api/apiRoot';
+import { Category, ProductDraft } from '@commercetools/platform-sdk';
+import { filterByParams, getCategoryByKey } from '../model/api/apiRoot';
 import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
 import { fillProductPage } from './fillProductPage';
 
+const getCategory = async (): Promise<string> => {
+  const { search } = window.location;
+  if (!search) return '';
+  const categoryKey = search.slice(search.indexOf('=') + 1);
+  let filter: string;
+  const categoryID: Category = (await getCategoryByKey(categoryKey)).body.id;
+  if (categoryKey.length === 2) {
+    filter = `categories.id:"${categoryID}"`;
+  } else {
+    filter = `categories.id: subtree("${categoryID}")`;
+  }
+  return filter;
+};
 const getFilterData = () => {
   const data = new FormData(filters);
   const filterOptions: string[] = [];
@@ -50,6 +63,8 @@ const getFilterData = () => {
       filterOptions.push(attrFilter);
     }
   });
+
+  getCategory();
 
   return filterOptions;
 };
@@ -108,6 +123,10 @@ export const placeCards = (cards: ProductDraft[]) => {
 const filterSubmit = async (e: Event) => {
   e.preventDefault();
   const filterOptions = getFilterData();
+  const category = await getCategory();
+  if (category) {
+    filterOptions.push(category);
+  }
   try {
     const resp = await filterByParams(filterOptions);
     const cards = resp.body.results as ProductDraft[];
