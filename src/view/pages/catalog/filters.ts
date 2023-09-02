@@ -1,6 +1,4 @@
-import { hideFilter } from '../../../controller/catalogPageHandlers';
-
-const filters = document.createElement('div');
+const filters = document.createElement('form');
 filters.classList.add('catalog__filters');
 
 const filtersBlock = document.createElement('div');
@@ -12,7 +10,7 @@ const companyArr = ['Honda', 'Yamaha', 'Suzuki', 'Kawasaki'];
 
 const typesArr = ['Standard', 'Sport', 'Cruiser', 'Touring'];
 
-const colorsArr = ['Black', 'Blue', 'Red', 'Yellow', 'Green'];
+const colorsArr = ['Black', 'Blue', 'Red', 'Yellow', 'Green', 'White'];
 
 const drivetrainsArr = ['Chain', 'Belt', 'Shaft'];
 
@@ -47,6 +45,8 @@ function createCheckboxFilter(
     const input = document.createElement('input');
     input.classList.add('filter__checkbox-input');
     input.type = 'checkbox';
+    input.name = filterId;
+    input.value = el;
 
     const label = document.createElement('label');
     label.classList.add('filter__label');
@@ -80,12 +80,14 @@ function createRangeFilter(
   const minValueInput = document.createElement('input');
   minValueInput.classList.add('filter__range-input');
   minValueInput.type = 'number';
+  minValueInput.name = `${filterId}From`;
   // minValueInput.min = minValue.toString();
   // minValueInput.max = maxValue.toString();
 
   const maxValueInput = document.createElement('input');
   maxValueInput.classList.add('filter__range-input');
   maxValueInput.type = 'number';
+  maxValueInput.name = `${filterId}To`;
   // maxValueInput.min = minValue.toString();
   // maxValueInput.max = maxValue.toString();
 
@@ -110,26 +112,23 @@ function createRangeFilter(
   return filter;
 }
 
-const price = createRangeFilter('Price', 'filter-price');
-const year = createRangeFilter('Year', 'filter-year');
+const price = createRangeFilter('Price', 'price');
+const year = createRangeFilter('Year', 'attr-year');
 console.log(year);
 
-const displacement = createRangeFilter(
-  'Displacement (cc)',
-  'filter-displacement',
-);
-const power = createRangeFilter('Power (hp)', 'filter-power');
-const weight = createRangeFilter('Curb weight (kg)', 'filter-weigth');
+const displacement = createRangeFilter('Displacement (cc)', 'attr-dsp');
+const power = createRangeFilter('Power (hp)', 'attr-power');
+const weight = createRangeFilter('Curb weight (kg)', 'attr-weight');
 
-const company = createCheckboxFilter('Company', 'filter-company', companyArr);
-const type = createCheckboxFilter('Type', 'filter-type', typesArr);
-const color = createCheckboxFilter('Color', 'filter-color', colorsArr);
+const company = createCheckboxFilter('Company', 'attr-brand', companyArr);
+const type = createCheckboxFilter('Type', 'attr-type', typesArr);
+const color = createCheckboxFilter('Color', 'attr-colour', colorsArr);
 const drivetrain = createCheckboxFilter(
   'Drivetrain',
-  'filter-drivetrain',
+  'attr-drive',
   drivetrainsArr,
 );
-const brakes = createCheckboxFilter('Brakes type', 'filter-brakes', brakesArr);
+const brakes = createCheckboxFilter('Brakes type', 'attr-brake', brakesArr);
 
 filtersBlock.append(
   price,
@@ -144,6 +143,20 @@ filtersBlock.append(
   drivetrain,
 );
 
-filters.append(filtersBlock);
+const buttonsBlock = document.createElement('div');
+buttonsBlock.className = 'filters__button-block';
+
+const submitBtn = document.createElement('button');
+submitBtn.className = 'filters_button';
+submitBtn.textContent = 'Filter';
+submitBtn.type = 'submit';
+
+const resetBtn = document.createElement('button');
+resetBtn.className = 'filters_button';
+resetBtn.type = 'reset';
+resetBtn.textContent = 'Reset';
+buttonsBlock.append(submitBtn, resetBtn);
+
+filters.append(filtersBlock, buttonsBlock);
 
 export default filters;

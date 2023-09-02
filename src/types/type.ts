@@ -80,3 +80,37 @@ type Images = {
   label: string;
   url: string;
 };
+
+export interface FilterOptions {
+  price: {
+    from: number;
+    to: number;
+  };
+  brand: Brand;
+  type: Type;
+  year: {
+    from: number;
+    to: number;
+  };
+  dsp: {
+    from: number;
+    to: number;
+  };
+  power: {
+    from: number;
+    to: number;
+  };
+  weight: {
+    from: number;
+    to: number;
+  };
+  color: Color;
+  brake: Brake;
+  drive: Drive;
+}
+
+type Brand = 'honda' | 'yamaha' | 'suzuki' | 'kawasaki';
+type Color = 'black' | 'blue' | 'red' | 'yellow' | 'green' | 'white';
+type Brake = 'disc' | 'drum' | 'combi';
+type Drive = 'chain' | 'belt' | 'shaft';
+type Type = 'standard' | 'sport' | 'cruiser' | 'tour';
