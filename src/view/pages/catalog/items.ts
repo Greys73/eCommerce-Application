@@ -1,5 +1,6 @@
 import cardsBlock from './cards';
 import categoryLogoObj from '../../../model/data/images-src';
+import setCategories from '../../../controller/fillCatalogPage';
 
 const items = document.createElement('div');
 items.classList.add('catalog__items');
@@ -11,15 +12,15 @@ routingBlock.classList.add('items__routing');
 
 const categoryName = document.createElement('p');
 categoryName.classList.add('routing__text');
-categoryName.textContent = 'Honda';
+categoryName.textContent = '';
 
 const subCategoryName = document.createElement('p');
 subCategoryName.classList.add('routing__text');
-subCategoryName.textContent = ' / Sport';
+subCategoryName.textContent = '';
 
 const modelName = document.createElement('p');
 modelName.classList.add('routing__text');
-modelName.textContent = ' / CBR 954RR';
+modelName.textContent = '';
 
 routingBlock.append(categoryName, subCategoryName, modelName);
 
@@ -33,36 +34,53 @@ searchInput.type = 'text';
 searchInput.classList.add('search__search-field');
 searchInput.placeholder = 'Search';
 
-const searchFilter = document.createElement('p');
-searchFilter.classList.add('search__filter');
-searchFilter.textContent = 'Sorting ▼';
+const searchFilterBlock = document.createElement('select');
+searchFilterBlock.classList.add('search__filter-block');
+searchFilterBlock.name = 'sorting';
 
-searchingBlock.append(searchInput, searchFilter);
+const searchFilterNameASC = document.createElement('option');
+searchFilterNameASC.classList.add('search__filter');
+searchFilterNameASC.textContent = 'Sort by Name: A-Z';
+searchFilterNameASC.selected = true;
 
-// category block
+const searchFilterNameDESC = document.createElement('option');
+searchFilterNameDESC.classList.add('search__filter');
+searchFilterNameDESC.textContent = 'Sort by Name: Z-A';
 
-const categoryArr = [
-  'Honda',
-  'Kawasaki',
-  'Yamaha',
-  'Suzuki',
-  'Standard',
-  'Sport',
-  'Touring',
-  'Cruiser',
-]; // get from API
+const searchFiltePriceASC = document.createElement('option');
+searchFiltePriceASC.classList.add('search__filter');
+searchFiltePriceASC.textContent = 'Sort by Lowest Price';
+
+const searchFiltePriceDESC = document.createElement('option');
+searchFiltePriceDESC.classList.add('search__filter');
+searchFiltePriceDESC.textContent = 'Sort by Highest Price';
+
+searchFilterBlock.append(
+  searchFilterNameASC,
+  searchFilterNameDESC,
+  searchFiltePriceASC,
+  searchFiltePriceDESC,
+);
+
+searchingBlock.append(searchInput, searchFilterBlock);
 
 const categoryBlock = document.createElement('div');
 categoryBlock.classList.add('items__category');
 
-categoryArr.forEach((el) => {
-  const logo = document.createElement('img');
-  logo.classList.add('category__logo');
-  logo.src = categoryLogoObj[el];
-  logo.alt = `${el}-logo`;
+(async () => {
+  const categoryArr = await setCategories(categoryName, subCategoryName);
 
-  categoryBlock.append(logo);
-});
+  if (categoryArr) {
+    categoryArr.forEach((el) => {
+      const logo = document.createElement('img');
+      logo.classList.add('category__logo');
+      logo.src = categoryLogoObj[el];
+      logo.alt = `${el}-logo`;
+
+      categoryBlock.append(logo);
+    });
+  }
+})();
 
 // compiling
 
