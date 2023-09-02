@@ -1,13 +1,11 @@
+/* eslint-disable no-param-reassign */
 const hideFilter = (header: HTMLElement, container: HTMLElement): void => {
   const headerText = header?.textContent as string;
   if (headerText?.slice(-1) === '▵') {
-    // eslint-disable-next-line no-param-reassign
     header.textContent = headerText.slice(0, -1).concat('▿');
   } else {
-    // eslint-disable-next-line no-param-reassign
     header.textContent = headerText.slice(0, -1).concat('▵');
   }
-
   container.classList.toggle('hidden');
 };
 

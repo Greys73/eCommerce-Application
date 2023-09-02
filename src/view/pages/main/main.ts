@@ -42,9 +42,11 @@ categorySection.classList.add('main-page__brands');
     categoryArr!.forEach((el) => {
       const logo = document.createElement('img');
       logo.classList.add('brands__logo');
-      logo.src = categoryLogoObj[el];
-      logo.alt = `${el}-logo`;
-
+      logo.src = categoryLogoObj[el.name.en];
+      logo.alt = `${el.name.en}-logo`;
+      logo.addEventListener('click', () => {
+        window.routeLocation = `/catalog?category=${el.key}`;
+      });
       categorySection.append(logo);
     });
   }
