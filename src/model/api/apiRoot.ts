@@ -195,11 +195,32 @@ export const getCategories = () =>
     .then((obj) => obj)
     .catch((err) => err);
 
-export const getCategoryById = (id: string) =>
-  apiRoot
-    .categories()
-    .withId({ ID: id })
-    .get()
-    .execute()
-    .then((obj) => obj)
-    .catch((err) => err);
+export const getCategoryById = (id: string) => {
+  try {
+    return apiRoot
+      .categories()
+      .withId({ ID: id })
+      .get()
+      .execute()
+      .then((obj) => obj)
+      .catch((err) => err);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const getCategoryByKey = (key: string) => {
+  try {
+    return apiRoot
+      .categories()
+      .withKey({ key })
+      .get()
+      .execute()
+      .then((obj) => obj)
+      .catch((err) => err);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

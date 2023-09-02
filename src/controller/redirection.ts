@@ -1,4 +1,5 @@
 import { getLoacalCustomer } from '../model/login';
+import { fillMenu } from './fillCatalogPage';
 import { fillProductPage } from './fillProductPage';
 
 type RedirectMapElement = {
@@ -30,6 +31,10 @@ function parseSearch(href: Location) {
   if (href.pathname === '/product') {
     const id = params.get('sku') || params.get('key') || '';
     fillProductPage(id.toString());
+  }
+  if (href.pathname === '/catalog') {
+    const id = params.get('category') || '';
+    fillMenu(id);
   }
 }
 

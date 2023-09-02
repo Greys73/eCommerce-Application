@@ -12,7 +12,7 @@ const fillPriceCont = (priceOptions: Price) => {
   }`;
 
   if (priceOptions.discounted) {
-    console.log('disc');
+    // console.log('disc');
     product.currentPrice.textContent = `${
       priceOptions.discounted.value.centAmount / centsPerEuro
     } ${priceOptions.discounted.value.currencyCode}`;
@@ -145,8 +145,8 @@ export const fillProductPage = async (SKU: string) => {
   const prodOptions = response.body.results[0];
   const variants = [prodOptions.masterVariant, ...prodOptions.variants];
   const currentVariant = variants.find((prod) => prod.sku === SKU);
-  console.log('product');
-  console.log(prodOptions);
+  // console.log('product');
+  // console.log(prodOptions);
 
   product.name.textContent = prodOptions.name.en;
   if (prodOptions.description)

@@ -116,7 +116,7 @@ function createRangeFilter(
 
 const price = createRangeFilter('Price', 'price');
 const year = createRangeFilter('Year', 'attr-year');
-console.log(year);
+// console.log(year);
 
 const displacement = createRangeFilter('Displacement (cc)', 'attr-dsp');
 const power = createRangeFilter('Power (hp)', 'attr-power');
