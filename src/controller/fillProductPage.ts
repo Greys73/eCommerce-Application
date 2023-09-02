@@ -30,6 +30,9 @@ const fillPriceCont = (priceOptions: Price) => {
 };
 
 const fillFeatures = (attr: ProductVariant['attributes']) => {
+  product.features
+    .querySelectorAll('.features__item')
+    .forEach((item) => item.remove());
   for (let i = 0; i < attr.length; i += 1) {
     const feature = document.createElement('div');
     feature.className = 'features__item';
@@ -67,13 +70,14 @@ const fillFeatures = (attr: ProductVariant['attributes']) => {
 const fillImageSlider = (images: ProductVariant['images']) => {
   product.img.src = images[0].url;
   product.img.alt = images[0].label;
-  productImages.splice(0);
+  productImages.splice(0, productImages.length);
   for (let i = 0; i < images.length; i += 1) {
     const { url } = images[i];
     productImages.push(url);
   }
 };
 const fillSliderControls = (images: ProductVariant['images']) => {
+  product.sliderControls.innerHTML = '';
   for (let i = 0; i < images.length; i += 1) {
     const dot = document.createElement('div');
     dot.className = 'controls__item';
@@ -127,14 +131,10 @@ const fillVariants = (variants: ProductVariant[]) => {
 
 export const fillProductPage = async (SKU: string) => {
   const response = await getProductBySKU(SKU);
-  // for id search
-  // const product = response.body.masterData.current
 
   const prodOptions = response.body.results[0];
   const variants = [prodOptions.masterVariant, ...prodOptions.variants];
   const currentVariant = variants.find((prod) => prod.sku === SKU);
-  console.log('product');
-  console.log(prodOptions);
 
   product.name.textContent = prodOptions.name.en;
   if (prodOptions.description)
