@@ -49,7 +49,7 @@ const productsArr = [
   ],
 ];
 
-function createCard(
+export function createCard(
   name: string,
   img: string,
   description: string,
@@ -76,7 +76,7 @@ function createCard(
 
   const cardPrice = document.createElement('p');
   cardPrice.classList.add('price-block__price');
-  cardPrice.textContent = price;
+  cardPrice.textContent = `${price} €`;
 
   cardPriceBlock.append(cardPrice);
 
@@ -85,7 +85,7 @@ function createCard(
 
     const cardDiscontPrice = document.createElement('p');
     cardDiscontPrice.classList.add('price-block__discont-price');
-    cardDiscontPrice.textContent = (Number(price) * discont).toString();
+    cardDiscontPrice.textContent = `${+price * (1 - discont)} €`;
 
     const cardDiscont = document.createElement('p');
     cardDiscont.classList.add('price-block__discont');
@@ -103,6 +103,7 @@ function createCard(
   card.append(cardName, cardImg, cardText, cardPriceBlock, cardButton);
 
   cardsBlock.append(card);
+  return card;
 }
 
 productsArr.forEach((el) =>
