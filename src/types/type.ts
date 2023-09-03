@@ -109,6 +109,11 @@ export interface FilterOptions {
   drive: Drive;
 }
 
+export type URLOptions = {
+  sku?: string;
+  category?: string;
+};
+
 type Brand = 'honda' | 'yamaha' | 'suzuki' | 'kawasaki';
 type Color = 'black' | 'blue' | 'red' | 'yellow' | 'green' | 'white';
 type Brake = 'disc' | 'drum' | 'combi';

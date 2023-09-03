@@ -181,6 +181,7 @@ export const filterByParams = (filterOptions: string[]) =>
     .get({
       queryArgs: {
         filter: filterOptions,
+        limit: 100,
       },
     })
     .execute()

@@ -1,6 +1,5 @@
 import { getLoacalCustomer } from '../model/login';
-import { fillMenu } from './fillCatalogPage';
-import { fillProductPage } from './fillProductPage';
+import { URLOptions } from '../types/type';
 
 type RedirectMapElement = {
   from: string;
@@ -26,16 +25,15 @@ const redirectionMap: RedirectMapElement[] = [
   },
 ];
 
-function parseSearch(href: Location) {
+export function getSearch(href: Location): URLOptions {
   const params = new URLSearchParams(href.search);
-  if (href.pathname === '/product') {
-    const id = params.get('sku') || params.get('key') || '';
-    fillProductPage(id.toString());
-  }
-  if (href.pathname === '/catalog') {
-    const id = params.get('category') || '';
-    fillMenu(id);
-  }
+  const options: URLOptions = {};
+
+  if (params.get('sku')) options.sku = params.get('sku') || undefined;
+  if (params.get('category'))
+    options.category = params.get('category') || undefined;
+
+  return options;
 }
 
 export function checkRedirection(location: string): boolean {
@@ -51,8 +49,6 @@ export function checkRedirection(location: string): boolean {
       setTimeout(() => {
         window.routeLocation = element.to;
       }, 50);
-    } else {
-      parseSearch(window.location);
     }
   });
   return result;

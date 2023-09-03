@@ -2,7 +2,7 @@ import { Category, ProductDraft } from '@commercetools/platform-sdk';
 import { filterByParams, getCategoryByKey } from '../model/api/apiRoot';
 import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
-import { fillProductPage } from './fillProductPage';
+// import { fillProductPage } from './fillProductPage';
 
 export const getCategory = async (): Promise<string> => {
   const { search } = window.location;
@@ -99,7 +99,7 @@ export const placeCards = (cards: ProductDraft[]) => {
         const basePrice =
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
         const discount = (1 - +price / basePrice).toFixed(2);
-        console.log(discount);
+        // console.log(discount);
         createdCard = createCard(
           name,
           img,
@@ -114,14 +114,17 @@ export const placeCards = (cards: ProductDraft[]) => {
       }
       createdCard.addEventListener('click', () => {
         window.routeLocation = `/product?sku=${sku}`;
-        fillProductPage(sku);
       });
     }
   });
 };
 
-const filterSubmit = async (e: Event) => {
-  e.preventDefault();
+export const filterSubmit = async (e: Event) => {
+  try {
+    e.preventDefault();
+  } catch {
+    /* empty */
+  }
   const filterOptions = getFilterData();
   const category = await getCategory();
   if (category) {
