@@ -1,57 +1,8 @@
-import categoryLogoObj from '../../../model/data/images-src';
-
 const cardsBlock = document.createElement('div');
 cardsBlock.classList.add('items__cards');
 
-const productsArr = [
-  // get from API
-  [
-    'Honda CB 400',
-    categoryLogoObj.Honda,
-    'Best motrcycle from Honda, ever, trust me',
-    '2000',
-    0.2,
-    'honda-cb400sf-red',
-  ],
-  [
-    'Yamaha WR 450',
-    categoryLogoObj.Yamaha,
-    'Best enduro motrcycle from Yamaha, it is not a lie',
-    '4000',
-    0.1,
-  ],
-  [
-    'Honda CB 400',
-    categoryLogoObj.Honda,
-    'Best motrcycle from Honda, ever, trust me',
-    '2000',
-    0.2,
-    'honda-cb400sf-yellow',
-  ],
-  [
-    'Yamaha WR 450',
-    categoryLogoObj.Kawasaki,
-    'Best enduro motrcycle from Yamaha, it is not a lie',
-    '4000',
-    0.1,
-  ],
-  [
-    'Honda CB 400',
-    categoryLogoObj.Suzuki,
-    'Best motrcycle from Honda, ever, trust me',
-    '2000',
-    0.2,
-  ],
-  [
-    'Yamaha WR 450',
-    categoryLogoObj.Honda,
-    'Best enduro motrcycle from Yamaha, it is not a lie',
-    '4000',
-    0.1,
-  ],
-];
 
-function createCard(
+export function createCard(
   name: string,
   img: string,
   description: string,
@@ -82,7 +33,7 @@ function createCard(
 
   const cardPrice = document.createElement('p');
   cardPrice.classList.add('price-block__price');
-  cardPrice.textContent = price;
+  cardPrice.textContent = `${price} €`;
 
   cardPriceBlock.append(cardPrice);
 
@@ -91,11 +42,11 @@ function createCard(
 
     const cardDiscontPrice = document.createElement('p');
     cardDiscontPrice.classList.add('price-block__discont-price');
-    cardDiscontPrice.textContent = (Number(price) * discont).toString();
+    cardDiscontPrice.textContent = `${+price * (1 - discont)} €`;
 
     const cardDiscont = document.createElement('p');
     cardDiscont.classList.add('price-block__discont');
-    cardDiscont.textContent = (discont * 100).toString().concat('%');
+    cardDiscont.textContent = `-${discont * 100}%`;
 
     cardDiscontPrice.append(cardDiscont);
 
@@ -109,17 +60,7 @@ function createCard(
   card.append(cardName, cardImg, cardText, cardPriceBlock, cardButton);
 
   cardsBlock.append(card);
+  return card;
 }
-
-productsArr.forEach((el) =>
-  createCard(
-    el[0] as string,
-    el[1] as string,
-    el[2] as string,
-    el[3] as string,
-    el[4] as number,
-    el[5] as string,
-  ),
-);
 
 export default cardsBlock;

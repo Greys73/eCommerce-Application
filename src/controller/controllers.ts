@@ -9,3 +9,4 @@ import './profilePageHandlers';
 import './fillProductPage';
 import './productModalHandlers';
 import './filterSubmitHandler';
+import './fillCatalog';

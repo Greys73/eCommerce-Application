@@ -187,6 +187,16 @@ export const filterByParams = (filterOptions: string[]) =>
     .then((obj) => obj)
     .catch((err) => err);
 
+
+export const getAllProducts = () =>
+  apiRoot
+    .productProjections()
+    .search()
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
+
 export const getCategories = () =>
   apiRoot
     .categories()
@@ -194,6 +204,7 @@ export const getCategories = () =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
 
 export const getCategoryById = (id: string) => {
   try {
@@ -224,3 +235,4 @@ export const getCategoryByKey = (key: string) => {
     return false;
   }
 };
+
