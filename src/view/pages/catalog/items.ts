@@ -33,28 +33,39 @@ searchInput.type = 'text';
 searchInput.classList.add('search__search-field');
 searchInput.placeholder = 'Search';
 
-const searchFilterBlock = document.createElement('select');
+export const searchFilterBlock = document.createElement('select');
 searchFilterBlock.classList.add('search__filter-block');
 searchFilterBlock.name = 'sorting';
+searchFilterBlock.setAttribute('form', 'filters');
+
+const searchFilterSort = document.createElement('option');
+searchFilterSort.classList.add('search__filter');
+searchFilterSort.textContent = 'Sort';
+searchFilterSort.selected = true;
+searchFilterSort.value = '';
 
 const searchFilterNameASC = document.createElement('option');
 searchFilterNameASC.classList.add('search__filter');
 searchFilterNameASC.textContent = 'Sort by Name: A-Z';
-searchFilterNameASC.selected = true;
+searchFilterNameASC.value = 'name.en asc';
 
 const searchFilterNameDESC = document.createElement('option');
 searchFilterNameDESC.classList.add('search__filter');
 searchFilterNameDESC.textContent = 'Sort by Name: Z-A';
+searchFilterNameDESC.value = 'name.en desc';
 
 const searchFiltePriceASC = document.createElement('option');
 searchFiltePriceASC.classList.add('search__filter');
 searchFiltePriceASC.textContent = 'Sort by Lowest Price';
+searchFiltePriceASC.value = 'price asc';
 
 const searchFiltePriceDESC = document.createElement('option');
 searchFiltePriceDESC.classList.add('search__filter');
 searchFiltePriceDESC.textContent = 'Sort by Highest Price';
+searchFiltePriceDESC.value = 'price desc';
 
 searchFilterBlock.append(
+  searchFilterSort,
   searchFilterNameASC,
   searchFilterNameDESC,
   searchFiltePriceASC,

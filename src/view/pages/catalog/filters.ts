@@ -2,6 +2,7 @@ import { hideFilter } from '../../../controller/catalogPageHandlers';
 
 const filters = document.createElement('form');
 filters.classList.add('catalog__filters');
+filters.id = 'filters';
 
 const filtersBlock = document.createElement('div');
 filtersBlock.classList.add('filters__filter-block');

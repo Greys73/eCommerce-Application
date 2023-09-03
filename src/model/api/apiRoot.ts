@@ -174,13 +174,15 @@ export const sortByParam = (param: string, order: string, limit: number) =>
     .then((obj) => obj)
     .catch((err) => err);
 
-export const filterByParams = (filterOptions: string[]) =>
+export const filterByParams = (filterOptions: string[], sort?: string[]) =>
   apiRoot
     .productProjections()
     .search()
     .get({
       queryArgs: {
         filter: filterOptions,
+        sort,
+        limit: 100,
       },
     })
     .execute()
