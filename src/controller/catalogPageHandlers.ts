@@ -47,9 +47,9 @@ async function pageLoaded(e: Event) {
   const location = window.location.pathname;
   const options = (e as CustomEvent).detail;
   if (location === '/catalog') {
-    fillMenu(options.category);
-    filterSubmit(options.key);
-    addFilterBlcokListeners();
+    await fillMenu(options.category);
+    await filterSubmit(options.key);
+    await addFilterBlcokListeners();
   }
 }
 
