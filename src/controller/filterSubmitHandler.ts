@@ -99,7 +99,7 @@ export const placeCards = (cards: ProductDraft[]) => {
         const basePrice =
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
         const discount = (1 - +price / basePrice).toFixed(2);
-        console.log(discount);
+        // console.log(discount);
         createdCard = createCard(
           name,
           img,

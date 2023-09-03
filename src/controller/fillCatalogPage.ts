@@ -21,7 +21,7 @@ const setCategories = async (
 
   if (category && category.textContent) {
     if (subCategory && subCategory.textContent) {
-      console.log('no subcats!');
+      // console.log('no subcats!');
     } else {
       await Promise.all(
         categoriesList
