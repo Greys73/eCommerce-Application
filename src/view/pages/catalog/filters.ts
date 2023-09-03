@@ -1,9 +1,7 @@
-// import { hideFilter } from '../../../controller/catalogPageHandlers';
-
 const filters = document.createElement('form');
 filters.classList.add('catalog__filters');
 
-const filtersBlock = document.createElement('div');
+export const filtersBlock = document.createElement('div');
 filtersBlock.classList.add('filters__filter-block');
 
 // get arrs from API
@@ -61,11 +59,6 @@ function createCheckboxFilter(
 
   // console.log('filter=', filter.firstElementChild);
   // console.log('filterContainer=', container);
-  filter.firstElementChild?.addEventListener(
-    'click',
-    () => false,
-    // hideFilter(filter.firstElementChild as HTMLElement, container)
-  );
 
   filter.append(container);
 
@@ -104,12 +97,6 @@ function createRangeFilter(
   maxLabel.classList.add('filter__label');
   maxLabel.textContent = 'to';
   maxLabel.append(maxValueInput);
-
-  filter.firstElementChild?.addEventListener(
-    'click',
-    () => false,
-    // hideFilter(filter.firstElementChild as HTMLElement, container),
-  );
 
   container.append(minLabel, maxLabel);
 
