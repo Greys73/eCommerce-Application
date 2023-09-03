@@ -20,4 +20,4 @@ async function updateCustomer() {
 function contentLoaded() {
   updateCustomer();
 }
-window.addEventListener('DOMContentLoaded', contentLoaded);
+window.addEventListener('PageContentLoaded', contentLoaded);

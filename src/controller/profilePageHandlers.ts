@@ -148,4 +148,4 @@ function pageLoaded() {
   }
 }
 
-window.addEventListener('DOMContentLoaded', pageLoaded);
+window.addEventListener('PageContentLoaded', pageLoaded);

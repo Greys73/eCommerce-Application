@@ -14,7 +14,7 @@ header.append(headerContainer);
 const headerLogo = document.createElement('div');
 headerLogo.classList.add('header__logo');
 
-const logoImg = document.createElement('img');
+export const logoImg = document.createElement('img');
 logoImg.classList.add('logo__image');
 logoImg.src = logo;
 logoImg.alt = 'DreamMoto logo';
@@ -115,8 +115,5 @@ navContainer.childNodes.forEach((el) =>
     if (nav.classList.contains('header__nav_visable')) clickBurger();
   }),
 );
-
-const event = new CustomEvent('DOMContentLoaded', { detail: navObj });
-logoImg.addEventListener('load', () => window.dispatchEvent(event));
 
 export { header, changeRegStatus, navObj };

@@ -31,7 +31,7 @@ function locationHandler() {
     const page: HTMLElement = routes[pathName] || routes['404'];
     mainSection.default.innerHTML = '';
     mainSection.default.append(page);
-    window.dispatchEvent(new Event('DOMContentLoaded'));
+    window.dispatchEvent(new Event('PageContentLoaded'));
   }
 }
 
@@ -49,6 +49,7 @@ function linkClick(e: Event) {
 }
 
 function contentLoaded() {
+  console.log('PageContentLoaded');
   document.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', linkClick);
   });
@@ -67,4 +68,4 @@ Object.defineProperty(window, 'routeLocation', {
 
 window.addEventListener('load', locationHandler);
 window.addEventListener('popstate', locationHandler);
-window.addEventListener('DOMContentLoaded', contentLoaded);
+window.addEventListener('PageContentLoaded', contentLoaded);

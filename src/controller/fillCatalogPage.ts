@@ -92,5 +92,5 @@ export const fillMenu = async (key: string) => {
   return true;
 };
 
-window.addEventListener('DOMContentLoaded', pageLoaded);
+window.addEventListener('PageContentLoaded', pageLoaded);
 export default setCategories;

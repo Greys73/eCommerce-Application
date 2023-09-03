@@ -12,7 +12,7 @@ function showResultMessage(response: PromiseResponse, msg: string) {
   resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
     setLoacalCustomer(response.body);
-    window.dispatchEvent(new Event('DOMContentLoaded'));
+    window.dispatchEvent(new Event('PageContentLoaded'));
     resultMessage.firstChild!.textContent = msg;
   } else {
     resultMessage.firstChild!.textContent = response.message;

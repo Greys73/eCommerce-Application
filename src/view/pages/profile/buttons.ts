@@ -39,7 +39,7 @@ function createButtonsFor(form: HTMLFormElement) {
     }
   };
   cancelBtn.addEventListener('click', () => {
-    window.dispatchEvent(new Event('DOMContentLoaded'));
+    window.dispatchEvent(new Event('PageContentLoaded'));
     editMode(false);
   });
   editBtn.addEventListener('click', () => editMode(true));
