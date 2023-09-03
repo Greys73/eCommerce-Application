@@ -106,13 +106,15 @@ export const placeCards = (cards: ProductDraft[]) => {
         }`;
         const basePrice =
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
-        const discount = (1 - +price / basePrice).toFixed(2);
+        const discountedPrice =
+          card.masterVariant.prices[0].discounted.value.centAmount /
+          centPerEuro;
         createdCard = createCard(
           name,
           img,
           description,
           `${basePrice}`,
-          +discount,
+          `${discountedPrice}`,
         );
       } else {
         const centPrice = card.masterVariant.prices[0].value.centAmount || 100;
