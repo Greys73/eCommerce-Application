@@ -83,9 +83,51 @@ export const placeCards = (cards: ProductDraft[]) => {
   cards.forEach((card) => {
     let createdCard;
     const name = card.name.en;
-    const description = card.description
-      ? `${card.description.en.slice(0, 51)}...`
-      : 'description';
+
+    const attributes = card.masterVariant?.attributes;
+    function getAttribute(attribute: string): string | number {
+      let attrValue = attributes?.find((el) => el.name === `attr-${attribute}`)
+        ?.value;
+      if (attribute === 'type') {
+        attrValue = attrValue.label;
+      }
+      if (!attrValue) attrValue = '';
+      return attrValue;
+    }
+
+    function configureDescription(
+      year: string | number,
+      type: string | number,
+      displacement: string | number,
+      power: string | number,
+      weight: string | number,
+    ): string[] {
+      const yearStr = year !== '' ? year.toString() : '{{year}}';
+      const typeStr = type !== '' ? type.toString() : '{{type}}';
+      const displacementStr =
+        displacement !== '' ? displacement.toString().concat(' cc') : '{{cc}}';
+      const powerStr = power !== '' ? power.toString().concat(' hp') : '{{hp}}';
+      const weightStr =
+        weight !== '' ? weight.toString().concat(' kg') : '{{kg}}';
+
+      const firstLine = [yearStr, typeStr].join(', ');
+      const secondLine = [displacementStr, powerStr, weightStr].join(', ');
+
+      const returnArr = [firstLine, secondLine];
+
+      return returnArr;
+    }
+
+    const description = configureDescription(
+      getAttribute('year'),
+      getAttribute('type'),
+      getAttribute('dsp'),
+      getAttribute('power'),
+      getAttribute('weight'),
+    );
+    // const description = card.description
+    //   ? `${card.description.en.slice(0, 51)}...`
+    //   : '{{year}}, {{type}}, {{cc}}, {{power}}, {{weight}}';
     let img = '';
     let price = '000';
     const centPerEuro = 100;
