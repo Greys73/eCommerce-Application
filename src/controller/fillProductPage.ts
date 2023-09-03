@@ -149,8 +149,16 @@ export const fillProductPage = async (SKU: string) => {
   const currentVariant = variants.find((prod) => prod.sku === SKU);
 
   product.name.textContent = prodOptions.name.en;
-  if (prodOptions.description)
-    product.description.textContent = prodOptions.description.en;
+  if (prodOptions.description) {
+    const paragraphArr: string[] = prodOptions.description.en.split('\n\n');
+    product.description.innerHTML = '';
+    paragraphArr.forEach((el) => {
+      const paragraph = document.createElement('p');
+      paragraph.classList.add('product__description');
+      paragraph.textContent = el;
+      product.description.append(paragraph);
+    });
+  }
   if (currentVariant.prices.length > 0) fillPriceCont(currentVariant.prices[0]);
   fillFeatures(currentVariant.attributes);
   fillImageSlider(currentVariant.images);

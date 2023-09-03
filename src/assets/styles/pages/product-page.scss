@@ -192,11 +192,17 @@
   opacity: 1;
 }
 
-.product__description {
+.product__description-block {
   grid-column: 1 / 5;
   width: 60vw;
   // max-width: 1080px;
   max-width: 600px; // for cross-check only
+  margin-top: $marginDesctopDiv2;
+  @include _mobile {
+    margin-top: $marginMobileDiv2;
+  }
+}
+.product__description {
   @include _mainFont(16px);
   text-align: justify;
   margin: $marginDesctopDiv4 auto;

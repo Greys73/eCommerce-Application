@@ -54,8 +54,8 @@ variants.append(variantsBlock);
 // css
 
 // description
-const description = document.createElement('p');
-description.className = 'product__description';
+const description = document.createElement('div');
+description.className = 'product__description-block';
 
 // features
 const features = document.createElement('div');
