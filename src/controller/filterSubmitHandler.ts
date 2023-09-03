@@ -2,7 +2,7 @@ import { Category, ProductDraft } from '@commercetools/platform-sdk';
 import { filterByParams, getCategoryByKey } from '../model/api/apiRoot';
 import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
-import { fillProductPage } from './fillProductPage';
+// import { fillProductPage } from './fillProductPage';
 import { searchFilterBlock } from '../view/pages/catalog/items';
 
 export const getCategory = async (): Promise<string> => {
@@ -149,17 +149,11 @@ export const placeCards = (cards: ProductDraft[]) => {
         const basePrice =
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
 
-//         const discountedPrice =
-//           card.masterVariant.prices[0].discounted.value.centAmount /
-//           centPerEuro;
+        // const discountedPrice =
+        // card.masterVariant.prices[0].discounted.value.centAmount /
+        // centPerEuro;
 
-        createdCard = createCard(
-          name,
-          img,
-          description,
-          `${basePrice}`,
-          price,
-        );
+        createdCard = createCard(name, img, description, `${basePrice}`, price);
       } else {
         const centPrice = card.masterVariant.prices[0].value.centAmount || 100;
         price = `${centPrice / centPerEuro}`;

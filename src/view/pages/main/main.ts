@@ -15,7 +15,7 @@ catalogParagraph.textContent = 'Looking for the perfect ride? Look no further!';
 const catalogButton = document.createElement('a');
 catalogButton.className = 'main-page__link';
 catalogButton.textContent = 'Choose your bike now!';
-catalogButton.href = '/products';
+catalogButton.href = '/catalog';
 
 mainPage.append(header, catalogParagraph, catalogButton);
 
