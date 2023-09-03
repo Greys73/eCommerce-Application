@@ -13,3 +13,4 @@ import './productModalHandlers';
 import './filterSubmitHandler';
 import './fillCatalog';
 import './filterResetHandler';
+import './searchHandler';
