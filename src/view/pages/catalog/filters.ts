@@ -1,5 +1,6 @@
 const filters = document.createElement('form');
 filters.classList.add('catalog__filters');
+filters.id = 'filters';
 
 export const filtersBlock = document.createElement('div');
 filtersBlock.classList.add('filters__filter-block');

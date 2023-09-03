@@ -6,7 +6,7 @@ export function createCard(
   img: string,
   description: string,
   price: string,
-  discont?: number,
+  discountedPrice?: string,
 ) {
   const card = document.createElement('div');
   card.classList.add('cards__card');
@@ -32,16 +32,18 @@ export function createCard(
 
   cardPriceBlock.append(cardPrice);
 
-  if (discont) {
+  if (discountedPrice) {
     cardPrice.style.textDecoration = 'line-through';
 
     const cardDiscontPrice = document.createElement('p');
     cardDiscontPrice.classList.add('price-block__discont-price');
-    cardDiscontPrice.textContent = `${+price * (1 - discont)} €`;
+    cardDiscontPrice.textContent = `${discountedPrice} €`;
 
     const cardDiscont = document.createElement('p');
     cardDiscont.classList.add('price-block__discont');
-    cardDiscont.textContent = `-${(discont * 100).toFixed()}%`;
+    cardDiscont.textContent = `-${Math.round(
+      (1 - +discountedPrice / +price) * 100,
+    )}%`;
 
     cardDiscontPrice.append(cardDiscont);
 

@@ -2,7 +2,8 @@ import { Category, ProductDraft } from '@commercetools/platform-sdk';
 import { filterByParams, getCategoryByKey } from '../model/api/apiRoot';
 import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
-// import { fillProductPage } from './fillProductPage';
+import { fillProductPage } from './fillProductPage';
+import { searchFilterBlock } from '../view/pages/catalog/items';
 
 export const getCategory = async (): Promise<string> => {
   const { search } = window.location;
@@ -17,6 +18,13 @@ export const getCategory = async (): Promise<string> => {
   }
   return filter;
 };
+
+const getSortOrder = () => {
+  const data = new FormData(filters);
+  const sortOrder = data.get('sorting');
+  return `${sortOrder}`;
+};
+
 const getFilterData = () => {
   const data = new FormData(filters);
   const filterOptions: string[] = [];
@@ -98,14 +106,17 @@ export const placeCards = (cards: ProductDraft[]) => {
         }`;
         const basePrice =
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
-        const discount = (1 - +price / basePrice).toFixed(2);
-        // console.log(discount);
+
+//         const discountedPrice =
+//           card.masterVariant.prices[0].discounted.value.centAmount /
+//           centPerEuro;
+
         createdCard = createCard(
           name,
           img,
           description,
           `${basePrice}`,
-          +discount,
+          price,
         );
       } else {
         const centPrice = card.masterVariant.prices[0].value.centAmount || 100;
@@ -126,12 +137,18 @@ export const filterSubmit = async (e: Event) => {
     /* empty */
   }
   const filterOptions = getFilterData();
+  const sortOptions = getSortOrder();
   const category = await getCategory();
   if (category) {
     filterOptions.push(category);
   }
   try {
-    const resp = await filterByParams(filterOptions);
+    let resp;
+    if (sortOptions) {
+      resp = await filterByParams(filterOptions, [sortOptions]);
+    } else {
+      resp = await filterByParams(filterOptions);
+    }
     const cards = resp.body.results as ProductDraft[];
     placeCards(cards);
   } catch (error) {
@@ -140,3 +157,4 @@ export const filterSubmit = async (e: Event) => {
 };
 
 filters.addEventListener('submit', filterSubmit);
+searchFilterBlock.addEventListener('change', filterSubmit);
