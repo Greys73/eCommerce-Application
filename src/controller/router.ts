@@ -6,7 +6,7 @@ import * as er404Page from '../view/pages/404/404';
 import * as catalogPage from '../view/pages/catalog/catalog';
 import * as productPage from '../view/pages/product/product';
 import * as profilePage from '../view/pages/profile/profile';
-import { checkRedirection } from './redirection';
+import { checkRedirection, getSearch } from './redirection';
 
 type RoutesType = {
   [key: string]: HTMLElement;
@@ -31,7 +31,10 @@ function locationHandler() {
     const page: HTMLElement = routes[pathName] || routes['404'];
     mainSection.default.innerHTML = '';
     mainSection.default.append(page);
-    window.dispatchEvent(new Event('PageContentLoaded'));
+    const event = new CustomEvent('PageContentLoaded', {
+      detail: getSearch(window.location),
+    });
+    window.dispatchEvent(event);
   }
 }
 
@@ -49,7 +52,6 @@ function linkClick(e: Event) {
 }
 
 function contentLoaded() {
-  console.log('PageContentLoaded');
   document.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', linkClick);
   });
