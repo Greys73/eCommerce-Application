@@ -344,12 +344,11 @@
 
 .card__text {
   @include _mainFont(16px);
-  margin: calc($marginDesctop / 2) calc($marginDesctop / 4);
-  margin-bottom: 0px;
+  margin: calc($marginDesctop / 8);
   text-align: center;
   @include _tablet {
     font-size: 14px;
-    margin: $marginTabletDiv2 $marginTabletDiv4;
+    margin: $marginTabletDiv4;
     margin-bottom: 0;
   }
   // @include _mobile {

@@ -93,19 +93,23 @@ export const placeCards = (cards: ProductDraft[]) => {
       displacement: string | number,
       power: string | number,
       weight: string | number,
-    ): string {
-      const descriptionArr: string[] = [];
-      descriptionArr[0] = year !== '' ? year.toString() : '{{year}}';
-      descriptionArr[1] = type !== '' ? type.toString() : '{{type}}';
-      descriptionArr[2] =
-        displacement !== '' ? displacement.toString().concat('cc') : '{{cc}}';
-      descriptionArr[3] =
-        power !== '' ? power.toString().concat('hp') : '{{hp}}';
-      descriptionArr[4] =
-        weight !== '' ? weight.toString().concat('kg') : '{{kg}}';
+    ): string[] {
+      const yearStr = year !== '' ? year.toString() : '{{year}}';
+      const typeStr = type !== '' ? type.toString() : '{{type}}';
+      const displacementStr =
+        displacement !== '' ? displacement.toString().concat(' cc') : '{{cc}}';
+      const powerStr = power !== '' ? power.toString().concat(' hp') : '{{hp}}';
+      const weightStr =
+        weight !== '' ? weight.toString().concat(' kg') : '{{kg}}';
 
-      return descriptionArr.join(', ');
+      const firstLine = [yearStr, typeStr].join(', ');
+      const secondLine = [displacementStr, powerStr, weightStr].join(', ');
+
+      const returnArr = [firstLine, secondLine];
+
+      return returnArr;
     }
+
     const description = configureDescription(
       getAttribute('year'),
       getAttribute('type'),

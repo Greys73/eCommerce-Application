@@ -4,7 +4,7 @@ cardsBlock.classList.add('items__cards');
 export function createCard(
   name: string,
   img: string,
-  description: string,
+  description: string[],
   price: string,
   discont?: number,
 ) {
@@ -15,9 +15,16 @@ export function createCard(
   cardName.classList.add('card__name');
   cardName.textContent = name;
 
-  const cardText = document.createElement('p');
-  cardText.classList.add('card__text');
-  cardText.textContent = description;
+  function generateDescription(strArr: string[]): void {
+    strArr.forEach((el) => {
+      const cardText = document.createElement('p');
+      cardText.classList.add('card__text');
+      cardText.textContent = el;
+      card.append(cardText);
+    });
+  }
+
+  generateDescription(description);
 
   const cardImg = document.createElement('img');
   cardImg.classList.add('card__image');
@@ -52,7 +59,8 @@ export function createCard(
   cardButton.classList.add('card__button');
   cardButton.textContent = 'Add to basket';
 
-  card.append(cardName, cardImg, cardText, cardPriceBlock, cardButton);
+  card.prepend(cardName, cardImg);
+  card.append(cardPriceBlock, cardButton);
 
   cardsBlock.append(card);
   return card;
