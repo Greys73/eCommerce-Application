@@ -77,6 +77,7 @@ const fillImageSlider = (images: ProductVariant['images']) => {
     productImages.push(url);
   }
 };
+
 const fillSliderControls = (images: ProductVariant['images']) => {
   product.sliderControls.innerHTML = '';
   for (let i = 0; i < images.length; i += 1) {

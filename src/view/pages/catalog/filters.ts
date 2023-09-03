@@ -1,10 +1,8 @@
-import { hideFilter } from '../../../controller/catalogPageHandlers';
-
 const filters = document.createElement('form');
 filters.classList.add('catalog__filters');
 filters.id = 'filters';
 
-const filtersBlock = document.createElement('div');
+export const filtersBlock = document.createElement('div');
 filtersBlock.classList.add('filters__filter-block');
 
 // get arrs from API
@@ -62,9 +60,6 @@ function createCheckboxFilter(
 
   // console.log('filter=', filter.firstElementChild);
   // console.log('filterContainer=', container);
-  filter.firstElementChild?.addEventListener('click', () =>
-    hideFilter(filter.firstElementChild as HTMLElement, container),
-  );
 
   filter.append(container);
 
@@ -103,10 +98,6 @@ function createRangeFilter(
   maxLabel.classList.add('filter__label');
   maxLabel.textContent = 'to';
   maxLabel.append(maxValueInput);
-
-  filter.firstElementChild?.addEventListener('click', () =>
-    hideFilter(filter.firstElementChild as HTMLElement, container),
-  );
 
   container.append(minLabel, maxLabel);
 
@@ -150,12 +141,12 @@ const buttonsBlock = document.createElement('div');
 buttonsBlock.className = 'filters__button-block';
 
 const submitBtn = document.createElement('button');
-submitBtn.className = 'filters_button';
+submitBtn.className = 'filters__button_confirm';
 submitBtn.textContent = 'Filter';
 submitBtn.type = 'submit';
 
 const resetBtn = document.createElement('button');
-resetBtn.className = 'filters_button';
+resetBtn.className = 'filters__button_reset';
 resetBtn.type = 'reset';
 resetBtn.textContent = 'Reset';
 buttonsBlock.append(submitBtn, resetBtn);

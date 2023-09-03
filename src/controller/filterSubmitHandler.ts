@@ -106,15 +106,17 @@ export const placeCards = (cards: ProductDraft[]) => {
         }`;
         const basePrice =
           (card.masterVariant.prices[0].value.centAmount || 1) / centPerEuro;
-        const discountedPrice =
-          card.masterVariant.prices[0].discounted.value.centAmount /
-          centPerEuro;
+
+//         const discountedPrice =
+//           card.masterVariant.prices[0].discounted.value.centAmount /
+//           centPerEuro;
+
         createdCard = createCard(
           name,
           img,
           description,
           `${basePrice}`,
-          `${discountedPrice}`,
+          price,
         );
       } else {
         const centPrice = card.masterVariant.prices[0].value.centAmount || 100;
@@ -123,14 +125,17 @@ export const placeCards = (cards: ProductDraft[]) => {
       }
       createdCard.addEventListener('click', () => {
         window.routeLocation = `/product?sku=${sku}`;
-        fillProductPage(sku);
       });
     }
   });
 };
 
-const filterSubmit = async (e: Event) => {
-  e.preventDefault();
+export const filterSubmit = async (e: Event) => {
+  try {
+    e.preventDefault();
+  } catch {
+    /* empty */
+  }
   const filterOptions = getFilterData();
   const sortOptions = getSortOrder();
   const category = await getCategory();

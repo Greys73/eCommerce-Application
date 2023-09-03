@@ -1,5 +1,4 @@
 import { Category } from '@commercetools/platform-sdk';
-import categoryLogoObj from '../model/data/images-src';
 import {
   getCategories,
   getCategoryById,
@@ -10,6 +9,7 @@ import {
   categoryName,
   subCategoryName,
 } from '../view/pages/catalog/items';
+import categoryLogoObj from '../model/data/images-src';
 
 const setCategories = async (
   category?: HTMLElement,
@@ -21,7 +21,7 @@ const setCategories = async (
 
   if (category && category.textContent) {
     if (subCategory && subCategory.textContent) {
-      console.log('no subcats!');
+      // console.log('no subcats!');
     } else {
       await Promise.all(
         categoriesList
@@ -46,51 +46,39 @@ const setCategories = async (
   return categoryArr;
 };
 
-function pageLoaded() {
-  const location = window.location.pathname;
-  if (location === '/catalog') {
-    setTimeout(async () => {
-      const categoryArr = await setCategories(categoryName, subCategoryName);
-      categoryBlock.innerHTML = '';
-      if (categoryArr) {
-        categoryArr.forEach((el) => {
-          const logo = document.createElement('img');
-          logo.classList.add('category__logo');
-          logo.src = categoryLogoObj[el.name.en];
-          logo.alt = `${el.name.en}-logo`;
-          logo.addEventListener('click', () => {
-            window.routeLocation = `/catalog?category=${el.key}`;
-          });
-          categoryBlock.append(logo);
-        });
-      }
-    }, 50);
-  }
-}
-
 export const fillMenu = async (key: string) => {
   categoryName.textContent = '';
   subCategoryName.textContent = '';
-  if (!key) {
-    pageLoaded();
-    return false;
+  if (key) {
+    const category: Category = (await getCategoryByKey(key)).body;
+    const parentID = category.parent?.id || category.id;
+    const parentCat: Category = (await getCategoryById(parentID)).body;
+    if (category.id !== parentCat.id) {
+      categoryName.textContent = ` / ${parentCat.name.en}`;
+      categoryName.href = `/catalog?category=${parentCat.key}`;
+      subCategoryName.textContent = ` / ${category.name.en}`;
+      subCategoryName.style.breakBefore = ' / ';
+      subCategoryName.href = `/catalog?category=${category.key}`;
+    } else {
+      categoryName.textContent = ` / ${category.name.en}`;
+      categoryName.href = `/catalog?category=${category.key}`;
+    }
   }
-  const category: Category = (await getCategoryByKey(key)).body;
-  const parentID = category.parent?.id || category.id;
-  const parentCat: Category = (await getCategoryById(parentID)).body;
-  if (category.id !== parentCat.id) {
-    categoryName.textContent = ` / ${parentCat.name.en}`;
-    categoryName.href = `/catalog?category=${parentCat.key}`;
-    subCategoryName.textContent = ` / ${category.name.en}`;
-    subCategoryName.style.breakBefore = ' / ';
-    subCategoryName.href = `/catalog?category=${category.key}`;
-  } else {
-    categoryName.textContent = ` / ${category.name.en}`;
-    categoryName.href = `/catalog?category=${category.key}`;
+
+  const categoryArr = await setCategories(categoryName, subCategoryName);
+  categoryBlock.innerHTML = '';
+  if (categoryArr) {
+    categoryArr.forEach((el) => {
+      const logo = document.createElement('img');
+      logo.classList.add('category__logo');
+      logo.src = categoryLogoObj[el.name.en];
+      logo.alt = `${el.name.en}-logo`;
+      logo.addEventListener('mouseup', () => {
+        window.routeLocation = `/catalog?category=${el.key}`;
+      });
+      categoryBlock.append(logo);
+    });
   }
-  pageLoaded();
-  return true;
 };
 
-window.addEventListener('DOMContentLoaded', pageLoaded);
 export default setCategories;
