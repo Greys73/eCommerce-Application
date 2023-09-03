@@ -149,12 +149,12 @@ const buttonsBlock = document.createElement('div');
 buttonsBlock.className = 'filters__button-block';
 
 const submitBtn = document.createElement('button');
-submitBtn.className = 'filters_button';
+submitBtn.className = 'filters__button_confirm';
 submitBtn.textContent = 'Filter';
 submitBtn.type = 'submit';
 
 const resetBtn = document.createElement('button');
-resetBtn.className = 'filters_button';
+resetBtn.className = 'filters__button_reset';
 resetBtn.type = 'reset';
 resetBtn.textContent = 'Reset';
 buttonsBlock.append(submitBtn, resetBtn);
