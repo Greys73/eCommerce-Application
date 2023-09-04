@@ -96,40 +96,40 @@ const fillSliderControls = (images: ProductVariant['images']) => {
   }
 };
 
-const fillVariants = (variants: ProductVariant[]) => {
-  const colors = variants.map((variant) => {
-    const colorAttr = variant.attributes.find(
-      (attr) => attr.name === 'attr-colour',
-    );
-    if (colorAttr) {
-      const colorValue = colorAttr.value as AttrValue;
-      return colorValue.label;
-    }
-    return 'default';
-  });
-  // eslint-disable-next-line prefer-destructuring
-  const mainVariantColor = colors[0];
-  product.mainVariant.style.backgroundColor = mainVariantColor;
-  product.mainVariant.style.borderColor = mainVariantColor;
-  if (
-    colors.length > 1 &&
-    product.variantsBlock.childNodes.length < colors.length
-  ) {
-    for (let i = 1; i < colors.length; i += 1) {
-      const variant = document.createElement('a');
-      variant.className = 'variants__links';
-      // css
+function getColorFromVariant(variant: ProductVariant) {
+  const colorAttr = variant.attributes.find(
+    (attr) => attr.name === 'attr-colour',
+  );
+  if (colorAttr) {
+    const colorValue = colorAttr.value as AttrValue;
+    return colorValue.label;
+  }
+  return 'default';
+}
 
-      variant.style.borderColor = 'black';
-      variant.style.borderStyle = 'solid';
+const fillVariants = (
+  variants: ProductVariant[],
+  current?: ProductVariant | null,
+) => {
+  const colors = variants.map((variant) => getColorFromVariant(variant));
+  const currentClolor = current ? getColorFromVariant(current) : null;
 
-      variant.style.backgroundColor = colors[i];
-      variant.style.borderColor = colors[i];
-      variant.title = variants[i].sku;
-      // add correct link
-      variant.href = `/product?sku=${variants[i].sku}`;
-      product.variantsBlock.append(variant);
-    }
+  product.variantsBlock.innerHTML = '';
+  for (let i = 0; i < colors.length; i += 1) {
+    const variant = document.createElement('a');
+    variant.className = 'variants__links';
+    // css
+    variant.style.borderColor = 'black';
+    variant.style.backgroundColor = colors[i];
+    variant.style.borderColor = colors[i];
+    variant.title = variants[i].sku;
+    if (colors[i] === currentClolor)
+      variant.classList.add('variants__main', 'variants__selected');
+    // add correct link
+    variant.onclick = () => {
+      window.routeLocation = `/product?sku=${variants[i].sku}`;
+    };
+    product.variantsBlock.append(variant);
   }
 };
 
@@ -183,6 +183,6 @@ export const fillProductPage = async (SKU: string) => {
   fillImageSlider(currentVariant.images);
   if (currentVariant.images.length > 1)
     fillSliderControls(currentVariant.images);
-  fillVariants(variants);
+  fillVariants(variants, currentVariant);
   return true;
 };

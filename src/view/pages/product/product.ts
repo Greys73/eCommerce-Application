@@ -45,11 +45,6 @@ variants.textContent = 'Variants:';
 const variantsBlock = document.createElement('div');
 variantsBlock.className = 'variants__variants-block';
 
-const mainVariant = document.createElement('div');
-mainVariant.classList.add('variants__main', 'variants__selected');
-
-variantsBlock.append(mainVariant);
-
 variants.append(variantsBlock);
 // css
 
@@ -83,7 +78,6 @@ export {
   img,
   sliderControls,
   variantsBlock,
-  mainVariant,
   description,
   features,
 };
