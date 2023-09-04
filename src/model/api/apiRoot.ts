@@ -124,7 +124,6 @@ export const getProductsBySearchField = (searchValue: string) =>
       queryArgs: {
         'text.en': searchValue,
         fuzzy: true,
-        fuzzyLevel: 2,
       },
     })
     .execute()

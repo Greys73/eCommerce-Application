@@ -28,7 +28,7 @@ routingBlock.append(catalogName, categoryName, subCategoryName);
 const searchingBlock = document.createElement('div');
 searchingBlock.classList.add('items__search');
 
-const searchInput = document.createElement('input');
+export const searchInput = document.createElement('input');
 searchInput.type = 'text';
 searchInput.classList.add('search__search-field');
 searchInput.placeholder = 'Search';
