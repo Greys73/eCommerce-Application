@@ -1,9 +1,5 @@
 import { Category } from '@commercetools/platform-sdk';
-import {
-  getCategories,
-  getCategoryById,
-  getCategoryByKey,
-} from '../model/api/apiRoot';
+import { getCategories } from '../model/api/apiRoot';
 import {
   categoryBlock,
   categoryName,
@@ -11,28 +7,43 @@ import {
 } from '../view/pages/catalog/items';
 import categoryLogoObj from '../model/data/images-src';
 
+const fillNavMenu = (catList: Category[], key: string) => {
+  const curCategory: Category = catList.find((el) => el.key === key)!;
+  const parentID =
+    'parent' in curCategory ? curCategory.parent!.id : curCategory.id;
+  const parentCat: Category = catList.find((el) => el.id === parentID)!;
+  if (curCategory.id !== parentCat.id) {
+    categoryName.textContent = ` / ${parentCat.name.en}`;
+    categoryName.href = `/catalog?category=${parentCat.key}`;
+    subCategoryName.textContent = ` / ${curCategory.name.en}`;
+    subCategoryName.style.breakBefore = ' / ';
+    subCategoryName.href = `/catalog?category=${curCategory.key}`;
+  } else {
+    categoryName.textContent = ` / ${curCategory.name.en}`;
+    categoryName.href = `/catalog?category=${curCategory.key}`;
+  }
+};
+
 const setCategories = async (
+  categoriesList: Category[],
   category?: HTMLElement,
   subCategory?: HTMLElement,
 ): Promise<Category[] | undefined> => {
-  const response = await getCategories();
-  const categoriesList: Category[] = response.body.results;
   const categoryArr: Category[] = [];
-
   if (category && category.textContent) {
-    if (subCategory && subCategory.textContent) {
-      // console.log('no subcats!');
-    } else {
+    if (!(subCategory && subCategory.textContent)) {
       await Promise.all(
         categoriesList
           .filter((el) => el.parent)
           .map(async (el) => {
-            const parentRequest = await getCategoryById(el.parent!.id);
+            console.log(el.key);
+            const parentRequest = categoriesList.find(
+              (cat) => cat.id === el.parent!.id,
+            )!;
             const categoryText = category.textContent?.replace('/', '').trim();
-            if (parentRequest.body.name.en === categoryText) {
+            if (parentRequest.name.en === categoryText) {
               categoryArr.push(el);
             }
-
             return categoryArr;
           }),
       );
@@ -49,23 +60,16 @@ const setCategories = async (
 export const fillMenu = async (key: string) => {
   categoryName.textContent = '';
   subCategoryName.textContent = '';
+  const response = await getCategories();
+  const catList: Category[] = response.body.results;
   if (key) {
-    const category: Category = (await getCategoryByKey(key)).body;
-    const parentID = category.parent?.id || category.id;
-    const parentCat: Category = (await getCategoryById(parentID)).body;
-    if (category.id !== parentCat.id) {
-      categoryName.textContent = ` / ${parentCat.name.en}`;
-      categoryName.href = `/catalog?category=${parentCat.key}`;
-      subCategoryName.textContent = ` / ${category.name.en}`;
-      subCategoryName.style.breakBefore = ' / ';
-      subCategoryName.href = `/catalog?category=${category.key}`;
-    } else {
-      categoryName.textContent = ` / ${category.name.en}`;
-      categoryName.href = `/catalog?category=${category.key}`;
-    }
+    fillNavMenu(catList, key);
   }
-
-  const categoryArr = await setCategories(categoryName, subCategoryName);
+  const categoryArr = await setCategories(
+    catList,
+    categoryName,
+    subCategoryName,
+  );
   categoryBlock.innerHTML = '';
   if (categoryArr) {
     categoryArr.forEach((el) => {

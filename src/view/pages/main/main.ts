@@ -1,4 +1,6 @@
+import { Category } from '@commercetools/platform-sdk';
 import setCategories from '../../../controller/fillCatalogPage';
+import { getCategories } from '../../../model/api/apiRoot';
 import categoryLogoObj from '../../../model/data/images-src';
 
 const mainPage = document.createElement('div');
@@ -36,7 +38,9 @@ const categorySection = document.createElement('div');
 categorySection.classList.add('main-page__brands');
 
 (async () => {
-  const categoryArr = await setCategories();
+  const response = await getCategories();
+  const catList: Category[] = response.body.results;
+  const categoryArr = await setCategories(catList);
 
   if (categoryArr) {
     categoryArr!.forEach((el) => {
