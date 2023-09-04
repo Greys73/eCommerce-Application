@@ -4,7 +4,6 @@ import { placeCards } from './filterSubmitHandler';
 
 const searchHandler = async () => {
   const searchValue = searchInput.value;
-  console.log(searchValue);
   try {
     const cardsData = await getProductsBySearchField(searchValue.toLowerCase());
     placeCards(cardsData);
@@ -13,4 +12,4 @@ const searchHandler = async () => {
   }
 };
 
-searchInput.addEventListener('change', searchHandler);
+searchInput.addEventListener('input', searchHandler);
