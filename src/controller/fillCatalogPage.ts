@@ -36,7 +36,6 @@ const setCategories = async (
         categoriesList
           .filter((el) => el.parent)
           .map(async (el) => {
-            console.log(el.key);
             const parentRequest = categoriesList.find(
               (cat) => cat.id === el.parent!.id,
             )!;

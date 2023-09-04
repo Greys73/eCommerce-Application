@@ -12,7 +12,6 @@ const fillPriceCont = (priceOptions: Price) => {
   }`;
 
   if (priceOptions.discounted) {
-    // console.log('disc');
     product.currentPrice.textContent = `${
       priceOptions.discounted.value.centAmount / centsPerEuro
     } ${priceOptions.discounted.value.currencyCode}`;
@@ -134,6 +133,17 @@ const fillVariants = (variants: ProductVariant[]) => {
   }
 };
 
+const preloadImages = (variants: ProductVariant[]) => {
+  const imagesURL: string[] = [];
+  variants.forEach((variant) => {
+    variant.images.forEach((element: { url: string }) => {
+      imagesURL.push(element.url);
+      const img = new Image();
+      img.src = element.url;
+    });
+  });
+};
+
 export const fillProductPage = async (SKU: string) => {
   const response = await getProductBySKU(SKU);
 
@@ -147,6 +157,14 @@ export const fillProductPage = async (SKU: string) => {
 
   const prodOptions = response.body.results[0];
   const variants = [prodOptions.masterVariant, ...prodOptions.variants];
+  preloadImages(variants);
+  const imagesURL: string[] = [];
+  variants.forEach((variant) => {
+    variant.images.forEach((element: { url: string }) => {
+      imagesURL.push(element.url);
+    });
+  });
+
   const currentVariant = variants.find((prod) => prod.sku === SKU);
 
   product.name.textContent = prodOptions.name.en;
