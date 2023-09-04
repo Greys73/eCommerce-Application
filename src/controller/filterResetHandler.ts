@@ -5,7 +5,6 @@ import { getCategory, placeCards } from './filterSubmitHandler';
 const filterReset = async () => {
   const categoryFilter = await getCategory();
   let resp;
-  console.log(categoryFilter);
   if (categoryFilter) {
     resp = await filterByParams([categoryFilter]);
   } else {

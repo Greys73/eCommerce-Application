@@ -72,7 +72,7 @@ const getFilterData = () => {
     }
   });
 
-  getCategory();
+  // getCategory();
 
   return filterOptions;
 };
