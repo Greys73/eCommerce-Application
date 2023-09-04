@@ -1,6 +1,7 @@
 import { JSDOM } from 'jsdom';
 import loginPage from '../../src/view/pages/login/login';
 import { header, navObj, changeRegStatus } from '../../src/view/header/header';
+import resultMessage from '../../src/view/components/resultMessage';
 
 // loginPage, header, footer
 
@@ -12,7 +13,7 @@ global.document = dom.window.document;
 
 describe('login page tests', () => {
   describe('result message tests', () => {
-    const message = loginPage.querySelector('.login-form__result-container');
+    const message = resultMessage;
     test('LoginPage contains message', () => {
       expect(message).toBeDefined();
     });
@@ -74,7 +75,7 @@ describe('login page tests', () => {
 
 describe('login page tests', () => {
   describe('result message tests', () => {
-    const message = loginPage.querySelector('.login-form__result-container');
+    const message = resultMessage;
     test('LoginPage contains message', () => {
       expect(message).toBeDefined();
     });
@@ -180,13 +181,13 @@ describe('header tests', () => {
 
     const linksArr = [
       ['main-page', '/'],
-      ['products', '/products'],
+      ['products', 'catalog'],
       ['basket', '/basket'],
       ['about', '/about'],
       ['sigin', '/registration'],
       ['login', '/login'],
       ['profile', '/profile'],
-      ['logout', '/logout'],
+      ['logout', '/login'],
     ]
 
     linksArr.forEach(el => {
