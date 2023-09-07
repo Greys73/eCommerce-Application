@@ -1,7 +1,7 @@
 import loginForm from '../view/pages/login/login';
 import { loginCustomer } from '../model/api/apiRoot';
-import resultMessage from '../view/pages/login/resultMessage';
-import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
+import resultMessage from '../view/components/resultMessage';
+import { setLoacalCustomer } from '../model/login';
 
 const input: HTMLInputElement = loginForm.querySelector(
   'input[name="password"]',
@@ -39,18 +39,7 @@ async function submitHandler(e: Event) {
   }, 3000);
 }
 
-function checkCustomer() {
-  const location = window.location.pathname;
-  if (location === '/login') {
-    setTimeout(() => {
-      const customer = getLoacalCustomer();
-      if ('id' in customer) window.routeLocation = '/';
-    }, 500);
-  }
-}
-
 chkBox?.addEventListener('click', changeType);
 loginForm.addEventListener('submit', submitHandler);
-window.addEventListener('DOMContentLoaded', checkCustomer);
 
-export { changeType, submitHandler, checkCustomer };
+export { changeType, submitHandler };

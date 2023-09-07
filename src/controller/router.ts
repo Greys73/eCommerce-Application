@@ -3,28 +3,39 @@ import * as mainPage from '../view/pages/main/main';
 import * as regPage from '../view/pages/registration/registration';
 import * as loginPage from '../view/pages/login/login';
 import * as er404Page from '../view/pages/404/404';
+import * as catalogPage from '../view/pages/catalog/catalog';
+import * as productPage from '../view/pages/product/product';
+import * as profilePage from '../view/pages/profile/profile';
+import { checkRedirection, getSearch } from './redirection';
 
 type RoutesType = {
   [key: string]: HTMLElement;
 };
+
 const routes: RoutesType = {
   '/': mainPage.default,
-  // '/products':
+  '/catalog': catalogPage.default,
+  '/product': productPage.default,
   // '/basket':
   // '/about':
   '/registration': regPage.default,
   '/login': loginPage.default,
-  // '/profile':
+  '/profile': profilePage.default,
   // '/logout':
   '404': er404Page.default,
 };
 
 function locationHandler() {
-  const path = window.location.pathname || '/';
-  const page: HTMLElement = routes[path] || routes['404'];
-  mainSection.default.innerHTML = '';
-  mainSection.default.append(page);
-  window.dispatchEvent(new Event('DOMContentLoaded'));
+  const pathName = window.location.pathname || '/';
+  if (!checkRedirection(pathName)) {
+    const page: HTMLElement = routes[pathName] || routes['404'];
+    mainSection.default.innerHTML = '';
+    mainSection.default.append(page);
+    const event = new CustomEvent('PageContentLoaded', {
+      detail: getSearch(window.location),
+    });
+    window.dispatchEvent(event);
+  }
 }
 
 function route(e: Event) {
@@ -59,4 +70,4 @@ Object.defineProperty(window, 'routeLocation', {
 
 window.addEventListener('load', locationHandler);
 window.addEventListener('popstate', locationHandler);
-window.addEventListener('DOMContentLoaded', contentLoaded);
+window.addEventListener('PageContentLoaded', contentLoaded);

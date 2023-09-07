@@ -1,5 +1,6 @@
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
 import { NavObjType } from '../types/type';
+import { logoImg, navObj } from '../view/header/header';
 
 let menu: NavObjType = {};
 
@@ -22,12 +23,20 @@ function navChanger(_menu: NavObjType) {
   if (Object.keys(menu).length !== 0) {
     const customer = getLoacalCustomer();
     switchElements('id' in customer);
-    menu.logout.obj?.addEventListener('click', () => {
+    menu.logout.obj?.addEventListener('click', (e: Event) => {
+      e.preventDefault();
       setLoacalCustomer({});
       switchElements(false);
+      setTimeout(() => {
+        window.routeLocation = (e.target as HTMLLinkElement).href;
+      }, 50);
     });
   }
 }
 
-window.addEventListener('DOMContentLoaded', ((e: CustomEvent) =>
-  navChanger(e.detail)) as EventListener);
+logoImg.addEventListener('load', () => {
+  navChanger(navObj);
+});
+window.addEventListener('PageContentLoaded', () => {
+  navChanger(navObj);
+});

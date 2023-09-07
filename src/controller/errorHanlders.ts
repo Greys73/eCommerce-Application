@@ -1,24 +1,22 @@
-import registrationForm from '../view/pages/registration/registration';
-import loginForm from '../view/pages/login/login';
 import getSpecifyError from '../model/inputErrorSpecifier';
 
 export const checkPassword = (input: HTMLInputElement): boolean => {
   const secondPassword = input.value;
-  const firstPasswordInput = input.parentElement?.previousElementSibling
+  let firstPasswordInput = input.parentElement?.previousElementSibling
     ?.children[1] as HTMLInputElement;
+  if (!input.parentElement?.previousElementSibling)
+    firstPasswordInput = input.parentElement?.parentElement
+      ?.previousElementSibling?.children[0].children[1] as HTMLInputElement;
   const firstPassword = firstPasswordInput.value;
   return secondPassword === firstPassword;
 };
-
-const regInputs = [...registrationForm.querySelectorAll('input')];
-const loginInputs = [...loginForm.querySelectorAll('input')];
-const regSelects = [...registrationForm.querySelectorAll('select')];
 
 export const changeStyle = (
   elem: HTMLInputElement | HTMLSelectElement,
   isValid: boolean,
 ) => {
-  const errorMessage = elem.nextElementSibling;
+  const errorMessage =
+    elem.nextElementSibling || elem.parentElement?.nextElementSibling;
   const el = elem;
   if (isValid) {
     el.classList.remove('invalid');
@@ -44,20 +42,8 @@ export const inputValidationErrorHandler = (e: Event) => {
   }
 };
 
-const selectValidationHandler = (e: Event) => {
+export const selectValidationHandler = (e: Event) => {
   const countrySelect = e.target as HTMLSelectElement;
   const isValid = countrySelect.disabled === false && !!countrySelect.value;
   changeStyle(countrySelect, isValid);
 };
-
-regInputs.forEach((input) => {
-  input.addEventListener('input', inputValidationErrorHandler);
-});
-
-loginInputs.forEach((input) => {
-  input.addEventListener('input', inputValidationErrorHandler);
-});
-
-regSelects.forEach((select) => {
-  select.addEventListener('change', selectValidationHandler);
-});

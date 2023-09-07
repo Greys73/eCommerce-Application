@@ -57,3 +57,25 @@
         @include _button(200px, 30px, 16px);
     }
 }
+
+.main-page__brands {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.brands__logo {
+  margin: 4% 2%;
+  width: 10%;
+  min-width: 250px;
+  border: 1px solid white;
+  &:hover {
+    cursor: pointer;
+    scale: 1.05;
+    border: 1px solid rgba($color: #B0C4DE, $alpha: .3);
+    border-radius: 5%;
+    background-color: rgba($color: #1E90FF, $alpha: .05);
+  }
+}

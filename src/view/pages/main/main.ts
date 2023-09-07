@@ -1,5 +1,7 @@
-// const dummy = document.createElement('div');
-// dummy.textContent = 'This is MAIN page';
+import { Category } from '@commercetools/platform-sdk';
+import setCategories from '../../../controller/fillCatalogPage';
+import { getCategories } from '../../../model/api/apiRoot';
+import categoryLogoObj from '../../../model/data/images-src';
 
 const mainPage = document.createElement('div');
 mainPage.classList.add('main-page');
@@ -31,5 +33,29 @@ textArr.forEach((text) => {
   catalogText.textContent = text;
   mainPage.append(catalogText);
 });
+
+const categorySection = document.createElement('div');
+categorySection.classList.add('main-page__brands');
+
+(async () => {
+  const response = await getCategories();
+  const catList: Category[] = response.body.results;
+  const categoryArr = await setCategories(catList);
+
+  if (categoryArr) {
+    categoryArr!.forEach((el) => {
+      const logo = document.createElement('img');
+      logo.classList.add('brands__logo');
+      logo.src = categoryLogoObj[el.name.en];
+      logo.alt = `${el.name.en}-logo`;
+      logo.addEventListener('click', () => {
+        window.routeLocation = `/catalog?category=${el.key}`;
+      });
+      categorySection.append(logo);
+    });
+  }
+})();
+
+mainPage.append(categorySection);
 
 export default mainPage;

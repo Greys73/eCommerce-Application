@@ -1,9 +1,9 @@
 import { fireEvent } from '@testing-library/dom'
 import '@testing-library/jest-dom'
 import registrationPage from '../../src/view/pages/registration/registration'
-import { changeStyle, checkPassword } from '../../src/controller/regFormErrorHanlder'
+import { changeStyle, checkPassword } from '../../src/controller/errorHanlders'
 import loginPage from '../../src/view/pages/login/login'
-import resultMessage from '../../src/view/pages/login/resultMessage'
+import resultMessage from '../../src/view/components/resultMessage'
 
 describe('check controllers', () => {
   test('Password validation', () => {

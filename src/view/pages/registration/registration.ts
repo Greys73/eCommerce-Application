@@ -1,141 +1,18 @@
-import countries from '../../../model/data/countries';
-import { AddressType, FormBlock } from '../../../types/type';
+import { FormBlock } from '../../../types/type';
+import checkAgeParams from '../../../utils/checkAgeParams';
+import createAddressBlock from '../../../utils/view/createAddressBlock';
 import createFormBlock from '../../../utils/view/createFormBlock';
-import bothDefaultAddressBlock from './defaultCheckbox';
-import resultMessage from './resultMessage';
-
-const createAddressBlock = (addressType: AddressType): HTMLDivElement => {
-  const block = document.createElement('div');
-  block.className = `reg-form__address ${addressType}`;
-
-  // const addressHeader = document.createElement('h4');
-  // addressHeader.className = 'reg-form__subheader';
-  // addressHeader.textContent = `Address Section`;
-
-  const defaultAddressBlock = createFormBlock({
-    type: 'checkbox',
-    name: `default${addressType}Address`,
-    text: `Assign this address as default ${addressType}`,
-    required: false,
-    placeholder: '',
-  });
-
-  const streetOptions: FormBlock = {
-    type: 'text',
-    text: 'Address:',
-    name: `${addressType}Street`,
-    required: true,
-    pattern: /.+/,
-    title: 'Must contain at least one character',
-    placeholder: 'Address (Street, Building, etc)',
-  };
-
-  const cityOptions: FormBlock = {
-    type: 'text',
-    text: 'City:',
-    name: `${addressType}City`,
-    required: true,
-    pattern: /[A-Za-z]+/,
-    title:
-      'Must contain at least one character and no special characters or numbers',
-    placeholder: 'City',
-  };
-
-  const postCodeOptions: FormBlock = {
-    type: 'text',
-    text: 'Postal code:',
-    name: `${addressType}PostCode`,
-    required: true,
-    pattern: /[0-9]{5,7}/,
-    title: 'Must contain from 5 to 7 digits',
-    placeholder: 'Postal code (5-7 digits)',
-  };
-
-  const city = createFormBlock(cityOptions);
-  const street = createFormBlock(streetOptions);
-  const postCode = createFormBlock(postCodeOptions);
-
-  const countryBlock = document.createElement('div');
-  countryBlock.classList.add('form__block');
-
-  const countryContainer = document.createElement('div');
-  countryContainer.classList.add('form__flex-container');
-
-  const countryLabel = document.createElement('label');
-  countryLabel.htmlFor = `${addressType}Country`;
-  countryLabel.textContent = 'Country:';
-  countryLabel.classList.add('form__label');
-
-  const countrySelection = document.createElement('select');
-  countrySelection.name = `${addressType}Country`;
-  countrySelection.title = 'You should select a country to save this address';
-  countrySelection.classList.add('form__input', 'selection__country');
-
-  const countryMessage = document.createElement('p');
-  countryMessage.classList.add('form__error');
-
-  countryContainer.append(countryLabel, countrySelection);
-
-  countryBlock.append(countryContainer, countryMessage);
-
-  Object.keys(countries).forEach((el) => {
-    const option = document.createElement('option');
-    option.value = el;
-    option.textContent = el;
-    countrySelection.append(option);
-  });
-
-  block.append(countryBlock, city, street, postCode, defaultAddressBlock);
-
-  if (addressType === 'shipping') {
-    block.append(bothDefaultAddressBlock);
-  }
-
-  return block;
-};
 
 const createAddressButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
   button.textContent = 'Add second address';
   button.className = 'reg-page__adress-button';
-
   return button;
 };
 
 export const billingAddressBlock = createAddressBlock('billing');
 export const shippingAddressBlock = createAddressBlock('shipping');
 export const addressButton = createAddressButton();
-
-const checkAgeParams = () => {
-  const currentDate = new Date().getTime();
-
-  // const msInSec = 1000;
-  // const secInMin = 60;
-  // const minInHour = 60;
-  // const hoursInDay = 24;
-  // const monthInYear = 12; // correct?
-  // const daysInYear = 365; // correct?
-  // const smth = 3; //
-
-  const msPerDay = 86400000;
-  const daysPerYear = 365;
-  const leapYearAmount = 4;
-  const minCustomerAge = 18;
-
-  const msFromCustomerBirthday =
-    (minCustomerAge * daysPerYear + leapYearAmount) * msPerDay;
-  const maxBirthDate = new Date(currentDate - msFromCustomerBirthday);
-  const maxMonth = (maxBirthDate.getMonth() + 1).toString().padStart(2, '0');
-  const maxDay = maxBirthDate.getDate().toString().padStart(2, '0');
-
-  const resultObj = {
-    bitrhExtr: maxBirthDate,
-    mExtr: maxMonth,
-    dExtr: maxDay,
-  };
-
-  return resultObj;
-};
 
 function createRegistrationForm(): HTMLFormElement {
   const emailOptions: FormBlock = {
@@ -247,7 +124,6 @@ function createRegistrationForm(): HTMLFormElement {
   submitBtn.className = 'reg-page__button';
 
   regForm.append(shippingAddressBlock, addressButton, submitBtn);
-  regForm.prepend(resultMessage);
 
   return regForm;
 }
