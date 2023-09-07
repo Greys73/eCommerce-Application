@@ -158,14 +158,16 @@
 }
 
 .items__search {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   background-color: rgba($color: #778899, $alpha: .05);
   @include _tablet {
   }
   @include _mobile {
     background-color: white;
+  }
+  @media (max-width: 479.98px) {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -180,13 +182,18 @@
   padding: 0 15px;
   color: #346085;
   @include _tablet {
-    width: 250px;
+    width: 210px;
     font-size: 14px;
     margin: $marginTabletDiv4 $marginTabletDiv2;
   }
   @include _mobile {
     width: 150px;
     font-size: 12px;
+    height: 20px;
+  }
+  @media (max-width: 479.98px) {
+    width: 250px;
+    margin: $marginMobileDiv2 auto;
   }
   &:focus {
     outline-color: steelblue;
@@ -196,19 +203,36 @@
   }
 }
 
-.search__filter-block {
+.search__filter-block,
+.search__pagination-block {
+  display: block;
   border: 1px steelblue solid;
   border-radius: 5px;
-  margin: $marginDesctopDiv4 $marginDesctopDiv2;
   @include _mainFont(14px);
   color: slategray;
   outline: none;
+  margin: $marginDesctopDiv4 $marginDesctopDiv2;
+  margin-left: 0;
   &:after {
     border: 1px steelblue solid;
   }
   @include _tablet {
     margin: $marginTabletDiv4 $marginTabletDiv2;
     font-size: 12px;
+  }
+  @include _mobile {
+    height: 22px;
+    margin-left: auto;
+  }
+  @media (max-width: 479.98px) {
+    width: 282px;
+    margin: $marginMobileDiv2 auto;
+    text-align: center;
+    color: steelblue;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -459,5 +483,74 @@
 .filters__button_reset {
   &:hover {
     background-color: crimson;
+  }
+}
+
+.items__page-number {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.page-number__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include _button(40px, 40px, 20px);
+  font-weight: 100;
+  border: 2px solid cornflowerblue;
+  border-radius: $marginDesctop;
+  margin: $marginDesctop auto;
+
+  @include _tablet {
+    margin: $marginTablet auto;
+  }
+
+  @include _mobile {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    border-width: 1px;
+    margin: $marginMobile auto;
+  }
+
+  &:hover {
+    border-color: darkorange;
+  }
+
+  &_unactive {
+    color: slategray;
+    border-color: slategray;
+    background-color: white;
+
+    &:hover {
+      cursor: default;
+      background-color: white;
+      border-color: slategray;
+      transform: scale(1);
+    }
+  }
+
+  &_pagenumber {
+    width: 36px;
+    height: 36px;
+    font-weight: 400;
+    color: cornflowerblue;
+    background-color: white;
+
+    @include _mobile {
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+      border-width: 1px;
+    }
+
+    &:hover {
+      cursor: default;
+      background-color: white;
+      border-color: cornflowerblue;
+      transform: scale(1);
+    }
   }
 }
