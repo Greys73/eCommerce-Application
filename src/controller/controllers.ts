@@ -8,6 +8,8 @@ import './headerHandlers';
 import './profilePageHandlers';
 import './productPageHandlers';
 import './catalogPageHandlers';
+import './basketPageHandlers';
+import './aboutPageHandlers';
 import './fillProductPage';
 import './productModalHandlers';
 import './filterSubmitHandler';
