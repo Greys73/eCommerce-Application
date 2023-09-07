@@ -124,7 +124,7 @@ currentPage.classList.add(
   'page-number__button',
   'page-number__button_pagenumber',
 );
-currentPage.textContent = '00';
+currentPage.textContent = '5';
 
 const nextButton = document.createElement('button');
 nextButton.classList.add('page-number__button');

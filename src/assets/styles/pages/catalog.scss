@@ -488,9 +488,13 @@
 
 .items__page-number {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr) 1.25fr repeat(2, 1fr);
   max-width: 300px;
   margin: 0 auto;
+  @include _mobile {
+    grid-template-columns: repeat(2, 1fr) 1.1fr repeat(2, 1fr);
+    max-width: 250px;
+  }
 }
 
 .page-number__button {
@@ -536,20 +540,22 @@
     width: 36px;
     height: 36px;
     font-weight: 400;
+    font-size: 36px;
     color: cornflowerblue;
     background-color: white;
+    border-color: white;
 
     @include _mobile {
       width: 28px;
       height: 28px;
-      font-size: 16px;
+      font-size: 28px;
       border-width: 1px;
     }
 
     &:hover {
       cursor: default;
       background-color: white;
-      border-color: cornflowerblue;
+      border-color: white;
       transform: scale(1);
     }
   }
