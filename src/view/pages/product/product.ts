@@ -46,7 +46,21 @@ const variantsBlock = document.createElement('div');
 variantsBlock.className = 'variants__variants-block';
 
 variants.append(variantsBlock);
-// css
+
+// basket button
+
+const buttonBlock = document.createElement('div');
+buttonBlock.classList.add('product__buttons');
+
+const addBasketButton = document.createElement('button');
+addBasketButton.classList.add('buttons__add-button');
+addBasketButton.textContent = 'Add to basket';
+
+const removeBasketButton = document.createElement('button');
+removeBasketButton.classList.add('buttons__remove-button');
+removeBasketButton.textContent = 'Remove from basket';
+
+buttonBlock.append(addBasketButton, removeBasketButton);
 
 // description
 const description = document.createElement('div');
@@ -63,7 +77,15 @@ features.append(featureHeading);
 
 const productPage = document.createElement('div');
 productPage.className = 'product-page';
-productPage.append(name, priceCont, imgSlider, variants, description, features);
+productPage.append(
+  name,
+  priceCont,
+  imgSlider,
+  variants,
+  buttonBlock,
+  description,
+  features,
+);
 
 export default productPage;
 
