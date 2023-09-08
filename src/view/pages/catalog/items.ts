@@ -72,13 +72,84 @@ searchFilterBlock.append(
   searchFiltePriceDESC,
 );
 
-searchingBlock.append(searchInput, searchFilterBlock);
+export const paginationBlock = document.createElement('select');
+paginationBlock.classList.add('search__pagination-block');
+// searchFilterBlock.name = 'sorting';
+// searchFilterBlock.setAttribute('form', 'filters');
+
+const pagination5 = document.createElement('option');
+pagination5.classList.add('search__filter');
+pagination5.textContent = '5 per page';
+pagination5.selected = true;
+pagination5.value = '5';
+
+const pagination10 = document.createElement('option');
+pagination10.classList.add('search__filter');
+pagination10.textContent = '10 per page';
+pagination10.value = '10';
+
+const pagination20 = document.createElement('option');
+pagination20.classList.add('search__filter');
+pagination20.textContent = '20 per page';
+pagination20.value = '20';
+
+const pagination50 = document.createElement('option');
+pagination50.classList.add('search__filter');
+pagination50.textContent = '50 per page';
+pagination50.value = '50';
+
+paginationBlock.append(pagination5, pagination10, pagination20, pagination50);
+
+searchingBlock.append(searchInput, paginationBlock, searchFilterBlock);
 
 export const categoryBlock = document.createElement('div');
 categoryBlock.classList.add('items__category');
 
+const pageNumberBlock = document.createElement('div');
+pageNumberBlock.classList.add('items__page-number');
+
+const deepPrevButton = document.createElement('button');
+deepPrevButton.classList.add(
+  'page-number__button',
+  'page-number__button_unactive',
+);
+deepPrevButton.textContent = '<<';
+
+const prevButton = document.createElement('button');
+prevButton.classList.add('page-number__button', 'page-number__button_unactive');
+prevButton.textContent = '<';
+
+const currentPage = document.createElement('p');
+currentPage.classList.add(
+  'page-number__button',
+  'page-number__button_pagenumber',
+);
+currentPage.textContent = '5';
+
+const nextButton = document.createElement('button');
+nextButton.classList.add('page-number__button');
+nextButton.textContent = '>';
+
+const deepNextButton = document.createElement('button');
+deepNextButton.classList.add('page-number__button');
+deepNextButton.textContent = '>>';
+
+pageNumberBlock.append(
+  deepPrevButton,
+  prevButton,
+  currentPage,
+  nextButton,
+  deepNextButton,
+);
+
 // compiling
 
-items.append(routingBlock, searchingBlock, categoryBlock, cardsBlock);
+items.append(
+  routingBlock,
+  searchingBlock,
+  categoryBlock,
+  cardsBlock,
+  pageNumberBlock,
+);
 
 export default items;
