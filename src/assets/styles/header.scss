@@ -52,6 +52,7 @@
   @include _mobile {
     display: none;
     justify-content: center;
+    z-index: 2;
   }
 }
 
@@ -75,25 +76,86 @@
 }
 
 .nav__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin: $marginDesctopDiv2;
+
+  @media (max-width: 1349.98px) {
+    margin: $marginDesctopDiv4;
+  }
+
+  @media (max-width: 799.98px) {
+    margin: $marginTabletDiv4;
+  }
+}
+
+.nav__item-text {
   display: block;
   list-style-type: none;
   @include _font(20px);
-  margin: calc($marginDesctop / 2);
+  margin: $marginDesctopDiv4;
+  margin-top: $marginDesctopDiv4;
   padding: 0px;
   @include _tablet {
-    margin: calc($marginTablet / 4);
+    margin: $marginTabletDiv4;
     font-size: 14px;
     text-align: center;
   }
   @include _mobile {
     font-size: 20px;
     margin: calc($marginMobile * 4);
+    margin-left: $marginTablet;
   }
 }
 
 .nav__item:hover {
   cursor: pointer;
   color: antiquewhite;
+}
+
+.nav__item-icon {
+  width: 25px;
+  margin-bottom: $marginDesctopDiv8;
+ 
+  @include _tablet {
+    width: 20px;
+  }
+  @include _mobile {
+    width: 30px;
+  }
+}
+
+.nav__number-of-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 35px;
+  bottom: 15px;
+  @include _font(16px);
+  background-color: crimson;
+  border: crimson 1px solid;
+  border-radius: 20px;
+
+  @include _tablet {
+    width: 16px;
+    height: 16px;
+    left: 30px;
+    bottom: 14px;
+    font-size: 12px;
+  }
+
+  @include _mobile {
+    width: 20px;
+    height: 20px;
+    left: 35px;
+    bottom: 15px;
+    font-size: 16px;
+  }
 }
 
 .header__burger {
@@ -107,6 +169,7 @@
   margin-right: $marginMobile;
   @include _mobile {
     display: flex;
+    z-index: 3;
   }
 }
 
