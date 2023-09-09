@@ -108,29 +108,29 @@ categoryBlock.classList.add('items__category');
 const pageNumberBlock = document.createElement('div');
 pageNumberBlock.classList.add('items__page-number');
 
-const deepPrevButton = document.createElement('button');
+export const deepPrevButton = document.createElement('button');
 deepPrevButton.classList.add(
   'page-number__button',
   'page-number__button_unactive',
 );
 deepPrevButton.textContent = '<<';
 
-const prevButton = document.createElement('button');
+export const prevButton = document.createElement('button');
 prevButton.classList.add('page-number__button', 'page-number__button_unactive');
 prevButton.textContent = '<';
 
-const currentPage = document.createElement('p');
+export const currentPage = document.createElement('p');
 currentPage.classList.add(
   'page-number__button',
   'page-number__button_pagenumber',
 );
 currentPage.textContent = '5';
 
-const nextButton = document.createElement('button');
+export const nextButton = document.createElement('button');
 nextButton.classList.add('page-number__button');
 nextButton.textContent = '>';
 
-const deepNextButton = document.createElement('button');
+export const deepNextButton = document.createElement('button');
 deepNextButton.classList.add('page-number__button');
 deepNextButton.textContent = '>>';
 

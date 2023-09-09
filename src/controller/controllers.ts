@@ -11,6 +11,6 @@ import './catalogPageHandlers';
 import './fillProductPage';
 import './productModalHandlers';
 import './filterSubmitHandler';
-import './fillCatalog';
+import './paginatorHandlers';
 import './filterResetHandler';
 import './searchHandler';
