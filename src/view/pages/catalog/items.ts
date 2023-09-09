@@ -1,7 +1,7 @@
-import firstPageIcon from '../../../assets/images/header-icons/first-page.png';
-import prevPageIcon from '../../../assets/images/header-icons/prev-page.png';
-import nextPageIcon from '../../../assets/images/header-icons/next-page.png';
-import lastPageIcon from '../../../assets/images/header-icons/last-page.png';
+import firstPageIcon from '../../../assets/images/icons/first-page.png';
+import prevPageIcon from '../../../assets/images/icons/prev-page.png';
+import nextPageIcon from '../../../assets/images/icons/next-page.png';
+import lastPageIcon from '../../../assets/images/icons/last-page.png';
 
 import cardsBlock from './cards';
 

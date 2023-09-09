@@ -1,12 +1,12 @@
 import logo from '../../assets/images/header-logo.png';
-import mainLogo from '../../assets/images/header-icons/main-2.png';
-import basketLogo from '../../assets/images/header-icons/basket.png';
-import catalogLogo from '../../assets/images/header-icons/catalog.png';
-import aboutUsLogo from '../../assets/images/header-icons/about.png';
-import signInLogo from '../../assets/images/header-icons/register.png';
-import logInLogo from '../../assets/images/header-icons/login.png';
-import profileLogo from '../../assets/images/header-icons/profile.png';
-import logOutLogo from '../../assets/images/header-icons/logout.png';
+import mainLogo from '../../assets/images/icons/main-2.png';
+import basketLogo from '../../assets/images/icons/basket.png';
+import catalogLogo from '../../assets/images/icons/catalog.png';
+import aboutUsLogo from '../../assets/images/icons/about.png';
+import signInLogo from '../../assets/images/icons/register.png';
+import logInLogo from '../../assets/images/icons/login.png';
+import profileLogo from '../../assets/images/icons/profile.png';
+import logOutLogo from '../../assets/images/icons/logout.png';
 
 import '../../assets/styles/footer.scss';
 import { NavObjType } from '../../types/type';
