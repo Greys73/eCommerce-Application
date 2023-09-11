@@ -10,6 +10,7 @@ import logOutLogo from '../../assets/images/icons/logout.png';
 
 import '../../assets/styles/footer.scss';
 import { NavObjType } from '../../types/type';
+import { createAnonCart } from '../../model/api/cartApiRoot';
 
 const header = document.createElement('header');
 header.classList.add('header');
@@ -27,6 +28,8 @@ export const logoImg = document.createElement('img');
 logoImg.classList.add('logo__image');
 logoImg.src = logo;
 logoImg.alt = 'DreamMoto logo';
+
+logoImg.addEventListener('click', () => createAnonCart());
 
 const logoText = document.createElement('h1');
 logoText.classList.add('logo__text');

@@ -1,16 +1,28 @@
 import {
+  AnonymousAuthMiddlewareOptions,
   ClientBuilder,
-  type AuthMiddlewareOptions,
-  type HttpMiddlewareOptions,
+  HttpMiddlewareOptions,
+  TokenStore,
 } from '@commercetools/sdk-client-v2';
 
-// Configure authMiddlewareOptions
-const authMiddlewareOptions: AuthMiddlewareOptions = {
+// import clientObj from ...;
+
+// Configure const passwordAuthMiddlewareOptions
+const anonimousOptions: AnonymousAuthMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey: 'ddt-e-commerce-rss-app',
   credentials: {
     clientId: 'jXCk5T3Iq7MthDDBz6mXxnOI',
     clientSecret: 'x75YTPwT0WPn3ZS6Ythl5f3uUPF50Cdl',
+  },
+  tokenCache: {
+    get: (): TokenStore => {
+      const obj = JSON.parse(localStorage.getItem('cartLocalToken') as string);
+      return obj;
+    },
+    set: (obj: TokenStore) => {
+      localStorage.setItem('cartLocalToken', JSON.stringify(obj));
+    },
   },
   scopes: [
     'manage_project:ddt-e-commerce-rss-app view_audit_log:ddt-e-commerce-rss-app manage_api_clients:ddt-e-commerce-rss-app',
@@ -18,15 +30,14 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   fetch,
 };
 
-// Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: 'https://api.europe-west1.gcp.commercetools.com',
   fetch,
 };
 
-// Export the ClientBuilder
-export const ctpClient = new ClientBuilder()
-  .withClientCredentialsFlow(authMiddlewareOptions)
+// Export verified ClientBuilder
+export const anonCartClient = new ClientBuilder()
+  .withAnonymousSessionFlow(anonimousOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware()
   .build();

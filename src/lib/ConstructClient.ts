@@ -16,14 +16,16 @@ const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey: 'ddt-e-commerce-rss-app',
   credentials: {
-    clientId: 'zN9fyYyVDuGaBxpvbSn4pu3A',
-    clientSecret: '9poBQh8UGBOLpVTxXmcAq3pgMOur7nFM',
+    clientId: 'jXCk5T3Iq7MthDDBz6mXxnOI',
+    clientSecret: 'x75YTPwT0WPn3ZS6Ythl5f3uUPF50Cdl',
     user: {
       username: obj.username,
       password: obj.password,
     },
   },
-  scopes: ['manage_project:ddt-e-commerce-rss-app'],
+  scopes: [
+    'manage_project:ddt-e-commerce-rss-app view_audit_log:ddt-e-commerce-rss-app manage_api_clients:ddt-e-commerce-rss-app',
+  ],
   fetch,
 };
 
