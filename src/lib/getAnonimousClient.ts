@@ -1,6 +1,7 @@
 import {
   AnonymousAuthMiddlewareOptions,
   ClientBuilder,
+  ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   TokenStore,
 } from '@commercetools/sdk-client-v2';
@@ -35,9 +36,26 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
   fetch,
 };
 
-// Export verified ClientBuilder
+// Export anon ClientBuilder
 export const anonCartClient = new ClientBuilder()
   .withAnonymousSessionFlow(anonimousOptions)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  .withLoggerMiddleware()
+  .build();
+
+// Export auth ClientBuilder
+const authParams: TokenStore = JSON.parse(
+  localStorage.getItem('cartLocalToken') as string,
+);
+
+const bearer = `Bearer ${authParams.token}`;
+
+const options: ExistingTokenMiddlewareOptions = {
+  force: true,
+};
+
+export const authCartClient = new ClientBuilder()
+  .withExistingTokenFlow(bearer, options)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware()
   .build();

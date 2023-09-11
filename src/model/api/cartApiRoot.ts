@@ -5,13 +5,14 @@ import {
 } from '@commercetools/platform-sdk';
 import { anonCartClient } from '../../lib/getAnonimousClient';
 
-export const createAnonCart = (): Promise<ClientResponse<Cart>> => {
-  const apiRootAnonimous = createApiBuilderFromCtpClient(
-    anonCartClient,
-  ).withProjectKey({
-    projectKey: 'ddt-e-commerce-rss-app',
-  });
-  return apiRootAnonimous
+const apiRootAnonimous = createApiBuilderFromCtpClient(
+  anonCartClient,
+).withProjectKey({
+  projectKey: 'ddt-e-commerce-rss-app',
+});
+
+export const createAnonCart = (): Promise<ClientResponse<Cart>> =>
+  apiRootAnonimous
     .me()
     .carts()
     .post({
@@ -20,4 +21,6 @@ export const createAnonCart = (): Promise<ClientResponse<Cart>> => {
       },
     })
     .execute();
-};
+
+export const getAnonCart = () =>
+  apiRootAnonimous.me().activeCart().get().execute();
