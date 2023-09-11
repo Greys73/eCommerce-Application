@@ -89,7 +89,9 @@ Object.entries(navObj).forEach(([key, value]) => {
   const el = document.createElement('a');
   el.classList.add('nav__item');
   el.id = key;
-  el.href = value.routing;
+  el.onclick = () => {
+    window.routeLocation = value.routing;
+  };
 
   const elText = document.createElement('p');
   elText.classList.add('nav__item-text');
