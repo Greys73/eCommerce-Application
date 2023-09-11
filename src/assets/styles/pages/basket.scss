@@ -30,7 +30,9 @@
   grid-auto-rows: auto;
   gap: $marginDesctopDiv2;
   margin: $marginDesctopDiv2;
+  padding-top: $marginDesctopDiv2;
   padding-bottom: $marginDesctopDiv2;
+  // border-top: 1px solid rgba($color: #6495ED, $alpha: .3);
   border-bottom: 1px solid rgba($color: #6495ED, $alpha: .3);
 }
 

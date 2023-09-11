@@ -7,7 +7,7 @@ basketPage.classList.add('basket-page');
 // empty cart
 
 const emptyContainer = document.createElement('div');
-emptyContainer.classList.add('basket__empty');
+emptyContainer.classList.add('basket__empty', 'hidden');
 
 const emptyHeader = document.createElement('h2');
 emptyHeader.classList.add('empty__header');
@@ -33,6 +33,10 @@ emptyContainer.append(emptyHeader, emptyImage, emptyMessage, emptyButton);
 
 const basketContainer = document.createElement('div');
 basketContainer.classList.add('basket__basket-container');
+
+const basketHeader = document.createElement('h2');
+basketHeader.classList.add('empty__header');
+basketHeader.textContent = 'Products in cart:';
 
 const itemsBlock = document.createElement('div');
 itemsBlock.classList.add('basket-container__items');
@@ -236,7 +240,13 @@ confirmMessage.textContent =
 
 deleteBlock.append(deleteAllButton, confirmMessage, confirmButton);
 
-basketContainer.append(itemsBlock, promoBlock, priceBlock, deleteBlock);
+basketContainer.append(
+  basketHeader,
+  itemsBlock,
+  promoBlock,
+  priceBlock,
+  deleteBlock,
+);
 
 basketPage.append(emptyContainer, basketContainer);
 
