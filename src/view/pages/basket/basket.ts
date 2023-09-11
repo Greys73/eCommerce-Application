@@ -1,4 +1,4 @@
-// import '../../assets/styles/basket.scss';
+import '../../../assets/styles/pages/basket.scss';
 import emptyImg from '../../../assets/images/empty-cart.png';
 
 const basketPage = document.createElement('div');
@@ -64,6 +64,54 @@ const itemsArr = [
     weight: 350,
     amount: 1,
   },
+  {
+    name: 'Honda CBR 1000 RR',
+    price: 22000,
+    priceDiscont: 19800,
+    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/ZX25R_2-DoOAPT56.png',
+    year: '2023',
+    type: 'Sport',
+    dsp: 599,
+    power: 192,
+    weight: 194,
+    amount: 2,
+  },
+  {
+    name: 'Another model',
+    price: 6000,
+    priceDiscont: 6000,
+    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/CBR600RR_1-FhmjjIB0.png',
+    year: '2010',
+    type: 'Touring',
+    dsp: 350,
+    power: 35,
+    weight: 350,
+    amount: 1,
+  },
+  {
+    name: 'Honda CBR 1000 RR',
+    price: 22000,
+    priceDiscont: 19800,
+    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/ZX25R_2-DoOAPT56.png',
+    year: '2023',
+    type: 'Sport',
+    dsp: 599,
+    power: 192,
+    weight: 194,
+    amount: 2,
+  },
+  {
+    name: 'Another model',
+    price: 6000,
+    priceDiscont: 6000,
+    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/CBR600RR_1-FhmjjIB0.png',
+    year: '2010',
+    type: 'Touring',
+    dsp: 350,
+    power: 35,
+    weight: 350,
+    amount: 1,
+  },
 ];
 
 // continue view
@@ -73,9 +121,6 @@ const itemsArr = [
 // }
 
 itemsArr.forEach((el) => {
-  const item = document.createElement('div');
-  item.classList.add('items__item');
-
   const image = document.createElement('img');
   image.classList.add('item__image');
   image.src = el.img;
@@ -104,17 +149,17 @@ itemsArr.forEach((el) => {
 
   const fullPrice = document.createElement('p');
   fullPrice.classList.add('price-block__item-full-price');
-  fullPrice.textContent = el.price.toString();
+  fullPrice.textContent = `${el.price.toString()} €`;
 
   const discontPrice = document.createElement('p');
   discontPrice.classList.add('price-block__item-discont-price');
-  discontPrice.textContent = el.priceDiscont.toString();
+  discontPrice.textContent = `${el.priceDiscont.toString()} €`;
 
   const discont = document.createElement('p');
   discont.classList.add('price-block__item-discont');
-  discont.textContent = `${Math.round(
-    1 - el.priceDiscont / el.price,
-  )}`.toString();
+  discont.textContent = `-${Math.round(
+    (1 - el.priceDiscont / el.price) * 100,
+  )}%`.toString();
 
   price.append(fullPrice, discont, discontPrice);
 
@@ -137,15 +182,13 @@ itemsArr.forEach((el) => {
 
   const totalPrice = document.createElement('p');
   totalPrice.classList.add('item__total-price');
-  totalPrice.textContent = `${el.priceDiscont * el.amount} EUR`;
+  totalPrice.textContent = `${el.priceDiscont * el.amount} €`;
 
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('item__delete');
-  deleteButton.textContent = 'del';
+  deleteButton.textContent = 'Delete item';
 
-  item.append(image, params, price, amount, totalPrice, deleteButton);
-
-  itemsBlock.append(item);
+  itemsBlock.append(image, params, price, amount, totalPrice, deleteButton);
 });
 
 const promoBlock = document.createElement('div');
@@ -154,11 +197,11 @@ promoBlock.classList.add('basket-container__promo');
 const input = document.createElement('input');
 input.classList.add('promo-block__input');
 input.type = 'text';
-input.placeholder = 'Type promocode here';
+input.placeholder = 'Type a promocode here';
 
 const promoButton = document.createElement('button');
 promoButton.classList.add('promo-block__button');
-promoButton.textContent = 'Apply promo';
+promoButton.textContent = 'Apply';
 
 promoBlock.append(input, promoButton);
 
@@ -171,7 +214,7 @@ priceBlockText.textContent = 'Total: ';
 
 const totalCartPrice = document.createElement('p');
 totalCartPrice.classList.add('price__total');
-totalCartPrice.textContent = '000000';
+totalCartPrice.textContent = '000000 €';
 
 priceBlock.append(priceBlockText, totalCartPrice);
 
@@ -185,6 +228,13 @@ deleteAllButton.textContent = 'Clear cart';
 const confirmButton = document.createElement('button');
 confirmButton.classList.add('delete-block__confirm-button');
 confirmButton.textContent = 'Confirm';
+
+const confirmMessage = document.createElement('p');
+confirmMessage.classList.add('delete-block__confirm-message');
+confirmMessage.textContent =
+  'Are you sure you want to delete all items from your cart? This action cannot be undone';
+
+deleteBlock.append(deleteAllButton, confirmMessage, confirmButton);
 
 basketContainer.append(itemsBlock, promoBlock, priceBlock, deleteBlock);
 
