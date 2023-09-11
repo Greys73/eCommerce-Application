@@ -17,25 +17,38 @@ const emptyImage = document.createElement('img');
 emptyImage.classList.add('empty__image');
 emptyImage.src = emptyImg;
 
-const emptyMessage = document.createElement('div');
-emptyMessage.classList.add('empty__message');
-emptyMessage.textContent =
-  "Your cart is currently craving for some high-octane action! Discover our impressive lineup of motorcycles and start adding your dream ride to the cart. Let's hit the road and make every ride unforgettable!";
+emptyContainer.append(emptyHeader, emptyImage);
+
+function appendText(str: string): void {
+  const emptyMessage = document.createElement('p');
+  emptyMessage.classList.add('empty__message');
+  emptyMessage.textContent = str;
+
+  emptyContainer.append(emptyMessage);
+}
+
+const emptyTextArr = [
+  'Your cart is currently craving for some high-octane action!',
+  'Discover our lineup of motorcycles and start add your dream to the cart.',
+  "Let's hit the road and make every ride unforgettable!",
+];
+
+emptyTextArr.forEach((el) => appendText(el));
 
 const emptyButton = document.createElement('a');
 emptyButton.classList.add('empty__button');
 emptyButton.href = '/catalog';
 emptyButton.textContent = 'Choose your bike now!';
 
-emptyContainer.append(emptyHeader, emptyImage, emptyMessage, emptyButton);
+emptyContainer.append(emptyButton);
 
 // not empty cart
 
 const basketContainer = document.createElement('div');
-basketContainer.classList.add('basket__basket-container');
+basketContainer.classList.add('basket__basket-container'); // , 'hidden');
 
 const basketHeader = document.createElement('h2');
-basketHeader.classList.add('empty__header');
+basketHeader.classList.add('basket__header');
 basketHeader.textContent = 'Products in cart:';
 
 const itemsBlock = document.createElement('div');
@@ -230,11 +243,11 @@ deleteAllButton.classList.add('delete-block__delete-button');
 deleteAllButton.textContent = 'Clear cart';
 
 const confirmButton = document.createElement('button');
-confirmButton.classList.add('delete-block__confirm-button');
+confirmButton.classList.add('delete-block__confirm-button', 'hidden');
 confirmButton.textContent = 'Confirm';
 
 const confirmMessage = document.createElement('p');
-confirmMessage.classList.add('delete-block__confirm-message');
+confirmMessage.classList.add('delete-block__confirm-message', 'hidden');
 confirmMessage.textContent =
   'Are you sure you want to delete all items from your cart? This action cannot be undone';
 

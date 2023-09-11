@@ -1,27 +1,76 @@
 @import '../general.scss';
 
+.basket__header,
 .empty__header {
   @include _mainFont(30px);
   font-weight: 700;
   text-align: center;
   margin: $marginDesctopDiv2;
+
+  @include _tablet {
+    font-size: 20px;
+    margin: 0;
+    margin-top: $marginTablet;
+  }
+
+  @include _mobile {
+    font-size: 16px;
+  }
 }
 
 .empty__image {
   display: block;
   margin: $marginDesctopDiv2 auto;
+  
+  @include _tablet {
+    margin: 0 auto;
+    width: 200px;
+  }
+
+  @include _mobile {
+    width: 150px;
+  }
 }
 
 .empty__message {
   @include _mainFont(20px);
-  text-align: justify;
-  max-width: 600px;
-  margin: $marginDesctopDiv2 auto;
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto;
+
+  &:first-of-type {
+    margin: $marginDesctopDiv4 auto;
+  }
+
+  @include _tablet {
+    font-size: 16px;
+  }
+
+  @include _mobile {
+    font-size: 12px;
+  }
 }
 
 .empty__button {
   @include _button(250px, 30px, 20px);
   margin: $marginDesctopDiv2 auto;
+
+  @include _tablet {
+    font-size: 16px;
+    width: 200px;
+    height: 25px;
+  }
+
+  @include _mobile {
+    font-size: 14px;
+    width: 160px;
+    height: 20px;
+    border-radius: 5px;
+  }
+}
+
+.basket__header {
+  color: steelblue;
 }
 
 .basket-container__items {
@@ -49,7 +98,11 @@
   display: block;
   @include _mainFont(20px);
   font-weight: 700;
+  color: darkcyan;
   margin: $marginDesctopDiv4 auto;
+  &:hover {
+    color: lightseagreen;
+  }
 }
 
 .params-block__params {
@@ -186,7 +239,8 @@
 .delete-block__confirm-button {
   display: block;
   margin: $marginDesctopDiv2 auto;
-  @include _button(200px, 30px, 20px);
+  margin-bottom: $marginDesctop;
+  @include _button(120px, 30px, 20px);
   border: 0;
 }
 
