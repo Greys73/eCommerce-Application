@@ -121,30 +121,30 @@ function addImageToPageButtons(src: string): HTMLImageElement {
   return img;
 }
 
-const firstButton = document.createElement('button');
-firstButton.classList.add(
+export const deepPrevButton = document.createElement('button');
+deepPrevButton.classList.add(
   'page-number__button',
   'page-number__button_unactive',
 );
 firstButton.append(addImageToPageButtons(firstPageIcon));
 
-const prevButton = document.createElement('button');
+export const prevButton = document.createElement('button');
 prevButton.classList.add('page-number__button', 'page-number__button_unactive');
 prevButton.append(addImageToPageButtons(prevPageIcon));
 
-const currentPage = document.createElement('p');
+export const currentPage = document.createElement('p');
 currentPage.classList.add(
   'page-number__button',
   'page-number__button_pagenumber',
 );
 currentPage.textContent = '5';
 
-const nextButton = document.createElement('button');
+export const nextButton = document.createElement('button');
 nextButton.classList.add('page-number__button');
 nextButton.append(addImageToPageButtons(nextPageIcon));
 
-const lastButton = document.createElement('button');
-lastButton.classList.add('page-number__button');
+export const deepNextButton = document.createElement('button');
+deepNextButton.classList.add('page-number__button');
 lastButton.append(addImageToPageButtons(lastPageIcon));
 
 pageNumberBlock.append(

@@ -175,7 +175,12 @@ export const sortByParam = (param: string, order: string, limit: number) =>
     .then((obj) => obj)
     .catch((err) => err);
 
-export const filterByParams = (filterOptions: string[], sort?: string[]) =>
+export const filterByParams = (
+  filterOptions: string[],
+  sort?: string[],
+  offset = 0,
+  limit = 100,
+) =>
   apiRoot
     .productProjections()
     .search()
@@ -183,25 +188,26 @@ export const filterByParams = (filterOptions: string[], sort?: string[]) =>
       queryArgs: {
         filter: filterOptions,
         sort,
-        limit: 100,
+        offset,
+        limit,
       },
     })
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
 
-export const getAllProducts = () =>
-  apiRoot
-    .productProjections()
-    .search()
-    .get({
-      queryArgs: {
-        limit: 100,
-      },
-    })
-    .execute()
-    .then((obj) => obj)
-    .catch((err) => err);
+// export const getAllProducts = () =>
+//   apiRoot
+//     .productProjections()
+//     .search()
+//     .get({
+//       queryArgs: {
+//         limit: 100,
+//       },
+//     })
+//     .execute()
+//     .then((obj) => obj)
+//     .catch((err) => err);
 
 export const getCategories = () =>
   apiRoot
