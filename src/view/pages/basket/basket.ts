@@ -201,11 +201,16 @@ itemsArr.forEach((el) => {
   totalPrice.classList.add('item__total-price');
   totalPrice.textContent = `${el.priceDiscont * el.amount} €`;
 
+  const deleteBlock = document.createElement('div');
+  deleteBlock.classList.add('item__delete-block');
+
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('item__delete');
   deleteButton.textContent = 'Delete item';
 
-  itemsBlock.append(image, params, price, amount, totalPrice, deleteButton);
+  deleteBlock.append(deleteButton);
+
+  itemsBlock.append(image, params, price, amount, totalPrice, deleteBlock);
 });
 
 const promoBlock = document.createElement('div');
