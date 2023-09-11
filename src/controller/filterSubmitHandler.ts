@@ -4,6 +4,7 @@ import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
 // import { fillProductPage } from './fillProductPage';
 import { searchFilterBlock } from '../view/pages/catalog/items';
+import { getLimit, getOffset, updatePaginator } from './paginatorHandlers';
 
 export const getCategory = async (): Promise<string> => {
   const { search } = window.location;
@@ -175,17 +176,20 @@ export const filterSubmit = async (e: Event) => {
   const filterOptions = getFilterData();
   const sortOptions = getSortOrder();
   const category = await getCategory();
+  const limit = getLimit();
+  const offset = getOffset();
   if (category) {
     filterOptions.push(category);
   }
   try {
-    let resp;
-    if (sortOptions) {
-      resp = await filterByParams(filterOptions, [sortOptions]);
-    } else {
-      resp = await filterByParams(filterOptions);
-    }
+    const resp = await filterByParams(
+      filterOptions,
+      [sortOptions],
+      offset,
+      limit,
+    );
     const cards = resp.body.results as ProductDraft[];
+    updatePaginator(resp.body);
     placeCards(cards);
   } catch (error) {
     console.log(error);
