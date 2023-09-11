@@ -206,7 +206,7 @@
 .amount__increase-button {
   @include _button(25px, 25px, 20px);
   border: 0;
-  border-radius: 5px;
+  border-radius: 20px;
   margin: $marginDesctopDiv8 0;
   @include _tablet {
     width: 20px;
