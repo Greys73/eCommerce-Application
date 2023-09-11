@@ -29,7 +29,12 @@ export interface AddressVariant {
 }
 
 export type NavObjType = {
-  [key: string]: { text: string; routing: string; obj?: HTMLElement };
+  [key: string]: {
+    text: string;
+    routing: string;
+    src: string;
+    obj?: HTMLElement;
+  };
 };
 
 export interface FormElements extends HTMLFormControlsCollection {

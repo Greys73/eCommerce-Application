@@ -526,11 +526,11 @@
   &_unactive {
     color: slategray;
     border-color: slategray;
-    background-color: white;
+    background-color: slategray;
 
     &:hover {
       cursor: default;
-      background-color: white;
+      background-color: slategray;
       border-color: slategray;
       transform: scale(1);
     }
@@ -559,4 +559,8 @@
       transform: scale(1);
     }
   }
+}
+
+.page-number__button-image {
+  width: 20px;
 }

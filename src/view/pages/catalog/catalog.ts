@@ -1,7 +1,7 @@
 import items from './items';
 import filters from './filters';
-import filterImg from '../../../assets/images/filter-ico.png';
-import activeFilterImg from '../../../assets/images/filter-ico-active.png';
+import filterImg from '../../../assets/images/icons/filter-ico.png';
+import activeFilterImg from '../../../assets/images/icons/filter-ico-active.png';
 
 const productsPage = document.createElement('div');
 productsPage.classList.add('products-page');

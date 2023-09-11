@@ -1,4 +1,13 @@
 import logo from '../../assets/images/header-logo.png';
+import mainLogo from '../../assets/images/icons/main-2.png';
+import basketLogo from '../../assets/images/icons/basket.png';
+import catalogLogo from '../../assets/images/icons/catalog.png';
+import aboutUsLogo from '../../assets/images/icons/about.png';
+import signInLogo from '../../assets/images/icons/register.png';
+import logInLogo from '../../assets/images/icons/login.png';
+import profileLogo from '../../assets/images/icons/profile.png';
+import logOutLogo from '../../assets/images/icons/logout.png';
+
 import '../../assets/styles/footer.scss';
 import { NavObjType } from '../../types/type';
 
@@ -35,36 +44,44 @@ nav.append(navContainer);
 
 const navObj: NavObjType = {
   'main-page': {
-    text: 'Main page 🏠',
+    text: 'Main page',
     routing: '/',
+    src: mainLogo,
   },
   products: {
-    text: 'Products 📋',
+    text: 'Products',
     routing: '/catalog',
+    src: catalogLogo,
   },
   basket: {
-    text: 'Basket 🛒',
+    text: 'Basket',
     routing: '/basket',
+    src: basketLogo,
   },
   about: {
-    text: 'About us 🙋‍♂️🙋‍♀️',
+    text: 'About us',
     routing: '/about',
+    src: aboutUsLogo,
   },
   sigin: {
-    text: 'Sign in 👨‍💻',
+    text: 'Sign in',
     routing: '/registration',
+    src: signInLogo,
   },
   login: {
-    text: 'Log in 🔓',
+    text: 'Log in',
     routing: '/login',
+    src: logInLogo,
   },
   profile: {
-    text: 'Profile 👤',
+    text: 'Profile',
     routing: '/profile',
+    src: profileLogo,
   },
   logout: {
-    text: 'Log out 🔐',
+    text: 'Log out',
     routing: '/login',
+    src: logOutLogo,
   },
 };
 
@@ -72,8 +89,27 @@ Object.entries(navObj).forEach(([key, value]) => {
   const el = document.createElement('a');
   el.classList.add('nav__item');
   el.id = key;
-  el.textContent = value.text;
   el.href = value.routing;
+
+  const elText = document.createElement('p');
+  elText.classList.add('nav__item-text');
+  elText.textContent = value.text;
+
+  const elIcon = document.createElement('img');
+  elIcon.classList.add('nav__item-icon');
+  elIcon.src = value.src;
+
+  if (el.id === 'basket') {
+    const numberOfItems = document.createElement('p');
+    numberOfItems.classList.add('nav__number-of-items');
+    numberOfItems.textContent = '1';
+    // you can export or find by id
+    numberOfItems.id = 'basket-header-number';
+
+    el.append(numberOfItems);
+  }
+
+  el.append(elIcon, elText);
 
   navObj[key].obj = el;
   navContainer.append(el);

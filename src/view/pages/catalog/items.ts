@@ -1,3 +1,8 @@
+import firstPageIcon from '../../../assets/images/icons/first-page.png';
+import prevPageIcon from '../../../assets/images/icons/prev-page.png';
+import nextPageIcon from '../../../assets/images/icons/next-page.png';
+import lastPageIcon from '../../../assets/images/icons/last-page.png';
+
 import cardsBlock from './cards';
 
 const items = document.createElement('div');
@@ -108,16 +113,24 @@ categoryBlock.classList.add('items__category');
 const pageNumberBlock = document.createElement('div');
 pageNumberBlock.classList.add('items__page-number');
 
+function addImageToPageButtons(src: string): HTMLImageElement {
+  const img = document.createElement('img');
+  img.classList.add('page-number__button-image');
+  img.src = src;
+
+  return img;
+}
+
 export const deepPrevButton = document.createElement('button');
 deepPrevButton.classList.add(
   'page-number__button',
   'page-number__button_unactive',
 );
-deepPrevButton.textContent = '<<';
+firstButton.append(addImageToPageButtons(firstPageIcon));
 
 export const prevButton = document.createElement('button');
 prevButton.classList.add('page-number__button', 'page-number__button_unactive');
-prevButton.textContent = '<';
+prevButton.append(addImageToPageButtons(prevPageIcon));
 
 export const currentPage = document.createElement('p');
 currentPage.classList.add(
@@ -128,18 +141,18 @@ currentPage.textContent = '5';
 
 export const nextButton = document.createElement('button');
 nextButton.classList.add('page-number__button');
-nextButton.textContent = '>';
+nextButton.append(addImageToPageButtons(nextPageIcon));
 
 export const deepNextButton = document.createElement('button');
 deepNextButton.classList.add('page-number__button');
-deepNextButton.textContent = '>>';
+lastButton.append(addImageToPageButtons(lastPageIcon));
 
 pageNumberBlock.append(
-  deepPrevButton,
+  firstButton,
   prevButton,
   currentPage,
   nextButton,
-  deepNextButton,
+  lastButton,
 );
 
 // compiling
