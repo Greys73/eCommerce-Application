@@ -126,7 +126,7 @@ deepPrevButton.classList.add(
   'page-number__button',
   'page-number__button_unactive',
 );
-firstButton.append(addImageToPageButtons(firstPageIcon));
+deepPrevButton.append(addImageToPageButtons(firstPageIcon));
 
 export const prevButton = document.createElement('button');
 prevButton.classList.add('page-number__button', 'page-number__button_unactive');
@@ -145,14 +145,14 @@ nextButton.append(addImageToPageButtons(nextPageIcon));
 
 export const deepNextButton = document.createElement('button');
 deepNextButton.classList.add('page-number__button');
-lastButton.append(addImageToPageButtons(lastPageIcon));
+deepNextButton.append(addImageToPageButtons(lastPageIcon));
 
 pageNumberBlock.append(
-  firstButton,
+  deepPrevButton,
   prevButton,
   currentPage,
   nextButton,
-  lastButton,
+  deepNextButton,
 );
 
 // compiling
