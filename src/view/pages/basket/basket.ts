@@ -7,7 +7,7 @@ basketPage.classList.add('basket-page');
 // empty cart
 
 const emptyContainer = document.createElement('div');
-emptyContainer.classList.add('basket__empty', 'hidden');
+emptyContainer.classList.add('basket__empty'); // , 'hidden');
 
 const emptyHeader = document.createElement('h2');
 emptyHeader.classList.add('empty__header');
@@ -248,15 +248,24 @@ deleteAllButton.classList.add('delete-block__delete-button');
 deleteAllButton.textContent = 'Clear cart';
 
 const confirmButton = document.createElement('button');
-confirmButton.classList.add('delete-block__confirm-button', 'hidden');
+confirmButton.classList.add('delete-block__confirm-button'); // , 'hidden');
 confirmButton.textContent = 'Confirm';
 
+const returnButton = document.createElement('button');
+returnButton.classList.add('delete-block__return-button'); // , 'hidden');
+returnButton.textContent = 'Return';
+
 const confirmMessage = document.createElement('p');
-confirmMessage.classList.add('delete-block__confirm-message', 'hidden');
+confirmMessage.classList.add('delete-block__confirm-message'); // , 'hidden');
 confirmMessage.textContent =
   'Are you sure you want to delete all items from your cart? This action cannot be undone';
 
-deleteBlock.append(deleteAllButton, confirmMessage, confirmButton);
+deleteBlock.append(
+  deleteAllButton,
+  confirmMessage,
+  returnButton,
+  confirmButton,
+);
 
 basketContainer.append(
   basketHeader,
