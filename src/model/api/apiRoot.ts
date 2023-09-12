@@ -4,9 +4,11 @@ import {
   CustomerUpdateAction,
   CustomerChangePassword,
   createApiBuilderFromCtpClient,
+  CartUpdateAction,
 } from '@commercetools/platform-sdk';
 import { ctpClient } from '../../lib/BuildClient';
 import { vrfClient } from '../../lib/ConstructClient';
+import { getLocalCart, setLocalCart } from '../cartStorage';
 
 //        !!! Current version (need local storage getters/setters)
 const customerId = undefined; // get LocalStorage func;
@@ -196,19 +198,6 @@ export const filterByParams = (
     .then((obj) => obj)
     .catch((err) => err);
 
-// export const getAllProducts = () =>
-//   apiRoot
-//     .productProjections()
-//     .search()
-//     .get({
-//       queryArgs: {
-//         limit: 100,
-//       },
-//     })
-//     .execute()
-//     .then((obj) => obj)
-//     .catch((err) => err);
-
 export const getCategories = () =>
   apiRoot
     .categories()
@@ -245,4 +234,60 @@ export const getCategoryByKey = (key: string) => {
     console.log(error);
     return false;
   }
+};
+
+const createCart = () =>
+  apiRoot
+    .carts()
+    .post({
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        currency: 'EUR',
+      },
+    })
+    .execute()
+    .then((obj) => {
+      setLocalCart(obj.body);
+      return obj;
+    })
+    .catch((err) => err);
+
+export const getCart = () => {
+  const localCart = getLocalCart();
+  if ('id' in localCart) {
+    return apiRoot
+      .carts()
+      .withId({ ID: localCart.id })
+      .get()
+      .execute()
+      .then((obj) => obj)
+      .catch((err) => {
+        if (err.code === 404) return createCart();
+        return err;
+      });
+  }
+  return createCart();
+};
+
+export const updateCart = (data: CartUpdateAction[]) => {
+  const cart = getLocalCart();
+  return apiRoot
+    .carts()
+    .withId({ ID: cart.id })
+    .post({
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        version: cart.version,
+        actions: data,
+        // data exapmle:
+        // [{
+        //   action: 'addLineItem',
+        //   productId: 'productId',
+        //   quantity: 1,
+        // }],
+      },
+    })
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
 };
