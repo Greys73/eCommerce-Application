@@ -10,7 +10,7 @@ import logOutLogo from '../../assets/images/icons/logout.png';
 
 import '../../assets/styles/footer.scss';
 import { NavObjType } from '../../types/type';
-import { createAnonCart, getAnonCart } from '../../model/api/cartApiRoot';
+import { createCart, getActiveCart } from '../../model/api/cartApiRoot';
 
 const header = document.createElement('header');
 header.classList.add('header');
@@ -171,7 +171,7 @@ function checkExistingCart(): boolean {
 
 logoImg.addEventListener('click', () => {
   if (!checkExistingCart()) {
-    createAnonCart()
+    createCart()
       .then((obj) => {
         console.log(obj.body.id);
         if (obj.body.anonymousId) localStorage.setItem('cartId', obj.body.id);
@@ -181,7 +181,7 @@ logoImg.addEventListener('click', () => {
   } else {
     console.log('---\nget cardId');
     console.log('cardId =', localStorage.getItem('cartId'));
-    getAnonCart()
+    getActiveCart()
       .then((obj) => {
         console.log('cart=', obj.body);
         console.log(
