@@ -154,6 +154,9 @@ export const fillProductPage = async (SKU: string) => {
   }
   product.features.innerHTML = '';
   product.sliderControls.innerHTML = '';
+  product.basePrice.textContent = '';
+  product.currentPrice.textContent = '';
+  product.discount.textContent = '';
 
   const prodOptions = response.body.results[0];
   const variants = [prodOptions.masterVariant, ...prodOptions.variants];

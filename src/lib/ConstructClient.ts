@@ -1,5 +1,6 @@
 import {
   ClientBuilder,
+  TokenStore,
   type PasswordAuthMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 
@@ -12,22 +13,38 @@ const obj = {
 };
 
 // Configure const passwordAuthMiddlewareOptions
-const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions = {
+export const passOptions = (
+  username: string,
+  password: string,
+): PasswordAuthMiddlewareOptions => ({
   host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey: 'ddt-e-commerce-rss-app',
   credentials: {
-    clientId: 'zN9fyYyVDuGaBxpvbSn4pu3A',
-    clientSecret: '9poBQh8UGBOLpVTxXmcAq3pgMOur7nFM',
+    clientId: 'jXCk5T3Iq7MthDDBz6mXxnOI',
+    clientSecret: 'x75YTPwT0WPn3ZS6Ythl5f3uUPF50Cdl',
     user: {
-      username: obj.username,
-      password: obj.password,
+      username,
+      password,
     },
   },
-  scopes: ['manage_project:ddt-e-commerce-rss-app'],
+  tokenCache: {
+    get: (): TokenStore => {
+      const object = JSON.parse(
+        localStorage.getItem('cartCustomerLocalToken') as string,
+      );
+      return object;
+    },
+    set: (object: TokenStore) => {
+      localStorage.setItem('cartCustomerLocalToken', JSON.stringify(object));
+    },
+  },
+  scopes: [
+    'manage_project:ddt-e-commerce-rss-app view_audit_log:ddt-e-commerce-rss-app manage_api_clients:ddt-e-commerce-rss-app',
+  ],
   fetch,
-};
+});
 
-// Export verified ClientBuilder
+// Export verified ClientBuilder - not used
 export const vrfClient = new ClientBuilder()
-  .withPasswordFlow(passwordAuthMiddlewareOptions)
+  .withPasswordFlow(passOptions(obj.username, obj.password))
   .build();
