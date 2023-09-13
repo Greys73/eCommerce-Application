@@ -376,7 +376,8 @@
 }
 
 .delete-block__delete-button,
-.delete-block__confirm-button {
+.delete-block__confirm-button,
+.delete-block__return-button {
   display: block;
   margin: $marginDesctopDiv2 auto;
   margin-bottom: $marginDesctop;
@@ -400,6 +401,10 @@
   &:hover {
     background-color: crimson;
   }
+}
+
+.delete-block__return-button {
+  margin-bottom: $marginDesctopDiv4;
 }
 
 .delete-block__confirm-button {
