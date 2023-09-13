@@ -1,3 +1,10 @@
+import {
+  addToCart,
+  createCart,
+  getActiveCart,
+  queryCarts,
+} from '../../../model/api/cartApiRoot';
+
 // heading
 const name = document.createElement('h2');
 name.className = 'product__name';
@@ -87,6 +94,28 @@ productPage.append(
   features,
 );
 
+const addToBasket = async () => {
+  let activeCart;
+  try {
+    activeCart = await getActiveCart();
+  } catch {
+    activeCart = await createCart();
+  }
+  const { id, version } = activeCart.body;
+  console.log('before adding', version);
+  const sku = window.location.search.slice(5);
+  const cart = await addToCart(id, version, sku);
+  console.log(cart);
+  console.log('after adding', cart.body.version);
+};
+
+addBasketButton.addEventListener('click', addToBasket);
+
+const removeButtonHandler = async () => {
+  const carts = await queryCarts();
+  console.log('queryCarts Request ===>', carts);
+};
+removeBasketButton.addEventListener('click', removeButtonHandler);
 export default productPage;
 
 export {
