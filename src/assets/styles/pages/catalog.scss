@@ -447,23 +447,27 @@
   };
 
   &_unactive {
-    border-color: lightgrey;
-    background-color: lightgrey;
-      &:hover {
-      background-color: lightgrey;
-      };
+    border-color: slategray;
+    background-color: slategray;
+    
+    &:hover {
+      cursor: default;
+      background-color: slategray;
+      transform: scale(1);
+    };
   }
 }
 
 .card__loader {
-  margin-top: 60px;
   position: absolute;
+  width: 250px;
   z-index: 10;
   opacity: 80%;
-  width: 250px;
+  margin-top: calc(23px + $marginDesctopDiv2 * 2);
 
   @include _tablet {
     width: 200px;
+    margin-top: calc(18px + $marginTabletDiv2 * 3);
   }
 }
 

@@ -1,6 +1,6 @@
 import { Cart } from '@commercetools/platform-sdk';
 import { addToCart, createCart, getActiveCart } from '../model/api/cartApiRoot';
-import loading from '../assets/images/icons/loading.gif';
+import loading from '../assets/images/icons/loading_2.gif';
 
 const loader = new Image();
 loader.src = loading;
