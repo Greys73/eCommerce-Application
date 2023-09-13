@@ -1,7 +1,7 @@
 import {
   AnonymousAuthMiddlewareOptions,
   ClientBuilder,
-  ExistingTokenMiddlewareOptions,
+  // ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   TokenStore,
 } from '@commercetools/sdk-client-v2';
@@ -18,11 +18,11 @@ const anonimousOptions: AnonymousAuthMiddlewareOptions = {
   },
   tokenCache: {
     get: (): TokenStore => {
-      const obj = JSON.parse(localStorage.getItem('cartLocalToken') as string);
+      const obj = JSON.parse(localStorage.getItem('cartAnonToken') as string);
       return obj;
     },
     set: (obj: TokenStore) => {
-      localStorage.setItem('cartLocalToken', JSON.stringify(obj));
+      localStorage.setItem('cartAnonToken', JSON.stringify(obj));
     },
   },
   scopes: [
@@ -44,18 +44,18 @@ export const anonCartClient = new ClientBuilder()
   .build();
 
 // Export auth ClientBuilder
-const authParams: TokenStore = JSON.parse(
-  localStorage.getItem('cartLocalToken') as string,
-);
+// const authParams: TokenStore = JSON.parse(
+//   localStorage.getItem('cartLocalToken') as string,
+// );
 
-const bearer = `Bearer ${authParams.token}`;
+// const bearer = `Bearer ${authParams.token}`;
 
-const options: ExistingTokenMiddlewareOptions = {
-  force: true,
-};
+// const options: ExistingTokenMiddlewareOptions = {
+//   force: true,
+// };
 
-export const authCartClient = new ClientBuilder()
-  .withExistingTokenFlow(bearer, options)
-  .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware()
-  .build();
+// export const authCartClient = new ClientBuilder()
+//   .withExistingTokenFlow(bearer, options)
+//   .withHttpMiddleware(httpMiddlewareOptions)
+//   .withLoggerMiddleware()
+//   .build();

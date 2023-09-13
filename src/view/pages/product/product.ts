@@ -58,7 +58,7 @@ addBasketButton.textContent = 'Add to basket';
 
 const removeBasketButton = document.createElement('button');
 removeBasketButton.classList.add('buttons__remove-button');
-removeBasketButton.textContent = 'Remove from basket';
+removeBasketButton.textContent = 'console carts';
 
 buttonBlock.append(addBasketButton, removeBasketButton);
 
@@ -102,4 +102,6 @@ export {
   variantsBlock,
   description,
   features,
+  addBasketButton,
+  removeBasketButton,
 };
