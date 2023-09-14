@@ -42,9 +42,13 @@ const addBasketButtonHandler = async () => {
   let action: 'add' | 'remove';
   if (addBasketButton.textContent === 'Add to basket') {
     addBasketButton.textContent = 'Remove from basket';
+    addBasketButton.classList.remove('buttons__add-button');
+    addBasketButton.classList.add('buttons__remove-button');
     action = 'add';
   } else {
     addBasketButton.textContent = 'Add to basket';
+    addBasketButton.classList.remove('buttons__remove-button');
+    addBasketButton.classList.add('buttons__add-button');
     action = 'remove';
   }
   try {

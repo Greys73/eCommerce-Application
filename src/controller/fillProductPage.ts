@@ -154,8 +154,10 @@ const isInBasket = async (id: string): Promise<boolean> => {
 const fillAddButton = async (isActive: boolean) => {
   if (isActive) {
     product.addBasketButton.textContent = 'Add to basket';
+    product.addBasketButton.className = 'buttons__add-button';
   } else {
     product.addBasketButton.textContent = 'Remove from basket';
+    product.addBasketButton.className = 'buttons__remove-button';
   }
 };
 

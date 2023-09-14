@@ -53,8 +53,6 @@ const buttonBlock = document.createElement('div');
 buttonBlock.classList.add('product__buttons');
 
 const addBasketButton = document.createElement('button');
-addBasketButton.classList.add('buttons__add-button');
-// addBasketButton.textContent = 'Add to basket';
 
 // const removeBasketButton = document.createElement('button');
 // removeBasketButton.classList.add('buttons__remove-button');
