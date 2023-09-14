@@ -1,9 +1,4 @@
-import {
-  addToCart,
-  createCart,
-  getActiveCart,
-  queryCarts,
-} from '../../../model/api/cartApiRoot';
+import { queryCarts } from '../../../model/api/cartApiRoot';
 
 // heading
 const name = document.createElement('h2');
@@ -61,7 +56,7 @@ buttonBlock.classList.add('product__buttons');
 
 const addBasketButton = document.createElement('button');
 addBasketButton.classList.add('buttons__add-button');
-addBasketButton.textContent = 'Add to basket';
+// addBasketButton.textContent = 'Add to basket';
 
 const removeBasketButton = document.createElement('button');
 removeBasketButton.classList.add('buttons__remove-button');
@@ -93,23 +88,6 @@ productPage.append(
   description,
   features,
 );
-
-const addToBasket = async () => {
-  let activeCart;
-  try {
-    activeCart = await getActiveCart();
-  } catch {
-    activeCart = await createCart();
-  }
-  const { id, version } = activeCart.body;
-  console.log('before adding', version);
-  const sku = window.location.search.slice(5);
-  const cart = await addToCart(id, version, sku);
-  console.log(cart);
-  console.log('after adding', cart.body.version);
-};
-
-addBasketButton.addEventListener('click', addToBasket);
 
 const removeButtonHandler = async () => {
   const carts = await queryCarts();
