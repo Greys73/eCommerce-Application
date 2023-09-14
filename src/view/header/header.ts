@@ -87,7 +87,7 @@ const navObj: NavObjType = {
 };
 
 Object.entries(navObj).forEach(([key, value]) => {
-  const el = document.createElement('a');
+  const el = document.createElement('div');
   el.classList.add('nav__item');
   el.id = key;
   el.onclick = () => {
@@ -108,7 +108,7 @@ Object.entries(navObj).forEach(([key, value]) => {
     numberOfItems.textContent = '1';
     // you can export or find by id
     numberOfItems.id = 'basket-header-number';
-
+    numberOfItems.classList.add('hidden');
     el.append(numberOfItems);
   }
 
