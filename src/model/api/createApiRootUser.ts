@@ -6,7 +6,7 @@ import { passOptions } from '../../lib/ConstructClient';
 import { anonCartClient } from '../../lib/getAnonimousClient';
 import { getLoacalCustomer } from '../login';
 
-const apiRoots: Map<string, ByProjectKeyRequestBuilder> = new Map();
+export const apiRoots: Map<string, ByProjectKeyRequestBuilder> = new Map();
 
 export const createUserAPIRoot = (
   mail?: string,
