@@ -2,6 +2,7 @@ const cardsBlock = document.createElement('div');
 cardsBlock.classList.add('items__cards');
 
 export function createCard(
+  id: string,
   name: string,
   img: string,
   description: string[],
@@ -60,6 +61,7 @@ export function createCard(
   const cardButton = document.createElement('button');
   cardButton.classList.add('card__button');
   cardButton.textContent = 'Add to basket';
+  cardButton.name = id;
 
   card.prepend(cardName, cardImg);
   card.append(cardPriceBlock, cardButton);

@@ -10,6 +10,7 @@ import logOutLogo from '../../assets/images/icons/logout.png';
 
 import '../../assets/styles/footer.scss';
 import { NavObjType } from '../../types/type';
+import { createCart, getActiveCart } from '../../model/api/cartApiRoot';
 
 const header = document.createElement('header');
 header.classList.add('header');
@@ -155,3 +156,39 @@ navContainer.childNodes.forEach((el) =>
 );
 
 export { header, changeRegStatus, navObj };
+
+// api tests
+
+function checkExistingCart(): boolean {
+  const cardToken = localStorage.getItem('cartId');
+  // send request, check response code. If 'ok' => continue
+
+  if (cardToken) {
+    return true;
+  }
+  return false;
+}
+
+logoImg.addEventListener('click', () => {
+  if (!checkExistingCart()) {
+    createCart()
+      .then((obj) => {
+        console.log(obj.body.id);
+        if (obj.body.anonymousId) localStorage.setItem('cartId', obj.body.id);
+        console.log('---\nset cardId');
+      })
+      .catch((err) => err);
+  } else {
+    console.log('---\nget cardId');
+    console.log('cardId =', localStorage.getItem('cartId'));
+    getActiveCart()
+      .then((obj) => {
+        console.log('cart=', obj.body);
+        console.log(
+          'cartId === localCartId',
+          obj.body.id === localStorage.getItem('cartId'),
+        );
+      })
+      .catch((err) => err);
+  }
+});

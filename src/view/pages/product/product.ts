@@ -53,14 +53,12 @@ const buttonBlock = document.createElement('div');
 buttonBlock.classList.add('product__buttons');
 
 const addBasketButton = document.createElement('button');
-addBasketButton.classList.add('buttons__add-button');
-addBasketButton.textContent = 'Add to basket';
 
-const removeBasketButton = document.createElement('button');
-removeBasketButton.classList.add('buttons__remove-button');
-removeBasketButton.textContent = 'Remove from basket';
+// const removeBasketButton = document.createElement('button');
+// removeBasketButton.classList.add('buttons__remove-button');
+// removeBasketButton.textContent = 'console carts';
 
-buttonBlock.append(addBasketButton, removeBasketButton);
+buttonBlock.append(addBasketButton /* removeBasketButton */);
 
 // description
 const description = document.createElement('div');
@@ -102,4 +100,5 @@ export {
   variantsBlock,
   description,
   features,
+  addBasketButton,
 };

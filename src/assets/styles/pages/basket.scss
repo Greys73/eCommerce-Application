@@ -1,0 +1,429 @@
+@import '../general.scss';
+
+.basket__header,
+.empty__header {
+  @include _mainFont(30px);
+  font-weight: 700;
+  text-align: center;
+  margin: $marginDesctopDiv2;
+
+  @include _tablet {
+    font-size: 20px;
+    margin: 0;
+    margin-top: $marginTablet;
+  }
+
+  @include _mobile {
+    font-size: 16px;
+  }
+}
+
+.empty__image {
+  display: block;
+  margin: $marginDesctopDiv2 auto;
+  
+  @include _tablet {
+    margin: 0 auto;
+    width: 200px;
+  }
+
+  @include _mobile {
+    width: 150px;
+  }
+}
+
+.empty__message {
+  @include _mainFont(20px);
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto;
+
+  &:first-of-type {
+    margin: $marginDesctopDiv4 auto;
+  }
+
+  @include _tablet {
+    font-size: 16px;
+  }
+
+  @include _mobile {
+    font-size: 12px;
+  }
+}
+
+.empty__button {
+  @include _button(250px, 30px, 20px);
+  margin: $marginDesctopDiv2 auto;
+
+  @include _tablet {
+    font-size: 16px;
+    width: 200px;
+    height: 25px;
+  }
+
+  @include _mobile {
+    font-size: 14px;
+    width: 160px;
+    height: 20px;
+    border-radius: 5px;
+  }
+}
+
+.basket__header {
+  color: steelblue;
+}
+
+.basket-container__items {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-auto-rows: auto;
+  gap: $marginDesctopDiv2;
+  margin: $marginDesctopDiv2;
+  padding-top: $marginDesctopDiv2;
+  padding-bottom: $marginDesctopDiv2;
+  border-bottom: 1px solid rgba($color: #6495ED, $alpha: .3);
+
+  @include _tablet {
+    margin: $marginTablet 0;
+    padding: 0;
+    // gap: $marginTabletDiv2;
+  }
+
+  @include _mobile {
+    grid-template-columns: 150px 1fr;
+    gap: $marginMobileDiv2;
+    max-width: 400px;
+    margin: $marginTablet auto;
+    border-bottom: 0;
+  }
+}
+
+.item__image {
+  width: 150px;
+  border-radius: $marginDesctopDiv8;
+  @include _mobile {
+    margin-top: $marginMobile;
+  }
+}
+
+.item__params-block {
+  margin: auto;
+}
+
+.item__name {
+  display: block;
+  @include _mainFont(20px);
+  font-weight: 700;
+  color: darkcyan;
+  margin: $marginDesctopDiv4 auto;
+  &:hover {
+    color: lightseagreen;
+  }
+
+  @include _tablet {
+    font-size: 16px;
+  }
+  @include _mobile {
+    font-size: 14px;
+  }
+}
+
+.params-block__params {
+  @include _mainFont(16px);
+  margin: $marginDesctopDiv8 auto;
+  text-align: center;
+
+  @include _tablet {
+    font-size: 14px;
+  }
+  @include _mobile {
+    font-size: 12px;
+  }
+}
+
+.item__price-block {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, min-content);
+  margin: auto;
+
+  @include _mobile {
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: $marginMobileDiv2;
+  }
+}
+
+.price-block__item-full-price {
+  @include _mainFont(16px);
+  text-decoration: line-through;
+  font-weight: 700;
+  @include _tablet {
+    font-size: 14px;
+  }
+}
+
+.price-block__item-discont {
+  @include _mainFont(12px);
+  font-weight: 700;
+  color: crimson;
+  margin-left: $marginDesctopDiv8;
+  @include _tablet {
+    font-size: 11px;
+  }
+  @include _mobile {
+    margin-left: 0;
+  }
+}
+
+.price-block__item-discont-price {
+  grid-column: 1 / 3;
+  @include _mainFont(16px);
+  font-weight: 700;
+  color: crimson;
+  margin: $marginDesctopDiv8 auto;
+  @include _tablet {
+    font-size: 14px;
+  }
+  @include _mobile {
+    grid-column: 3 / 4;   
+    margin: 0;
+  }
+}
+
+.item__amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  @include _mobile {
+    margin-left: auto;
+  }
+}
+
+.amount__decrease-button,
+.amount__increase-button {
+  @include _button(25px, 25px, 20px);
+  border: 0;
+  border-radius: 20px;
+  margin: $marginDesctopDiv8 0;
+  @include _tablet {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+  }
+}
+
+.amount__increase-button {
+  &:hover {
+    background-color: limegreen;
+  }
+}
+
+.amount__current {
+  @include _mainFont(20px);
+  margin: $marginDesctopDiv4;
+  @include _tablet {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  @include _mobile {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.item__total-price {
+  @include _mainFont(20px);
+  font-weight: 700;
+  margin: auto;
+  @include _tablet {
+    font-size: 16px;
+  }
+  @include _mobile {
+    font-size: 14px;
+  }
+}
+
+.item__delete-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include _mobile {
+    grid-column: 1 / 3;
+    border-bottom: 1px solid rgba(100, 149, 237, 0.1);
+  }
+
+  &:last-child {
+    border-bottom: 1px solid rgba(100, 149, 237, 0.3);
+  }
+}
+
+.item__delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include _button(100px, 25px, 16px);
+  border: 0;
+  border-radius: 5px;
+  margin: auto;
+  &:hover {
+    background-color: crimson;
+  }
+
+  @include _tablet {
+    width: 85px;
+    height: 25px;
+    font-size: 14px;
+    margin: auto;
+  }
+  @include _mobile {
+    margin: 0;
+    margin-bottom: $marginMobile;
+  }
+}
+
+.basket-container__promo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: $marginDesctopDiv2;
+  @include _tablet {
+    margin: $marginTablet $marginTabletDiv4;
+  }
+  @include _mobile {
+    justify-content: center;
+  }
+}
+
+.promo-block__input {
+  display: block;
+  width: 200px;
+  min-height: 25px;
+  @include _mainFont(16px);
+  color: steelblue;
+  text-align: center;
+  border-radius: 5px;
+  border: solid 1px cornflowerblue;
+  &:focus {
+    outline-color: cornflowerblue;
+  }
+  &::placeholder {
+    color: LightSteelBlue;
+  }
+
+  @include _tablet {
+    width: 170px;
+    min-height: 21px;
+    font-size: 14px;
+  }
+}
+
+.promo-block__button {
+  display: block;
+  @include _button(100px, 29px, 16px);
+  border: 0;
+  border-radius: 5px;
+  margin-left: $marginDesctopDiv2;
+  &:hover {
+    background-color: limegreen;
+  }
+
+  @include _tablet {
+    width: 85px;
+    height: 24px;
+    font-size: 14px; 
+  }
+}
+
+.basket-container__price {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: $marginDesctopDiv2;
+
+  @include _tablet {
+    margin: $marginTabletDiv4;
+  }
+  @include _mobile {
+    justify-content: center
+  }
+}
+
+.price__text {
+  @include _mainFont(20px);
+  margin: $marginDesctopDiv4;
+
+  @include _tablet {
+    font-size: 16px;
+    margin: $marginTabletDiv4;
+  }
+}
+
+.price__total {
+  @include _mainFont(20px);
+  font-weight: 700;
+  margin-right: calc(100px + $marginDesctopDiv2);
+
+  @include _tablet {
+    font-size: 16px;
+    margin-right: calc(85px + $marginDesctopDiv2);
+  }
+  @include _mobile {
+    margin-right: 0;
+  }
+}
+
+.delete-block__delete-button,
+.delete-block__confirm-button,
+.delete-block__return-button {
+  display: block;
+  margin: $marginDesctopDiv2 auto;
+  margin-bottom: $marginDesctop;
+  @include _button(120px, 30px, 20px);
+  border: 0;
+
+  @include _tablet {
+    width: 100px;
+    height: 25px;
+    font-size: 16px;
+  }
+
+  @include _mobile {
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: $marginDesctopDiv2;
+  }
+}
+
+.delete-block__delete-button {
+  &:hover {
+    background-color: crimson;
+  }
+}
+
+.delete-block__return-button {
+  margin-bottom: $marginDesctopDiv4;
+}
+
+.delete-block__confirm-button {
+  background-color: crimson;
+  &:hover {
+    background-color: crimson;
+  }
+}
+
+.delete-block__confirm-message {
+  @include _mainFont(20px);
+  text-align: center;
+  margin: $marginDesctopDiv2 auto;
+
+  @include _tablet {
+    font-size: 16px;
+  }
+  @include _mobile {
+    margin-top: $marginMobile;
+    font-size: 14px;
+  }
+}

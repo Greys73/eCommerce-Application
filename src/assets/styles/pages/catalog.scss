@@ -442,10 +442,33 @@
   //   margin: $marginMobile auto;
   //   @include _button(100px, 20px, 14px);
   // }
-
   &:hover {
     background-color: limegreen;
   };
+
+  &_unactive {
+    border-color: slategray;
+    background-color: slategray;
+    
+    &:hover {
+      cursor: default;
+      background-color: slategray;
+      transform: scale(1);
+    };
+  }
+}
+
+.card__loader {
+  position: absolute;
+  width: 250px;
+  z-index: 10;
+  opacity: 80%;
+  margin-top: calc(23px + $marginDesctopDiv2 * 2);
+
+  @include _tablet {
+    width: 200px;
+    margin-top: calc(18px + $marginTabletDiv2 * 3);
+  }
 }
 
 .filters__button-block {

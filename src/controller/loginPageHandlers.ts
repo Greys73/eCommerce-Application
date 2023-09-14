@@ -1,7 +1,8 @@
 import loginForm from '../view/pages/login/login';
-import { loginCustomer } from '../model/api/apiRoot';
+// import { loginCustomer } from '../model/api/apiRoot';
 import resultMessage from '../view/components/resultMessage';
 import { setLoacalCustomer } from '../model/login';
+import { loginCustomerPass } from '../model/api/cartApiRoot';
 
 const input: HTMLInputElement = loginForm.querySelector(
   'input[name="password"]',
@@ -21,7 +22,7 @@ async function submitHandler(e: Event) {
   const formData = new FormData(regForm);
   const mail = formData.get('email')?.toString() || '';
   const password = formData.get('password')?.toString() || '';
-  const response = await loginCustomer(mail, password);
+  const response = await loginCustomerPass(mail, password);
 
   resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
@@ -29,6 +30,7 @@ async function submitHandler(e: Event) {
     resultMessage.firstChild!.textContent = `Welcome to MotoDream, ${response.body.customer.firstName}!`;
     setTimeout(() => {
       window.routeLocation = '/';
+      localStorage.removeItem('cartAnonToken');
     }, 3000);
   } else {
     resultMessage.firstChild!.textContent = response.message;
