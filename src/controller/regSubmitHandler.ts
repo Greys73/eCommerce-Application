@@ -1,10 +1,11 @@
-import { createCustomer, loginCustomer } from '../model/api/apiRoot';
+import { createCustomer } from '../model/api/apiRoot';
 import countries from '../model/data/countries';
 import { setLoacalCustomer } from '../model/login';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
 import resultMessage from '../view/components/resultMessage';
 import { clearForm } from './regFormHandlers';
+import { loginCustomerPass } from '../model/api/cartApiRoot';
 
 const getRegFormData = (e: Event): CustomerDraft => {
   const regForm = e.target as HTMLFormElement;
@@ -76,7 +77,7 @@ export const submitHandler = async (e: Event) => {
     if (regResponse.statusCode === 201) {
       resultMessage.firstChild!.textContent = 'Successfully registered';
 
-      const logResponse = await loginCustomer(
+      const logResponse = await loginCustomerPass(
         newCustomer.email,
         newCustomer.password,
       );
@@ -85,6 +86,7 @@ export const submitHandler = async (e: Event) => {
         setTimeout(() => {
           resultMessage.firstChild!.textContent = `Welcome to the club, ${logResponse.body.customer.firstName}`;
           clearForm();
+          localStorage.removeItem('cartAnonToken');
         }, 1000);
         setTimeout(() => {
           window.routeLocation = '/';
