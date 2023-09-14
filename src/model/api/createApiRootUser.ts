@@ -29,6 +29,7 @@ export const createUserAPIRoot = (
   const isCustomerLogged = Object.keys(customer).length;
   if (isCustomerLogged) {
     const { email } = customer;
+    apiRoots.delete('anon');
     return apiRoots.get(email) as ByProjectKeyRequestBuilder;
   }
 
