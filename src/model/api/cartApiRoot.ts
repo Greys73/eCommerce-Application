@@ -88,3 +88,25 @@ export const loginCustomerPass = (userEmail: string, userPassword: string) => {
     .then((obj) => obj)
     .catch((err) => err);
 };
+
+export const removeFromCart = (
+  ID: string,
+  version: number,
+  lineItemId: string,
+) =>
+  createUserAPIRoot()
+    .me()
+    .carts()
+    .withId({ ID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'removeLineItem',
+            lineItemId,
+          },
+        ],
+      },
+    })
+    .execute();

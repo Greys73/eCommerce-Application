@@ -4,6 +4,7 @@ import * as product from '../view/pages/product/product';
 import * as er404Page from '../view/pages/404/404';
 import { AttrValue, ProductVariant } from '../types/type';
 import productImages from '../model/data/productImages';
+import { getActiveCart } from '../model/api/cartApiRoot';
 
 const fillPriceCont = (priceOptions: Price) => {
   const centsPerEuro = 100;
@@ -144,6 +145,22 @@ const preloadImages = (variants: ProductVariant[]) => {
   });
 };
 
+const isInBasket = async (id: string): Promise<boolean> => {
+  const cart = await getActiveCart();
+  const productsInBasket = cart.body.lineItems;
+  return !!productsInBasket.find((prod) => prod.productId === id);
+};
+
+const fillAddButton = async (isActive: boolean) => {
+  if (isActive) {
+    product.addBasketButton.textContent = 'Add to basket';
+    product.addBasketButton.className = 'buttons__add-button';
+  } else {
+    product.addBasketButton.textContent = 'Remove from basket';
+    product.addBasketButton.className = 'buttons__remove-button';
+  }
+};
+
 export const fillProductPage = async (SKU: string) => {
   const response = await getProductBySKU(SKU);
 
@@ -187,5 +204,8 @@ export const fillProductPage = async (SKU: string) => {
   if (currentVariant.images.length > 1)
     fillSliderControls(currentVariant.images);
   fillVariants(variants, currentVariant);
+
+  const isActive = !(await isInBasket(prodOptions.id));
+  fillAddButton(isActive);
   return true;
 };
