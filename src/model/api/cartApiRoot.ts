@@ -1,39 +1,6 @@
-import {
-  Cart,
-  ClientResponse,
-  createApiBuilderFromCtpClient,
-} from '@commercetools/platform-sdk';
-import { ClientBuilder } from '@commercetools/sdk-client-v2';
-import { anonCartClient } from '../../lib/getAnonimousClient';
-import { getLoacalCustomer } from '../login';
-import { passOptions } from '../../lib/ConstructClient';
-import { httpMiddlewareOptions } from '../../lib/BuildClient';
+import { Cart, ClientResponse } from '@commercetools/platform-sdk';
+import { createUserAPIRoot } from './createApiRootUser';
 
-const createUserAPIRoot = () => {
-  const customer = getLoacalCustomer();
-  const isCustomerLogged = Object.keys(customer).length;
-  let apiRootUser;
-  if (isCustomerLogged) {
-    console.log('apiRoot LOGGED');
-    const { email } = customer;
-    const password = localStorage.getItem(email) || '';
-    console.log('from API', email, password);
-    const options = passOptions(email, password);
-    const client = new ClientBuilder()
-      .withPasswordFlow(options)
-      .withHttpMiddleware(httpMiddlewareOptions)
-      .build();
-    apiRootUser = createApiBuilderFromCtpClient(client).withProjectKey({
-      projectKey: 'ddt-e-commerce-rss-app',
-    });
-  } else {
-    console.log('apiRoot ANONYMOUS');
-    apiRootUser = createApiBuilderFromCtpClient(anonCartClient).withProjectKey({
-      projectKey: 'ddt-e-commerce-rss-app',
-    });
-  }
-  return apiRootUser;
-};
 export const createCart = (): Promise<ClientResponse<Cart>> =>
   createUserAPIRoot()
     .me()
@@ -43,7 +10,9 @@ export const createCart = (): Promise<ClientResponse<Cart>> =>
         currency: 'EUR',
       },
     })
-    .execute();
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
 
 export const getActiveCart = () =>
   createUserAPIRoot().me().activeCart().get().execute();
@@ -66,14 +35,21 @@ export const addToCart = (ID: string, version: number, sku: string) =>
         ],
       },
     })
-    .execute();
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
 
 export const queryCarts = () =>
-  createUserAPIRoot().me().carts().get().execute();
+  createUserAPIRoot()
+    .me()
+    .carts()
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch((err) => err);
 
-export const loginCustomerPass = (userEmail: string, userPassword: string) => {
-  localStorage.setItem(userEmail, userPassword);
-  return createUserAPIRoot()
+export const loginCustomerPass = (userEmail: string, userPassword: string) =>
+  createUserAPIRoot(userEmail, userPassword)
     .me()
     .login()
     .post({
@@ -87,4 +63,3 @@ export const loginCustomerPass = (userEmail: string, userPassword: string) => {
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
-};
