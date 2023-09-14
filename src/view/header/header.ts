@@ -108,7 +108,7 @@ Object.entries(navObj).forEach(([key, value]) => {
     numberOfItems.textContent = '1';
     // you can export or find by id
     numberOfItems.id = 'basket-header-number';
-
+    numberOfItems.classList.add('hidden');
     el.append(numberOfItems);
   }
 
