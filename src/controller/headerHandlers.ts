@@ -23,14 +23,15 @@ function navChanger(_menu: NavObjType) {
   if (Object.keys(menu).length !== 0) {
     const customer = getLoacalCustomer();
     switchElements('id' in customer);
-    menu.logout.obj?.addEventListener('click', (e: Event) => {
+    menu.logout.obj!.onclick = (e: Event) => {
       e.preventDefault();
       setLoacalCustomer({});
       switchElements(false);
+      localStorage.removeItem('customerToken');
       setTimeout(() => {
         window.routeLocation = (e.target as HTMLLinkElement).href;
       }, 50);
-    });
+    };
   }
 }
 
