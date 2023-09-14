@@ -10,6 +10,7 @@ import { passOptions } from '../../lib/ConstructClient';
 import { httpMiddlewareOptions } from '../../lib/BuildClient';
 import { updateHeaderCart } from '../../controller/headerBasketHandlers';
 
+
 const createUserAPIRoot = () => {
   const customer = getLoacalCustomer();
   const isCustomerLogged = Object.keys(customer).length;
@@ -35,6 +36,7 @@ const createUserAPIRoot = () => {
   }
   return apiRootUser;
 };
+
 export const createCart = async (): Promise<ClientResponse<Cart>> => {
   const response = await createUserAPIRoot()
     .me()
