@@ -8,6 +8,7 @@ import { anonCartClient } from '../../lib/getAnonimousClient';
 import { getLoacalCustomer } from '../login';
 import { passOptions } from '../../lib/ConstructClient';
 import { httpMiddlewareOptions } from '../../lib/BuildClient';
+import { updateHeaderCart } from '../../controller/headerBasketHandlers';
 
 const createUserAPIRoot = () => {
   const customer = getLoacalCustomer();
@@ -34,8 +35,8 @@ const createUserAPIRoot = () => {
   }
   return apiRootUser;
 };
-export const createCart = (): Promise<ClientResponse<Cart>> =>
-  createUserAPIRoot()
+export const createCart = async (): Promise<ClientResponse<Cart>> => {
+  const response = await createUserAPIRoot()
     .me()
     .carts()
     .post({
@@ -45,11 +46,19 @@ export const createCart = (): Promise<ClientResponse<Cart>> =>
     })
     .execute();
 
-export const getActiveCart = () =>
-  createUserAPIRoot().me().activeCart().get().execute();
+  updateHeaderCart(response.body);
+  return response;
+};
 
-export const addToCart = (ID: string, version: number, sku: string) =>
-  createUserAPIRoot()
+export const getActiveCart = async () => {
+  const response = await createUserAPIRoot().me().activeCart().get().execute();
+
+  updateHeaderCart(response.body);
+  return response;
+};
+
+export const addToCart = async (ID: string, version: number, sku: string) => {
+  const response = await createUserAPIRoot()
     .me()
     .carts()
     .withId({ ID })
@@ -67,6 +76,10 @@ export const addToCart = (ID: string, version: number, sku: string) =>
       },
     })
     .execute();
+
+  updateHeaderCart(response.body);
+  return response;
+};
 
 export const queryCarts = () =>
   createUserAPIRoot().me().carts().get().execute();
@@ -89,12 +102,12 @@ export const loginCustomerPass = (userEmail: string, userPassword: string) => {
     .catch((err) => err);
 };
 
-export const removeFromCart = (
+export const removeFromCart = async (
   ID: string,
   version: number,
   lineItemId: string,
-) =>
-  createUserAPIRoot()
+) => {
+  const response = await createUserAPIRoot()
     .me()
     .carts()
     .withId({ ID })
@@ -110,3 +123,7 @@ export const removeFromCart = (
       },
     })
     .execute();
+
+  updateHeaderCart(response.body);
+  return response;
+};
