@@ -1,8 +1,8 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { createUserAPIRoot } from './createApiRootUser';
 
-export const createCart = (): Promise<ClientResponse<Cart>> =>
-  createUserAPIRoot()
+export const createCart = async (): Promise<ClientResponse<Cart>> => {
+  const response = await createUserAPIRoot()
     .me()
     .carts()
     .post({
@@ -11,14 +11,20 @@ export const createCart = (): Promise<ClientResponse<Cart>> =>
       },
     })
     .execute()
-    .then((obj) => obj)
-    .catch((err) => err);
+   
+  updateHeaderCart(response.body);
+  return response;
+};
 
-export const getActiveCart = () =>
-  createUserAPIRoot().me().activeCart().get().execute();
+export const getActiveCart = async () => {
+  const response = await createUserAPIRoot().me().activeCart().get().execute();
 
-export const addToCart = (ID: string, version: number, sku: string) =>
-  createUserAPIRoot()
+  updateHeaderCart(response.body);
+  return response;
+};
+
+export const addToCart = async (ID: string, version: number, sku: string) => {
+  const response = await createUserAPIRoot()
     .me()
     .carts()
     .withId({ ID })
@@ -36,8 +42,10 @@ export const addToCart = (ID: string, version: number, sku: string) =>
       },
     })
     .execute()
-    .then((obj) => obj)
-    .catch((err) => err);
+  
+  updateHeaderCart(response.body);
+  return response;
+};
 
 export const queryCarts = () =>
   createUserAPIRoot()
@@ -63,3 +71,29 @@ export const loginCustomerPass = (userEmail: string, userPassword: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
+export const removeFromCart = async (
+  ID: string,
+  version: number,
+  lineItemId: string,
+) => {
+  const response = await createUserAPIRoot()
+    .me()
+    .carts()
+    .withId({ ID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'removeLineItem',
+            lineItemId,
+          },
+        ],
+      },
+    })
+    .execute();
+
+  updateHeaderCart(response.body);
+  return response;
+};
