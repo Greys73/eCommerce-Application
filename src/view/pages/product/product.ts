@@ -1,5 +1,3 @@
-import { queryCarts } from '../../../model/api/cartApiRoot';
-
 // heading
 const name = document.createElement('h2');
 name.className = 'product__name';
@@ -58,11 +56,11 @@ const addBasketButton = document.createElement('button');
 addBasketButton.classList.add('buttons__add-button');
 // addBasketButton.textContent = 'Add to basket';
 
-const removeBasketButton = document.createElement('button');
-removeBasketButton.classList.add('buttons__remove-button');
-removeBasketButton.textContent = 'console carts';
+// const removeBasketButton = document.createElement('button');
+// removeBasketButton.classList.add('buttons__remove-button');
+// removeBasketButton.textContent = 'console carts';
 
-buttonBlock.append(addBasketButton, removeBasketButton);
+buttonBlock.append(addBasketButton /* removeBasketButton */);
 
 // description
 const description = document.createElement('div');
@@ -89,11 +87,6 @@ productPage.append(
   features,
 );
 
-const removeButtonHandler = async () => {
-  const carts = await queryCarts();
-  console.log('queryCarts Request ===>', carts);
-};
-removeBasketButton.addEventListener('click', removeButtonHandler);
 export default productPage;
 
 export {
@@ -110,5 +103,4 @@ export {
   description,
   features,
   addBasketButton,
-  removeBasketButton,
 };
