@@ -144,7 +144,7 @@ const addItemToBasketView = (el: ItemToBasket) => {
   itemsBlock.append(lineItem);
 };
 
-const promoBlock = document.createElement('div');
+export const promoBlock = document.createElement('div');
 promoBlock.classList.add('basket-container__promo');
 
 const input = document.createElement('input');
