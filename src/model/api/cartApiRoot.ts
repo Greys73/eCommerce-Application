@@ -1,6 +1,6 @@
-import { Cart, ClientResponse,} from '@commercetools/platform-sdk';
-import { createUserAPIRoot } from './createApiRootUser';
+import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { updateHeaderCart } from '../../controller/headerBasketHandlers';
+import { createUserAPIRoot } from './createApiRootUser';
 
 export const createCart = async (): Promise<ClientResponse<Cart>> => {
   const response = await createUserAPIRoot()
@@ -11,7 +11,7 @@ export const createCart = async (): Promise<ClientResponse<Cart>> => {
         currency: 'EUR',
       },
     })
-    .execute()
+    .execute();
 
   updateHeaderCart(response.body);
   return response;
@@ -56,6 +56,8 @@ export const queryCarts = () =>
     .get()
     .execute()
     .then((obj) => obj)
+    .catch((err) => err)
+    .then((obj) => obj)
     .catch((err) => err);
 
 export const loginCustomerPass = (userEmail: string, userPassword: string) =>
@@ -98,4 +100,3 @@ export const removeFromCart = async (
   updateHeaderCart(response.body);
   return response;
 };
-

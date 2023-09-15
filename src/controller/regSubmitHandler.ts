@@ -4,8 +4,8 @@ import { setLoacalCustomer } from '../model/login';
 import { Address, CustomerDraft } from '../types/API-interfaces';
 import registrationForm from '../view/pages/registration/registration';
 import resultMessage from '../view/components/resultMessage';
-import { clearForm } from './regFormHandlers';
 import { loginCustomerPass } from '../model/api/cartApiRoot';
+import { clearForm } from './regFormHandlers';
 
 const getRegFormData = (e: Event): CustomerDraft => {
   const regForm = e.target as HTMLFormElement;
@@ -85,6 +85,7 @@ export const submitHandler = async (e: Event) => {
         setLoacalCustomer(logResponse.body.customer);
         setTimeout(() => {
           resultMessage.firstChild!.textContent = `Welcome to the club, ${logResponse.body.customer.firstName}`;
+          localStorage.removeItem('cartAnonToken');
           clearForm();
           localStorage.removeItem('cartAnonToken');
         }, 1000);
