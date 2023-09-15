@@ -30,7 +30,6 @@ function navChanger(_menu: NavObjType) {
       switchElements(false);
       localStorage.removeItem('customerToken');
       updateHeaderCart();
-      localStorage.removeItem('customerToken');
       window.location.reload();
       setTimeout(() => {
         window.routeLocation = '/login';
