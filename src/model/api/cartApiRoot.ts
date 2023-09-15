@@ -1,4 +1,5 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
+import { updateHeaderCart } from '../../controller/headerBasketHandlers';
 import { createUserAPIRoot } from './createApiRootUser';
 
 export const createCart = async (): Promise<ClientResponse<Cart>> => {
@@ -10,8 +11,8 @@ export const createCart = async (): Promise<ClientResponse<Cart>> => {
         currency: 'EUR',
       },
     })
-    .execute()
-   
+    .execute();
+
   updateHeaderCart(response.body);
   return response;
 };
@@ -42,17 +43,20 @@ export const addToCart = async (ID: string, version: number, sku: string) => {
       },
     })
     .execute()
-  
+    .then((obj) => obj)
+    .catch((err) => err);
+
   updateHeaderCart(response.body);
   return response;
 };
-
 export const queryCarts = () =>
   createUserAPIRoot()
     .me()
     .carts()
     .get()
     .execute()
+    .then((obj) => obj)
+    .catch((err) => err)
     .then((obj) => obj)
     .catch((err) => err);
 
@@ -71,7 +75,6 @@ export const loginCustomerPass = (userEmail: string, userPassword: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
-
 export const removeFromCart = async (
   ID: string,
   version: number,

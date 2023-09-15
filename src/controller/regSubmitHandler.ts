@@ -7,7 +7,6 @@ import resultMessage from '../view/components/resultMessage';
 import { loginCustomerPass } from '../model/api/cartApiRoot';
 import { clearForm } from './regFormHandlers';
 
-
 const getRegFormData = (e: Event): CustomerDraft => {
   const regForm = e.target as HTMLFormElement;
   const formData = new FormData(regForm);
@@ -88,6 +87,7 @@ export const submitHandler = async (e: Event) => {
           resultMessage.firstChild!.textContent = `Welcome to the club, ${logResponse.body.customer.firstName}`;
           localStorage.removeItem('cartAnonToken');
           clearForm();
+          localStorage.removeItem('cartAnonToken');
         }, 1000);
         setTimeout(() => {
           window.routeLocation = '/';
