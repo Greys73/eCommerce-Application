@@ -69,7 +69,9 @@ const addItemToBasketView = (el: ItemToBasket) => {
   name.classList.add('item__name');
   name.textContent = el.name;
   // SKU?
-  name.href = `/product?sku=${el.sku}`;
+  name.onclick = () => {
+    window.routeLocation = `/product?sku=${el.sku}`;
+  };
 
   const textParams = document.createElement('p');
   params.classList.add('params-block__params');
