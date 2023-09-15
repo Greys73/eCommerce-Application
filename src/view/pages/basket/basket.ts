@@ -60,7 +60,7 @@ itemsBlock.classList.add('basket-container__items');
 const addItemToBasketView = (el: ItemToBasket) => {
   const lineItem = document.createElement('div');
   lineItem.id = el.lineItemId;
-  lineItem.className = 'basket__item';
+  lineItem.className = 'items__item';
 
   const image = document.createElement('img');
   image.classList.add('item__image');
@@ -76,7 +76,7 @@ const addItemToBasketView = (el: ItemToBasket) => {
   name.href = `/product?sku=${el.sku}`;
 
   const textParams = document.createElement('p');
-  params.classList.add('params-block__params');
+  textParams.classList.add('params-block__params');
   textParams.textContent = `${el.year}, ${el.type}`;
 
   const digitalParams = document.createElement('p');
@@ -88,23 +88,35 @@ const addItemToBasketView = (el: ItemToBasket) => {
   const price = document.createElement('div');
   price.classList.add('item__price-block');
 
+  const fullPriceContainer = document.createElement('div');
+  fullPriceContainer.classList.add('price-block__container');
+
   const fullPrice = document.createElement('p');
   fullPrice.classList.add('price-block__item-full-price');
   fullPrice.textContent = `${el.price.toString()} €`;
   price.append(fullPrice);
 
+  const discountPrice = document.createElement('p');
+  discountPrice.classList.add('price-block__item-discont-price');
   if (el.priceDiscount) {
-    const discountPrice = document.createElement('p');
-    discountPrice.classList.add('price-block__item-discont-price');
     discountPrice.textContent = `${el.priceDiscount.toString()} €`;
+  } else {
+    discountPrice.textContent = '';
+  }
 
-    const discont = document.createElement('p');
-    discont.classList.add('price-block__item-discont');
+  const discont = document.createElement('p');
+  discont.classList.add('price-block__item-discont');
+  if (el.priceDiscount) {
     discont.textContent = `-${Math.round(
       (1 - el.priceDiscount / el.price) * 100,
     )}%`.toString();
-    price.append(discont, discountPrice);
+  } else {
+    discont.textContent = '';
   }
+
+  fullPriceContainer.append(fullPrice, discont);
+
+  price.append(fullPriceContainer, discountPrice);
 
   const amount = document.createElement('div');
   amount.classList.add('item__amount');
