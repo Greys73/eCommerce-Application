@@ -58,6 +58,10 @@ itemsBlock.classList.add('basket-container__items');
 // function to fill items to basket
 
 const addItemToBasketView = (el: ItemToBasket) => {
+  const lineItem = document.createElement('div');
+  lineItem.id = el.lineItemId;
+  lineItem.className = 'basket__item';
+
   const image = document.createElement('img');
   image.classList.add('item__image');
   image.src = el.img;
@@ -132,7 +136,9 @@ const addItemToBasketView = (el: ItemToBasket) => {
 
   deleteBlock.append(deleteButton);
 
-  itemsBlock.append(image, params, price, amount, totalPrice, deleteBlock);
+  lineItem.append(image, params, price, amount, totalPrice, deleteBlock);
+
+  itemsBlock.append(lineItem);
 };
 
 const promoBlock = document.createElement('div');

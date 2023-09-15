@@ -41,6 +41,7 @@ export const mapBasketItem = (item: LineItem): ItemToBasket => {
     item.price.value.centAmount / centsPerEuro;
   const totalPrice: ItemToBasket['totalPrice'] =
     item.totalPrice.centAmount / centsPerEuro;
+  const lineItemId = item.id;
 
   const option: ItemToBasket = {
     name,
@@ -54,6 +55,7 @@ export const mapBasketItem = (item: LineItem): ItemToBasket => {
     price,
     totalPrice,
     sku,
+    lineItemId,
   };
 
   if (item.price.discounted) {
