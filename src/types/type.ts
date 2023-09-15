@@ -129,6 +129,7 @@ export type ItemToBasket = {
   name: string;
   price: number;
   priceDiscount?: number;
+  totalPrice: number;
   img: string;
   year: number;
   type: string;

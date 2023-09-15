@@ -121,7 +121,7 @@ const addItemToBasketView = (el: ItemToBasket) => {
 
   const totalPrice = document.createElement('p');
   totalPrice.classList.add('item__total-price');
-  // totalPrice.textContent = `${el.priceDiscount * el.amount} €`; // !!!take from api
+  totalPrice.textContent = `${el.totalPrice} €`;
 
   const deleteBlock = document.createElement('div');
   deleteBlock.classList.add('item__delete-block');
