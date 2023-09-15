@@ -100,3 +100,27 @@ export const removeFromCart = async (
   updateHeaderCart(response.body);
   return response;
 };
+
+export const changeBasketItemAmount = (
+  ID: string,
+  version: number,
+  lineItemId: string,
+  quantity: number,
+): Promise<ClientResponse<Cart>> =>
+  createUserAPIRoot()
+    .me()
+    .carts()
+    .withId({ ID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'changeLineItemQuantity',
+            lineItemId,
+            quantity,
+          },
+        ],
+      },
+    })
+    .execute();
