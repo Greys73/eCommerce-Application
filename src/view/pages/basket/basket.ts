@@ -1,6 +1,7 @@
 import '../../../assets/styles/pages/basket.scss';
 import emptyImg from '../../../assets/images/empty-cart.png';
 import { ItemToBasket } from '../../../types/type';
+import { changeItemAmount } from '../../../controller/modifyBasket';
 
 const basketPage = document.createElement('div');
 basketPage.classList.add('basket-page');
@@ -126,10 +127,12 @@ const addItemToBasketView = (el: ItemToBasket) => {
   const decreaseButton = document.createElement('button');
   decreaseButton.classList.add('amount__decrease-button');
   decreaseButton.textContent = '-';
+  decreaseButton.addEventListener('click', changeItemAmount);
 
   const increaseButton = document.createElement('button');
   increaseButton.classList.add('amount__increase-button');
   increaseButton.textContent = '+';
+  increaseButton.addEventListener('click', changeItemAmount);
 
   const currAmount = document.createElement('p');
   currAmount.classList.add('amount__current');
