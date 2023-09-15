@@ -7,6 +7,7 @@ import {
 
 export const changeItemAmount = async (e: Event) => {
   const button = e.target as HTMLElement;
+
   const itemCont = button.closest('.items__item');
 
   const quantityElem = itemCont?.querySelector('.amount__current');
