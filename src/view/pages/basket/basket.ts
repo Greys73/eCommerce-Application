@@ -1,5 +1,6 @@
 import '../../../assets/styles/pages/basket.scss';
 import emptyImg from '../../../assets/images/empty-cart.png';
+import { ItemToBasket } from '../../../types/type';
 
 const basketPage = document.createElement('div');
 basketPage.classList.add('basket-page');
@@ -54,90 +55,13 @@ basketHeader.textContent = 'Products in cart:';
 const itemsBlock = document.createElement('div');
 itemsBlock.classList.add('basket-container__items');
 
-// get from api (or calculate)
+// function to fill items to basket
 
-const itemsArr = [
-  {
-    name: 'Honda CBR 1000 RR',
-    price: 22000,
-    priceDiscont: 19800,
-    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/ZX25R_2-DoOAPT56.png',
-    year: '2023',
-    type: 'Sport',
-    dsp: 599,
-    power: 192,
-    weight: 194,
-    amount: 2,
-  },
-  {
-    name: 'Another model',
-    price: 6000,
-    priceDiscont: 6000,
-    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/CBR600RR_1-FhmjjIB0.png',
-    year: '2010',
-    type: 'Touring',
-    dsp: 350,
-    power: 35,
-    weight: 350,
-    amount: 1,
-  },
-  {
-    name: 'Honda CBR 1000 RR',
-    price: 22000,
-    priceDiscont: 19800,
-    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/ZX25R_2-DoOAPT56.png',
-    year: '2023',
-    type: 'Sport',
-    dsp: 599,
-    power: 192,
-    weight: 194,
-    amount: 2,
-  },
-  {
-    name: 'Another model',
-    price: 6000,
-    priceDiscont: 6000,
-    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/CBR600RR_1-FhmjjIB0.png',
-    year: '2010',
-    type: 'Touring',
-    dsp: 350,
-    power: 35,
-    weight: 350,
-    amount: 1,
-  },
-  {
-    name: 'Honda CBR 1000 RR',
-    price: 22000,
-    priceDiscont: 19800,
-    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/ZX25R_2-DoOAPT56.png',
-    year: '2023',
-    type: 'Sport',
-    dsp: 599,
-    power: 192,
-    weight: 194,
-    amount: 2,
-  },
-  {
-    name: 'Another model',
-    price: 6000,
-    priceDiscont: 6000,
-    img: 'https://9e649986e9e870f67d9d-e4d63a8edab70d942851d988166221b8.ssl.cf3.rackcdn.com/CBR600RR_1-FhmjjIB0.png',
-    year: '2010',
-    type: 'Touring',
-    dsp: 350,
-    power: 35,
-    weight: 350,
-    amount: 1,
-  },
-];
+const addItemToBasketView = (el: ItemToBasket) => {
+  const lineItem = document.createElement('div');
+  lineItem.id = el.lineItemId;
+  lineItem.className = 'basket__item';
 
-// continue view
-
-// function createCartItems(itemsArr) {
-
-// }
-
-itemsArr.forEach((el) => {
   const image = document.createElement('img');
   image.classList.add('item__image');
   image.src = el.img;
@@ -149,7 +73,9 @@ itemsArr.forEach((el) => {
   name.classList.add('item__name');
   name.textContent = el.name;
   // SKU?
-  name.href = '/sku';
+  name.onclick = () => {
+    window.routeLocation = `/product?sku=${el.sku}`;
+  };
 
   const textParams = document.createElement('p');
   params.classList.add('params-block__params');
@@ -167,18 +93,20 @@ itemsArr.forEach((el) => {
   const fullPrice = document.createElement('p');
   fullPrice.classList.add('price-block__item-full-price');
   fullPrice.textContent = `${el.price.toString()} €`;
+  price.append(fullPrice);
 
-  const discontPrice = document.createElement('p');
-  discontPrice.classList.add('price-block__item-discont-price');
-  discontPrice.textContent = `${el.priceDiscont.toString()} €`;
+  if (el.priceDiscount) {
+    const discountPrice = document.createElement('p');
+    discountPrice.classList.add('price-block__item-discont-price');
+    discountPrice.textContent = `${el.priceDiscount.toString()} €`;
 
-  const discont = document.createElement('p');
-  discont.classList.add('price-block__item-discont');
-  discont.textContent = `-${Math.round(
-    (1 - el.priceDiscont / el.price) * 100,
-  )}%`.toString();
-
-  price.append(fullPrice, discont, discontPrice);
+    const discont = document.createElement('p');
+    discont.classList.add('price-block__item-discont');
+    discont.textContent = `-${Math.round(
+      (1 - el.priceDiscount / el.price) * 100,
+    )}%`.toString();
+    price.append(discont, discountPrice);
+  }
 
   const amount = document.createElement('div');
   amount.classList.add('item__amount');
@@ -199,7 +127,7 @@ itemsArr.forEach((el) => {
 
   const totalPrice = document.createElement('p');
   totalPrice.classList.add('item__total-price');
-  totalPrice.textContent = `${el.priceDiscont * el.amount} €`;
+  totalPrice.textContent = `${el.totalPrice} €`;
 
   const deleteBlock = document.createElement('div');
   deleteBlock.classList.add('item__delete-block');
@@ -210,8 +138,10 @@ itemsArr.forEach((el) => {
 
   deleteBlock.append(deleteButton);
 
-  itemsBlock.append(image, params, price, amount, totalPrice, deleteBlock);
-});
+  lineItem.append(image, params, price, amount, totalPrice, deleteBlock);
+
+  itemsBlock.append(lineItem);
+};
 
 const promoBlock = document.createElement('div');
 promoBlock.classList.add('basket-container__promo');
@@ -278,3 +208,5 @@ basketContainer.append(
 basketPage.append(emptyContainer, basketContainer);
 
 export default basketPage;
+
+export { basketContainer, emptyContainer, itemsBlock, addItemToBasketView };

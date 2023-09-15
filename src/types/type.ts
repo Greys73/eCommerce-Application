@@ -124,3 +124,19 @@ type Color = 'black' | 'blue' | 'red' | 'yellow' | 'green' | 'white';
 type Brake = 'disc' | 'drum' | 'combi';
 type Drive = 'chain' | 'belt' | 'shaft';
 type Type = 'standard' | 'sport' | 'cruiser' | 'tour';
+
+export type ItemToBasket = {
+  name: string;
+  price: number;
+  priceDiscount?: number;
+  totalPrice: number;
+  img: string;
+  year: number;
+  type: string;
+  dsp: number;
+  power: number;
+  weight: number;
+  amount: number;
+  sku: string;
+  lineItemId: string;
+};

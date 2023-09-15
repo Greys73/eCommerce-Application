@@ -16,3 +16,4 @@ import './filterSubmitHandler';
 import './paginatorHandlers';
 import './filterResetHandler';
 import './searchHandler';
+import './headerBasketHandlers'

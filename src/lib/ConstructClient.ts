@@ -30,12 +30,12 @@ export const passOptions = (
   tokenCache: {
     get: (): TokenStore => {
       const object = JSON.parse(
-        localStorage.getItem('cartCustomerLocalToken') as string,
+        localStorage.getItem('customerToken') as string,
       );
       return object;
     },
     set: (object: TokenStore) => {
-      localStorage.setItem('cartCustomerLocalToken', JSON.stringify(object));
+      localStorage.setItem('customerToken', JSON.stringify(object));
     },
   },
   scopes: [
