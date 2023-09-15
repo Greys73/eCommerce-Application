@@ -127,6 +127,7 @@
 }
 
 .item__name {
+  cursor: pointer;
   display: block;
   @include _mainFont(20px);
   text-align: center;
