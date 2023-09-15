@@ -124,3 +124,13 @@ type Color = 'black' | 'blue' | 'red' | 'yellow' | 'green' | 'white';
 type Brake = 'disc' | 'drum' | 'combi';
 type Drive = 'chain' | 'belt' | 'shaft';
 type Type = 'standard' | 'sport' | 'cruiser' | 'tour';
+
+export type MemberObj = {
+  name: string;
+  surname: string;
+  age: number;
+  city: string;
+  role: string;
+  skill: string;
+  tasks: string[];
+};
