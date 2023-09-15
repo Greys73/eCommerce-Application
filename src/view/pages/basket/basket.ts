@@ -201,4 +201,4 @@ basketPage.append(emptyContainer, basketContainer);
 
 export default basketPage;
 
-export { basketContainer, emptyContainer, addItemToBasketView };
+export { basketContainer, emptyContainer, itemsBlock, addItemToBasketView };

@@ -4,6 +4,7 @@ import {
   addItemToBasketView,
   basketContainer,
   emptyContainer,
+  itemsBlock,
 } from '../view/pages/basket/basket';
 import { ItemToBasket } from '../types/type';
 
@@ -64,13 +65,16 @@ export const mapBasketItem = (item: LineItem): ItemToBasket => {
 };
 
 export const fillBasket = async () => {
+  itemsBlock.innerHTML = '';
   const cart = await getActiveCart();
   console.log(cart);
   const { lineItems } = cart.body;
   if (!lineItems.length) {
     basketContainer.hidden = true;
+    emptyContainer.hidden = false;
   } else {
     emptyContainer.hidden = true;
+    basketContainer.hidden = false;
     lineItems.forEach((item) => {
       const opt = mapBasketItem(item);
       addItemToBasketView(opt);
