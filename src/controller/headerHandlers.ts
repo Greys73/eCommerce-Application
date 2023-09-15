@@ -28,6 +28,7 @@ function navChanger(_menu: NavObjType) {
       setLoacalCustomer({});
       switchElements(false);
       localStorage.removeItem('customerToken');
+      window.location.reload();
       setTimeout(() => {
         window.routeLocation = (e.target as HTMLLinkElement).href;
       }, 50);
