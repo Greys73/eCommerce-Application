@@ -138,4 +138,5 @@ export type ItemToBasket = {
   weight: number;
   amount: number;
   sku: string;
+  lineItemId: string;
 };
