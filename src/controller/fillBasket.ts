@@ -21,7 +21,7 @@ export const mapBasketItem = (item: LineItem): ItemToBasket => {
   )?.value;
   const type: ItemToBasket['type'] = attributes?.find(
     (el) => el.name === 'attr-type',
-  )?.value;
+  )?.value.label;
   const dsp: ItemToBasket['dsp'] = attributes?.find(
     (el) => el.name === 'attr-dsp',
   )?.value;
