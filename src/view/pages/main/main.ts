@@ -1,4 +1,4 @@
-import { Category } from '@commercetools/platform-sdk';
+import { Category, DiscountCode } from '@commercetools/platform-sdk';
 import setCategories from '../../../controller/fillCatalogPage';
 import { getCategories } from '../../../model/api/apiRoot';
 import categoryLogoObj from '../../../model/data/images-src';
@@ -33,6 +33,37 @@ textArr.forEach((text) => {
   catalogText.textContent = text;
   mainPage.append(catalogText);
 });
+
+const promoSection = document.createElement('div');
+const promoParagraph = document.createElement('p');
+promoParagraph.classList.add('main-page__promo-paragraph');
+promoParagraph.textContent = 'Active promocodes:';
+const promoContainer = document.createElement('div');
+promoContainer.classList.add('main-page__brands');
+promoSection.append(promoParagraph, promoContainer);
+mainPage.append(promoParagraph, promoSection);
+
+export function fillPromoSection(codes: DiscountCode[]) {
+  promoContainer.innerHTML = '';
+  if (codes.length === 0) {
+    promoSection.classList.add('hidden');
+    return false;
+  }
+  promoSection.classList.remove('hidden');
+  codes.forEach((item) => {
+    const promiItem = document.createElement('div');
+    promiItem.classList.add('main-page__promo');
+    const promoCode = document.createElement('p');
+    promoCode.classList.add('main-page__promo__code');
+    promoCode.textContent = item.code;
+    const promoDesc = document.createElement('p');
+    promoDesc.classList.add('main-page__promo__desc');
+    promoDesc.textContent = item.description!.en;
+    promiItem.append(promoCode, promoDesc);
+    promoContainer.append(promiItem);
+  });
+  return true;
+}
 
 const categorySection = document.createElement('div');
 categorySection.classList.add('main-page__brands');

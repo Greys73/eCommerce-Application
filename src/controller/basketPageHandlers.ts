@@ -13,6 +13,7 @@ async function applyPromo() {
     showResultMessage(response, response.body.message);
   } else {
     showResultMessage(response, 'Code applied successfully!');
+    input.value = '';
   }
 }
 (promoBlock.lastChild as HTMLButtonElement).onclick = applyPromo;
