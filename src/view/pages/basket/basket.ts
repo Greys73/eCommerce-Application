@@ -150,6 +150,7 @@ const addItemToBasketView = (el: ItemToBasket) => {
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('item__delete');
   deleteButton.textContent = 'Delete item';
+  deleteButton.addEventListener('click', changeItemAmount);
 
   deleteBlock.append(deleteButton);
 
