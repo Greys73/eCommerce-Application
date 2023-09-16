@@ -124,3 +124,5 @@ export const changeBasketItemAmount = (
       },
     })
     .execute();
+
+export const getCustomerToken = () => createUserAPIRoot().me().get().execute();
