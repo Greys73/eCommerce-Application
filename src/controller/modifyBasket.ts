@@ -12,10 +12,11 @@ export const changeItemAmount = async (e: Event) => {
 
   const quantityElem = itemCont?.querySelector('.amount__current');
   const quantity = quantityElem?.textContent;
-  let updatedQuantity: number;
+  let updatedQuantity = 0;
   if (button.textContent === '+') {
     updatedQuantity = Number(quantity) + 1;
-  } else {
+  }
+  if (button.textContent === '-') {
     updatedQuantity = Number(quantity) - 1;
   }
   const cart = await getActiveCart();

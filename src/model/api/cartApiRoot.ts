@@ -75,6 +75,7 @@ export const loginCustomerPass = (userEmail: string, userPassword: string) =>
     .execute()
     .then((obj) => obj)
     .catch((err) => err);
+
 export const removeFromCart = async (
   ID: string,
   version: number,
@@ -101,13 +102,13 @@ export const removeFromCart = async (
   return response;
 };
 
-export const changeBasketItemAmount = (
+export const changeBasketItemAmount = async (
   ID: string,
   version: number,
   lineItemId: string,
   quantity: number,
-): Promise<ClientResponse<Cart>> =>
-  createUserAPIRoot()
+): Promise<ClientResponse<Cart>> => {
+  const response = await createUserAPIRoot()
     .me()
     .carts()
     .withId({ ID })
@@ -124,3 +125,7 @@ export const changeBasketItemAmount = (
       },
     })
     .execute();
+
+  updateHeaderCart(response.body);
+  return response;
+};
