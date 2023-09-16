@@ -1,7 +1,5 @@
 import '../../../assets/styles/pages/basket.scss';
 import emptyImg from '../../../assets/images/empty-cart.png';
-import { ItemToBasket } from '../../../types/type';
-import { changeItemAmount } from '../../../controller/modifyBasket';
 
 const basketPage = document.createElement('div');
 basketPage.classList.add('basket-page');
@@ -56,94 +54,7 @@ basketHeader.textContent = 'Products in cart:';
 const itemsBlock = document.createElement('div');
 itemsBlock.classList.add('basket-container__items');
 
-// function to fill items to basket
-
-const addItemToBasketView = (el: ItemToBasket) => {
-  const lineItem = document.createElement('div');
-  lineItem.id = el.lineItemId;
-  lineItem.className = 'basket__item';
-
-  const image = document.createElement('img');
-  image.classList.add('item__image');
-  image.src = el.img;
-
-  const params = document.createElement('div');
-  params.classList.add('item__params-block');
-
-  const name = document.createElement('a');
-  name.classList.add('item__name');
-  name.textContent = el.name;
-  // SKU?
-  name.href = `/product?sku=${el.sku}`;
-
-  const textParams = document.createElement('p');
-  params.classList.add('params-block__params');
-  textParams.textContent = `${el.year}, ${el.type}`;
-
-  const digitalParams = document.createElement('p');
-  digitalParams.classList.add('params-block__params');
-  digitalParams.textContent = `${el.dsp.toString()} cc, ${el.power.toString()} hp, ${el.weight.toString()} kg`;
-
-  params.append(name, textParams, digitalParams);
-
-  const price = document.createElement('div');
-  price.classList.add('item__price-block');
-
-  const fullPrice = document.createElement('p');
-  fullPrice.classList.add('price-block__item-full-price');
-  fullPrice.textContent = `${el.price.toString()} €`;
-  price.append(fullPrice);
-
-  if (el.priceDiscount) {
-    const discountPrice = document.createElement('p');
-    discountPrice.classList.add('price-block__item-discont-price');
-    discountPrice.textContent = `${el.priceDiscount.toString()} €`;
-
-    const discont = document.createElement('p');
-    discont.classList.add('price-block__item-discont');
-    discont.textContent = `-${Math.round(
-      (1 - el.priceDiscount / el.price) * 100,
-    )}%`.toString();
-    price.append(discont, discountPrice);
-  }
-
-  const amount = document.createElement('div');
-  amount.classList.add('item__amount');
-
-  const decreaseButton = document.createElement('button');
-  decreaseButton.classList.add('amount__decrease-button');
-  decreaseButton.textContent = '-';
-  decreaseButton.addEventListener('click', changeItemAmount);
-
-  const increaseButton = document.createElement('button');
-  increaseButton.classList.add('amount__increase-button');
-  increaseButton.textContent = '+';
-  increaseButton.addEventListener('click', changeItemAmount);
-
-  const currAmount = document.createElement('p');
-  currAmount.classList.add('amount__current');
-  currAmount.textContent = el.amount.toString();
-
-  amount.append(decreaseButton, currAmount, increaseButton);
-
-  const totalPrice = document.createElement('p');
-  totalPrice.classList.add('item__total-price');
-  totalPrice.textContent = `${el.totalPrice} €`;
-
-  const deleteBlock = document.createElement('div');
-  deleteBlock.classList.add('item__delete-block');
-
-  const deleteButton = document.createElement('button');
-  deleteButton.classList.add('item__delete');
-  deleteButton.textContent = 'Delete item';
-
-  deleteBlock.append(deleteButton);
-
-  lineItem.append(image, params, price, amount, totalPrice, deleteBlock);
-
-  itemsBlock.append(lineItem);
-};
-
+// promo block
 export const promoBlock = document.createElement('div');
 promoBlock.classList.add('basket-container__promo');
 
@@ -167,7 +78,6 @@ priceBlockText.textContent = 'Total: ';
 
 const totalCartPrice = document.createElement('p');
 totalCartPrice.classList.add('price__total');
-totalCartPrice.textContent = '000000 €';
 
 priceBlock.append(priceBlockText, totalCartPrice);
 
@@ -210,4 +120,4 @@ basketPage.append(emptyContainer, basketContainer);
 
 export default basketPage;
 
-export { basketContainer, emptyContainer, itemsBlock, addItemToBasketView };
+export { basketContainer, emptyContainer, itemsBlock, totalCartPrice };
