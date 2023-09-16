@@ -1,6 +1,6 @@
 import ivanImg from '../../assets/images/photo-ivan.jpg';
 import kateImg from '../../assets/images/photo-kate.jpg';
-import vovaImg from '../../assets/images/photo-vova2.jpg';
+import vovaImg from '../../assets/images/photo-vova.jpg';
 
 function getAge(date: Date): number {
   const currentDate = new Date();
@@ -48,9 +48,9 @@ const Ekaterina = {
 const Vladzimir = {
   name: 'Vladimir',
   surname: 'Myazin',
-  age: getAge(new Date()), // add Date of Birth
+  age: getAge(new Date(1986, 10, 28, 0, 0, 0, 0)),
   photo: vovaImg,
-  city: '',
+  city: 'Ulyanovsk',
   role: 'Web Components Developer',
   skill: 'Front-end Developer',
   contribution:
