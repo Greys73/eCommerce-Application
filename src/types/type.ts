@@ -129,8 +129,11 @@ export type MemberObj = {
   name: string;
   surname: string;
   age: number;
+  photo: string;
   city: string;
   role: string;
   skill: string;
-  tasks: string[];
+  contribution: string;
+  gitHub: string;
+  telegram: string;
 };

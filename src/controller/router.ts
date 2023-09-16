@@ -28,6 +28,14 @@ const routes: RoutesType = {
 
 function locationHandler() {
   const pathName = window.location.pathname || '/';
+
+  const main = document.querySelector('.main');
+  if (pathName.slice(1) === 'about') {
+    main?.classList.add('background');
+  } else {
+    main?.classList.remove('background');
+  }
+
   if (!checkRedirection(pathName)) {
     const page: HTMLElement = routes[pathName] || routes['404'];
     mainSection.default.innerHTML = '';
