@@ -3,7 +3,7 @@ resultMessage.classList.add('reg-form__result-container', 'hidden');
 
 const resultText = document.createElement('p');
 resultText.classList.add('reg-form__result-text');
-resultText.textContent = 'Successfuly registrated';
+resultText.textContent = '';
 
 resultMessage.append(resultText);
 
