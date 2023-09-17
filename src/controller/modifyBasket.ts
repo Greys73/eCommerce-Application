@@ -3,7 +3,13 @@ import {
   changeBasketItemAmount,
   getActiveCart,
 } from '../model/api/cartApiRoot';
-// import { basketContainer, emptyContainer } from "../view/pages/basket/basket"
+import {
+  basketContainer,
+  emptyContainer,
+  totalCartPrice,
+} from '../view/pages/basket/basket';
+
+const centsPerEuro = 100;
 
 export const changeItemAmount = async (e: Event) => {
   const button = e.target as HTMLElement;
@@ -12,10 +18,11 @@ export const changeItemAmount = async (e: Event) => {
 
   const quantityElem = itemCont?.querySelector('.amount__current');
   const quantity = quantityElem?.textContent;
-  let updatedQuantity: number;
+  let updatedQuantity = 0;
   if (button.textContent === '+') {
     updatedQuantity = Number(quantity) + 1;
-  } else {
+  }
+  if (button.textContent === '-') {
     updatedQuantity = Number(quantity) - 1;
   }
   const cart = await getActiveCart();
@@ -27,6 +34,11 @@ export const changeItemAmount = async (e: Event) => {
     lineItemId,
     updatedQuantity,
   );
+  if (!actualCart.body.lineItems.length) {
+    basketContainer.hidden = true;
+    emptyContainer.hidden = false;
+    return;
+  }
 
   if (updatedQuantity === 0) {
     itemCont?.remove();
@@ -36,10 +48,12 @@ export const changeItemAmount = async (e: Event) => {
     ) as LineItem;
     quantityElem!.textContent = `${currentItem?.quantity}`;
     const totalPriceElem = itemCont?.querySelector('.item__total-price');
-    totalPriceElem!.textContent = `${currentItem.totalPrice.centAmount / 100}`;
+    totalPriceElem!.textContent = `${
+      currentItem.totalPrice.centAmount / centsPerEuro
+    }`;
   }
-  // if(!actualCart.body.lineItems.length) {
-  //   basketContainer.hidden = true
-  //   emptyContainer.hidden = false
-  // }
+
+  totalCartPrice.textContent = `${
+    actualCart.body.totalPrice.centAmount / centsPerEuro
+  } €`;
 };
