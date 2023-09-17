@@ -20,7 +20,7 @@ function getAge(date: Date): number {
 const Ivan = {
   name: 'Ivan',
   surname: 'Martynjuk',
-  age: getAge(new Date(1994, 12, 14, 0, 0, 0, 0)),
+  age: getAge(new Date(1994, 11, 14, 0, 0, 0, 0)),
   photo: ivanImg,
   city: 'Gomel',
   role: 'Team Lead',
@@ -32,17 +32,17 @@ const Ivan = {
 };
 
 const Ekaterina = {
-  name: 'Katsya', // Katya? Katsyaryna? how will be correct?
+  name: 'Katsiaryna',
   surname: 'Talkachova',
-  age: getAge(new Date()), // add Date of Birth
+  age: getAge(new Date(1986, 2, 21)), // add Date of Birth
   photo: kateImg,
   city: 'Brest',
-  role: 'UI/UX Developer',
+  role: 'Web Developer',
   skill: 'Front-end Developer',
   contribution:
     "Katya is a clever and detail-oriented developer who played a crucial role in the project's development. Her responsibilities included event handler development, form creation, backend request processing, and test writing. With her expertise, she consistently delivered high-quality code and made significant contributions to the project's success. Additionally, Katya actively collaborated with team members, ensuring effective communication and coordination throughout the entire project.",
   gitHub: 'Katrin-brest',
-  telegram: '@katrin_aws',
+  telegram: '@katrin_awsm',
 };
 
 const Vladzimir = {
