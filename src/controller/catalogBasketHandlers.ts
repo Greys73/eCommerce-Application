@@ -1,5 +1,5 @@
 import { Cart } from '@commercetools/platform-sdk';
-import { addToCart, createCart, getActiveCart } from '../model/api/cartApiRoot';
+import { addToCart, getActiveCart } from '../model/api/cartApiRoot';
 import loading from '../assets/images/icons/loading_2.gif';
 
 const loader = new Image();
@@ -17,12 +17,7 @@ export async function clickBasketBtn(e: Event) {
   e.stopPropagation();
   const btn = e.target as HTMLButtonElement;
   btn.parentElement?.prepend(loader);
-  let activeCart;
-  try {
-    activeCart = await getActiveCart();
-  } catch {
-    activeCart = await createCart();
-  }
+  const activeCart = await getActiveCart();
   const { id, version } = activeCart.body;
   const cart = await addToCart(id, version, btn.name);
   if (cart.statusCode === 200) disableBasketBtn(btn);

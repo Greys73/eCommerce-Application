@@ -1,6 +1,5 @@
 import {
   addToCart,
-  createCart,
   getActiveCart,
   removeFromCart,
 } from '../model/api/cartApiRoot';
@@ -20,13 +19,7 @@ window.addEventListener('PageContentLoaded', pageLoaded);
 // add / remove product from basket
 
 const toggleBasket = async (action: 'add' | 'remove') => {
-  let activeCart;
-  try {
-    activeCart = await getActiveCart();
-  } catch {
-    activeCart = await createCart();
-  }
-
+  const activeCart = await getActiveCart();
   const { id, version, lineItems } = activeCart.body;
   const sku = window.location.search.slice(5);
   if (action === 'add') {

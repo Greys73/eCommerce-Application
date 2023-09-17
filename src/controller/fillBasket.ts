@@ -69,7 +69,6 @@ export const mapBasketItem = (item: LineItem): ItemToBasket => {
 export const fillBasket = async () => {
   itemsBlock.innerHTML = '';
   const cart = await getActiveCart();
-  console.log(cart);
   const { lineItems } = cart.body;
   if (!lineItems.length) {
     basketContainer.hidden = true;
