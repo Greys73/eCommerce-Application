@@ -6,7 +6,7 @@ import filters from '../view/pages/catalog/filters';
 import { searchFilterBlock } from '../view/pages/catalog/items';
 import { getLimit, getOffset, updatePaginator } from './paginatorHandlers';
 import { tuneWithCart } from './catalogBasketHandlers';
-import { createCart, getActiveCart } from '../model/api/cartApiRoot';
+import { getActiveCart } from '../model/api/cartApiRoot';
 
 let basket: Cart;
 
@@ -185,11 +185,7 @@ export const filterSubmit = async (e: Event) => {
   } catch {
     /* empty */
   }
-  try {
-    basket = (await getActiveCart()).body;
-  } catch {
-    basket = (await createCart()).body;
-  }
+  basket = (await getActiveCart()).body;
   const filterOptions = getFilterData();
   const sortOptions = getSortOrder();
   const category = await getCategory();

@@ -33,7 +33,6 @@ function navChanger(_menu: NavObjType) {
       window.location.reload();
       setTimeout(() => {
         window.routeLocation = '/login';
-        window.routeLocation = '/login';
       }, 50);
     });
   }

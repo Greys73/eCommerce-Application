@@ -2,7 +2,7 @@ import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { updateHeaderCart } from '../../controller/headerBasketHandlers';
 import { createUserAPIRoot } from './createApiRootUser';
 
-export const createCart = async (): Promise<ClientResponse<Cart>> => {
+const createCart = async (): Promise<ClientResponse<Cart>> => {
   const response = await createUserAPIRoot()
     .me()
     .carts()
@@ -12,13 +12,17 @@ export const createCart = async (): Promise<ClientResponse<Cart>> => {
       },
     })
     .execute();
-
-  updateHeaderCart(response.body);
   return response;
 };
 
 export const getActiveCart = async () => {
-  const response = await createUserAPIRoot().me().activeCart().get().execute();
+  const response = await createUserAPIRoot()
+    .me()
+    .activeCart()
+    .get()
+    .execute()
+    .then((obj) => obj)
+    .catch(() => createCart());
 
   updateHeaderCart(response.body);
   return response;
@@ -125,7 +129,8 @@ export const changeBasketItemAmount = async (
       },
     })
     .execute();
-
   updateHeaderCart(response.body);
   return response;
 };
+
+export const getCustomerToken = () => createUserAPIRoot().me().get().execute();

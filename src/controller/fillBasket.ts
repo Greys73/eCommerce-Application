@@ -172,7 +172,6 @@ const addItemToBasketView = (el: ItemToBasket) => {
 export const fillBasket = async () => {
   itemsBlock.innerHTML = '';
   const cart = await getActiveCart();
-  console.log(cart);
   const { lineItems } = cart.body;
   if (!lineItems.length) {
     basketContainer.hidden = true;
