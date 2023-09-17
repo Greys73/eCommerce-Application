@@ -1,10 +1,14 @@
-import { Category, ProductDraft } from '@commercetools/platform-sdk';
+import { Cart, Category, ProductDraft } from '@commercetools/platform-sdk';
 import { filterByParams, getCategoryByKey } from '../model/api/apiRoot';
 import cardsBlock, { createCard } from '../view/pages/catalog/cards';
 import filters from '../view/pages/catalog/filters';
 // import { fillProductPage } from './fillProductPage';
 import { searchFilterBlock } from '../view/pages/catalog/items';
 import { getLimit, getOffset, updatePaginator } from './paginatorHandlers';
+import { tuneWithCart } from './catalogBasketHandlers';
+import { getActiveCart } from '../model/api/cartApiRoot';
+
+let basket: Cart;
 
 export const getCategory = async (): Promise<string> => {
   const { search } = window.location;
@@ -154,15 +158,23 @@ export const placeCards = (cards: ProductDraft[]) => {
         // card.masterVariant.prices[0].discounted.value.centAmount /
         // centPerEuro;
 
-        createdCard = createCard(name, img, description, `${basePrice}`, price);
+        createdCard = createCard(
+          sku,
+          name,
+          img,
+          description,
+          `${basePrice}`,
+          price,
+        );
       } else {
         const centPrice = card.masterVariant.prices[0].value.centAmount || 100;
         price = `${centPrice / centPerEuro}`;
-        createdCard = createCard(name, img, description, price);
+        createdCard = createCard(sku, name, img, description, price);
       }
-      createdCard.addEventListener('click', () => {
+      createdCard.onclick = () => {
         window.routeLocation = `/product?sku=${sku}`;
-      });
+      };
+      tuneWithCart(createdCard.querySelector('button')!, basket);
     }
   });
 };
@@ -173,6 +185,7 @@ export const filterSubmit = async (e: Event) => {
   } catch {
     /* empty */
   }
+  basket = (await getActiveCart()).body;
   const filterOptions = getFilterData();
   const sortOptions = getSortOrder();
   const category = await getCategory();

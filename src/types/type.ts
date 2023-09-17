@@ -137,3 +137,19 @@ export type MemberObj = {
   gitHub: string;
   telegram: string;
 };
+
+export type ItemToBasket = {
+  name: string;
+  price: number;
+  priceDiscount?: number;
+  totalPrice: number;
+  img: string;
+  year: number;
+  type: string;
+  dsp: number;
+  power: number;
+  weight: number;
+  amount: number;
+  sku: string;
+  lineItemId: string;
+};

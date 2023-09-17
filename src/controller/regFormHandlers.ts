@@ -63,3 +63,12 @@ const toggleBillingAddress = (e: Event) => {
   }
 };
 addressButton.addEventListener('click', toggleBillingAddress);
+
+export function clearForm() {
+  const inputs = registrationForm.querySelectorAll('input');
+  inputs.forEach((element) => {
+    const input = element;
+    input.value = '';
+    input.checked = false;
+  });
+}
