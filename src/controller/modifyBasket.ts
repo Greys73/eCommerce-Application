@@ -1,11 +1,17 @@
-import { LineItem } from '@commercetools/platform-sdk';
+import { LineItem, MyCartUpdateAction } from '@commercetools/platform-sdk';
 import {
   changeBasketItemAmount,
   getActiveCart,
+  removeListFromCart,
 } from '../model/api/cartApiRoot';
 import {
   basketContainer,
+  confirmButton,
+  confirmMessage,
+  deleteAllButton,
   emptyContainer,
+  itemsBlock,
+  returnButton,
   totalCartPrice,
 } from '../view/pages/basket/basket';
 
@@ -57,3 +63,40 @@ export const changeItemAmount = async (e: Event) => {
     actualCart.body.totalPrice.centAmount / centsPerEuro
   } €`;
 };
+
+const clearCart = async () => {
+  const cart = await getActiveCart();
+  const { id, version, lineItems } = cart.body;
+
+  const removeOpt: MyCartUpdateAction[] = lineItems.map((item) => ({
+    action: 'removeLineItem',
+    lineItemId: item.id,
+  }));
+  try {
+    await removeListFromCart(id, version, removeOpt);
+    itemsBlock.innerHTML = '';
+    basketContainer.hidden = true;
+    emptyContainer.hidden = false;
+  } catch (error) {
+    console.log(error);
+  }
+};
+confirmButton.addEventListener('click', clearCart);
+
+const showConfirmMessage = () => {
+  confirmButton.style.display = 'flex';
+  returnButton.style.display = 'flex';
+  confirmMessage.hidden = false;
+  deleteAllButton.style.display = 'none';
+};
+
+deleteAllButton.addEventListener('click', showConfirmMessage);
+
+export const hideConfirmMessage = () => {
+  confirmButton.style.display = 'none';
+  returnButton.style.display = 'none';
+  confirmMessage.hidden = true;
+  deleteAllButton.style.display = 'flex';
+};
+
+returnButton.addEventListener('click', hideConfirmMessage);

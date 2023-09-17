@@ -1,4 +1,8 @@
-import { Cart, ClientResponse } from '@commercetools/platform-sdk';
+import {
+  Cart,
+  ClientResponse,
+  MyCartUpdateAction,
+} from '@commercetools/platform-sdk';
 import { updateHeaderCart } from '../../controller/headerBasketHandlers';
 import { createUserAPIRoot } from './createApiRootUser';
 
@@ -134,3 +138,24 @@ export const changeBasketItemAmount = async (
 };
 
 export const getCustomerToken = () => createUserAPIRoot().me().get().execute();
+
+export const removeListFromCart = async (
+  ID: string,
+  version: number,
+  removeList: MyCartUpdateAction[],
+) => {
+  const response = await createUserAPIRoot()
+    .me()
+    .carts()
+    .withId({ ID })
+    .post({
+      body: {
+        version,
+        actions: removeList,
+      },
+    })
+    .execute();
+
+  updateHeaderCart(response.body);
+  return response;
+};
