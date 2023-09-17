@@ -171,21 +171,27 @@ const addItemToBasketView = (el: ItemToBasket) => {
 
 export const fillBasket = async () => {
   itemsBlock.innerHTML = '';
-  const cart = await getActiveCart();
-  const { lineItems } = cart.body;
-  if (!lineItems.length) {
+  try {
+    const cart = await getActiveCart();
+    const { lineItems } = cart.body;
+    if (!lineItems.length) {
+      basketContainer.hidden = true;
+      emptyContainer.hidden = false;
+    } else {
+      emptyContainer.hidden = true;
+      basketContainer.hidden = true;
+      lineItems.forEach((item) => {
+        const opt = mapBasketItem(item);
+        addItemToBasketView(opt);
+      });
+
+      totalCartPrice.textContent = `${
+        cart.body.totalPrice.centAmount / centsPerEuro
+      } €`;
+      basketContainer.hidden = false;
+    }
+  } catch {
     basketContainer.hidden = true;
     emptyContainer.hidden = false;
-  } else {
-    emptyContainer.hidden = true;
-    basketContainer.hidden = false;
-    lineItems.forEach((item) => {
-      const opt = mapBasketItem(item);
-      addItemToBasketView(opt);
-    });
-
-    totalCartPrice.textContent = `${
-      cart.body.totalPrice.centAmount / centsPerEuro
-    } €`;
   }
 };

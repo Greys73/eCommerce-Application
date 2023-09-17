@@ -8,6 +8,7 @@ basketPage.classList.add('basket-page');
 
 const emptyContainer = document.createElement('div');
 emptyContainer.classList.add('basket__empty'); // , 'hidden');
+emptyContainer.hidden = true;
 
 const emptyHeader = document.createElement('h2');
 emptyHeader.classList.add('empty__header');
@@ -46,6 +47,7 @@ emptyContainer.append(emptyButton);
 
 const basketContainer = document.createElement('div');
 basketContainer.classList.add('basket__basket-container'); // , 'hidden');
+basketContainer.hidden = true;
 
 const basketHeader = document.createElement('h2');
 basketHeader.classList.add('basket__header');
