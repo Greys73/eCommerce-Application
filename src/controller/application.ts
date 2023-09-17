@@ -9,7 +9,6 @@ export async function showResultMessage(
 ) {
   resultMessage.classList.remove('hidden');
   if (response.statusCode === 200) {
-    window.dispatchEvent(new Event('PageContentLoaded'));
     resultMessage.firstChild!.textContent = msg;
   } else {
     resultMessage.firstChild!.textContent = response.message;

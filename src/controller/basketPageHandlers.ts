@@ -8,12 +8,22 @@ async function applyPromo() {
   const input = promoBlock.firstChild as HTMLInputElement;
   const cart = await getActiveCart();
   const { id, version } = cart.body;
-  const response = await setPromoToCart(id, version, input.value);
-  if (response.statusCode !== 200) {
-    showResultMessage(response, response.body.message);
-  } else {
-    showResultMessage(response, 'Code applied successfully!');
-    input.value = '';
+  if (input.value) {
+    const response = await setPromoToCart(
+      id,
+      version,
+      input.value.toUpperCase(),
+    );
+    if (response.statusCode !== 200) {
+      showResultMessage(response, response.body.message);
+    } else {
+      showResultMessage(
+        response,
+        `Code '${input.value.toUpperCase()}' applied to cart!`,
+      );
+      input.value = '';
+    }
+    fillBasket();
   }
 }
 (promoBlock.lastChild as HTMLButtonElement).onclick = applyPromo;
