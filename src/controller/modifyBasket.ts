@@ -56,7 +56,7 @@ export const changeItemAmount = async (e: Event) => {
     const totalPriceElem = itemCont?.querySelector('.item__total-price');
     totalPriceElem!.textContent = `${
       currentItem.totalPrice.centAmount / centsPerEuro
-    }`;
+    } €`;
   }
 
   totalCartPrice.textContent = `${
