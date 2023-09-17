@@ -122,4 +122,10 @@ basketPage.append(emptyContainer, basketContainer);
 
 export default basketPage;
 
-export { basketContainer, emptyContainer, itemsBlock, totalCartPrice };
+export {
+  basketContainer,
+  emptyContainer,
+  itemsBlock,
+  totalCartPrice,
+  confirmButton,
+};
