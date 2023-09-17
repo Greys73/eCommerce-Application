@@ -34,13 +34,17 @@ textArr.forEach((text) => {
   mainPage.append(catalogText);
 });
 
-const promoSection = document.createElement('div');
 const promoParagraph = document.createElement('p');
 promoParagraph.classList.add('main-page__promo-paragraph');
 promoParagraph.textContent = 'Active promocodes:';
+
+const promoSection = document.createElement('div');
+promoSection.classList.add('promo__section');
+
 const promoContainer = document.createElement('div');
-promoContainer.classList.add('main-page__brands');
+promoContainer.classList.add('promo__container');
 promoSection.append(promoParagraph, promoContainer);
+
 mainPage.append(promoParagraph, promoSection);
 
 export function fillPromoSection(codes: DiscountCode[]) {
@@ -54,10 +58,10 @@ export function fillPromoSection(codes: DiscountCode[]) {
     const promiItem = document.createElement('div');
     promiItem.classList.add('main-page__promo');
     const promoCode = document.createElement('p');
-    promoCode.classList.add('main-page__promo__code');
+    promoCode.classList.add('promo__name');
     promoCode.textContent = item.code;
     const promoDesc = document.createElement('p');
-    promoDesc.classList.add('main-page__promo__desc');
+    promoDesc.classList.add('promo__desc');
     promoDesc.textContent = item.description!.en;
     promiItem.append(promoCode, promoDesc);
     promoContainer.append(promiItem);
