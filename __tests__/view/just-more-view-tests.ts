@@ -2,6 +2,7 @@ import { JSDOM } from 'jsdom';
 import loginPage from '../../src/view/pages/login/login';
 import { header, navObj, changeRegStatus } from '../../src/view/header/header';
 import resultMessage from '../../src/view/components/resultMessage';
+import footer from '../../src/view/footer/footer';
 
 // loginPage, header, footer
 
@@ -234,5 +235,13 @@ describe('header tests', () => {
       });
     }
     arr.forEach(el => checkHidden(el));
+  });
+});
+
+describe('footer tests', () => {
+  describe('rss block', () => {
+    test('rss block is exist', () => {
+      expect(footer.querySelector('.footer__rss')).toBeDefined();
+    });
   });
 });
