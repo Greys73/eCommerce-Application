@@ -10,7 +10,7 @@ const header = document.createElement('h1');
 header.classList.add('main-page__header');
 header.textContent = 'Welcome to MotoDream!';
 
-const catalogParagraph = document.createElement('p');
+export const catalogParagraph = document.createElement('p');
 catalogParagraph.classList.add('main-page__catalog-paragraph');
 catalogParagraph.textContent = 'Looking for the perfect ride? Look no further!';
 

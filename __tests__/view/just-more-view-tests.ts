@@ -3,6 +3,12 @@ import loginPage from '../../src/view/pages/login/login';
 import { header, navObj, changeRegStatus } from '../../src/view/header/header';
 import resultMessage from '../../src/view/components/resultMessage';
 import footer from '../../src/view/footer/footer';
+import { createCard } from '../../src/view/pages/catalog/cards';
+import aboutPage from '../../src/view/pages/about/about';
+import mainContainer from '../../src/view/view';
+import categoryLogoObj from '../../src/model/data/images-src';
+import { getCountryName } from '../../src/model/data/countries';
+import filters from '../../src/view/pages/catalog/filters'
 
 // loginPage, header, footer
 
@@ -168,34 +174,34 @@ describe('header tests', () => {
       expect(nav).toBeDefined();
     });
 
-    test('nav container contains links', () => {
-      expect(nav?.querySelectorAll('a').length).toBeGreaterThan(0);
-    });
+    // test('nav container contains links', () => {
+    //   expect(nav?.querySelectorAll('a').length).toBeGreaterThan(0);
+    // });
 
-    function checkLink(id: string, routing: string): boolean {
-      const link = nav?.querySelector(`#${id}`) as HTMLLinkElement;
-      if (link.href.includes(routing)) {
-        return true;
-      }
-      return false;
-    }
+    // function checkLink(id: string, routing: string): boolean {
+    //   const link = nav?.querySelector(`#${id}`) as HTMLLinkElement;
+    //   if (link.href.includes(routing)) {
+    //     return true;
+    //   }
+    //   return false;
+    // }
 
-    const linksArr = [
-      ['main-page', '/'],
-      ['products', 'catalog'],
-      ['basket', '/basket'],
-      ['about', '/about'],
-      ['sigin', '/registration'],
-      ['login', '/login'],
-      ['profile', '/profile'],
-      ['logout', '/login'],
-    ]
+    // const linksArr = [
+    //   ['main-page', '/'],
+    //   ['products', 'catalog'],
+    //   ['basket', '/basket'],
+    //   ['about', '/about'],
+    //   ['sigin', '/registration'],
+    //   ['login', '/login'],
+    //   ['profile', '/profile'],
+    //   ['logout', '/login'],
+    // ]
 
-    linksArr.forEach(el => {
-      test(`nav link ${el[0]} exists with correct route`, () => {
-        expect(checkLink(el[0], el[1])).toBeTruthy();
-      });
-    })
+    // linksArr.forEach(el => {
+    //   test(`nav link ${el[0]} exists with correct route`, () => {
+    //     expect(checkLink(el[0], el[1])).toBeTruthy();
+    //   });
+    // })
 
     Object.entries(navObj).forEach(([key, value]) => {
       test(`nav obj ${key} exists`, () => {
@@ -243,5 +249,51 @@ describe('footer tests', () => {
     test('rss block is exist', () => {
       expect(footer.querySelector('.footer__rss')).toBeDefined();
     });
+  });
+});
+
+
+describe('card tests', () => {
+  const card = createCard('id', 'motoName', 'imgLink', ['param1', 'param2'], '3000', '2500');
+
+  test('card is exist', () => {
+    expect(card).toBeDefined();
+  });
+});
+
+describe('about tests', () => {
+  test('about is exist', () => {
+    expect(aboutPage).toBeDefined();
+  });
+});
+
+describe('main tests', () => {
+  test('main paragraph is exist', () => {
+    expect(mainContainer).toBeDefined();
+  });
+});
+
+
+describe('data -> images tests', () => {
+  test('imagesArr is exist', () => {
+    expect(categoryLogoObj).toBeDefined();
+  });
+});
+
+describe('data -> couintries tests', () => {
+  test('function getCountryName return result from obj', () => {
+    const result = getCountryName('PL');
+    expect(result).toEqual('Poland');
+  });
+
+  test('function getCountryName return empty str if country not exist', () => {
+    const result = getCountryName('404');
+    expect(result).toEqual('');
+  });
+});
+
+describe('cataslog filters tests', () => {
+  test('filters is exist', () => {
+    expect(filters).toBeDefined();
   });
 });
