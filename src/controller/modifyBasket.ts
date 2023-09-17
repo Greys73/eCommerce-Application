@@ -7,8 +7,11 @@ import {
 import {
   basketContainer,
   confirmButton,
+  confirmMessage,
+  deleteAllButton,
   emptyContainer,
   itemsBlock,
+  returnButton,
   totalCartPrice,
 } from '../view/pages/basket/basket';
 
@@ -79,3 +82,21 @@ const clearCart = async () => {
   }
 };
 confirmButton.addEventListener('click', clearCart);
+
+const showConfirmMessage = () => {
+  confirmButton.style.display = 'flex';
+  returnButton.style.display = 'flex';
+  confirmMessage.hidden = false;
+  deleteAllButton.style.display = 'none';
+};
+
+deleteAllButton.addEventListener('click', showConfirmMessage);
+
+export const hideConfirmMessage = () => {
+  confirmButton.style.display = 'none';
+  returnButton.style.display = 'none';
+  confirmMessage.hidden = true;
+  deleteAllButton.style.display = 'flex';
+};
+
+returnButton.addEventListener('click', hideConfirmMessage);

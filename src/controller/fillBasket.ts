@@ -7,7 +7,7 @@ import {
   totalCartPrice,
 } from '../view/pages/basket/basket';
 import { ItemToBasket } from '../types/type';
-import { changeItemAmount } from './modifyBasket';
+import { changeItemAmount, hideConfirmMessage } from './modifyBasket';
 
 const centsPerEuro = 100;
 
@@ -188,6 +188,8 @@ export const fillBasket = async () => {
       totalCartPrice.textContent = `${
         cart.body.totalPrice.centAmount / centsPerEuro
       } €`;
+
+      hideConfirmMessage();
       basketContainer.hidden = false;
     }
   } catch {

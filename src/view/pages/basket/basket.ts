@@ -93,16 +93,18 @@ deleteAllButton.textContent = 'Clear cart';
 const confirmButton = document.createElement('button');
 confirmButton.classList.add('delete-block__confirm-button'); // , 'hidden');
 confirmButton.textContent = 'Confirm';
+confirmButton.style.display = 'none';
 
 const returnButton = document.createElement('button');
 returnButton.classList.add('delete-block__return-button'); // , 'hidden');
 returnButton.textContent = 'Return';
+returnButton.style.display = 'none';
 
 const confirmMessage = document.createElement('p');
 confirmMessage.classList.add('delete-block__confirm-message'); // , 'hidden');
 confirmMessage.textContent =
   'Are you sure you want to delete all items from your cart? This action cannot be undone';
-
+confirmMessage.hidden = true;
 deleteBlock.append(
   deleteAllButton,
   confirmMessage,
@@ -128,4 +130,7 @@ export {
   itemsBlock,
   totalCartPrice,
   confirmButton,
+  deleteAllButton,
+  returnButton,
+  confirmMessage,
 };
