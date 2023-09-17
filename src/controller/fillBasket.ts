@@ -65,6 +65,12 @@ export const mapBasketItem = (item: LineItem): ItemToBasket => {
       item.price.discounted.value.centAmount / centsPerEuro;
     option.priceDiscount = priceDiscount;
   }
+  if (item.discountedPricePerQuantity.length !== 0) {
+    const priceDiscount: ItemToBasket['priceDiscount'] =
+      item.discountedPricePerQuantity[0].discountedPrice.value.centAmount /
+      centsPerEuro;
+    option.priceDiscount = priceDiscount;
+  }
   return option;
 };
 

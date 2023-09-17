@@ -79,3 +79,51 @@
     background-color: rgba($color: #1E90FF, $alpha: .05);
   }
 }
+
+.main-page__promo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1920px;
+  margin: 2% 2%;
+}
+
+.main-page__promo-paragraph {
+  margin: 0 auto;
+  @include _mainFont(25px);
+  text-align: center;
+  @include _tablet {
+      font-size: 20px;
+  }
+  @include _mobile {
+      font-size: 16px;
+  }   
+}
+
+.main-page__promo__code {
+  margin: 0;
+  @include _mainFont(22px);
+  text-align: center;
+  font-weight: bold;
+  @include _tablet {
+      font-size: 17px;
+      margin: 0;
+  }
+  @include _mobile {
+      font-size: 14px;
+  }
+}
+
+.main-page__promo__desc {
+  margin: 0;
+  color: grey;
+  @include _mainFont(18px);
+  text-align: center;
+  @include _tablet {
+      font-size: 14px;
+  }
+  @include _mobile {
+      font-size: 12px;
+  }
+}

@@ -55,7 +55,7 @@ const itemsBlock = document.createElement('div');
 itemsBlock.classList.add('basket-container__items');
 
 // promo block
-const promoBlock = document.createElement('div');
+export const promoBlock = document.createElement('div');
 promoBlock.classList.add('basket-container__promo');
 
 const input = document.createElement('input');
