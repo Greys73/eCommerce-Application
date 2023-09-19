@@ -6,6 +6,8 @@ import * as er404Page from '../view/pages/404/404';
 import * as catalogPage from '../view/pages/catalog/catalog';
 import * as productPage from '../view/pages/product/product';
 import * as profilePage from '../view/pages/profile/profile';
+import * as basketPage from '../view/pages/basket/basket';
+import * as aboutPage from '../view/pages/about/about';
 import { checkRedirection, getSearch } from './redirection';
 
 type RoutesType = {
@@ -16,17 +18,24 @@ const routes: RoutesType = {
   '/': mainPage.default,
   '/catalog': catalogPage.default,
   '/product': productPage.default,
-  // '/basket':
-  // '/about':
+  '/basket': basketPage.default,
+  '/about': aboutPage.default,
   '/registration': regPage.default,
   '/login': loginPage.default,
   '/profile': profilePage.default,
-  // '/logout':
   '404': er404Page.default,
 };
 
 function locationHandler() {
   const pathName = window.location.pathname || '/';
+
+  const main = document.querySelector('.main');
+  if (pathName.slice(1) === 'about') {
+    main?.classList.add('background');
+  } else {
+    main?.classList.remove('background');
+  }
+
   if (!checkRedirection(pathName)) {
     const page: HTMLElement = routes[pathName] || routes['404'];
     mainSection.default.innerHTML = '';

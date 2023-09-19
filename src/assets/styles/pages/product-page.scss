@@ -3,7 +3,7 @@
 .product-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto 1fr;
   grid-auto-rows: auto;
   @include _mobile {
     grid-template-columns: 1fr;
@@ -30,7 +30,7 @@
 
 .product__image {
   grid-column: 1 / 4;
-  grid-row: 2 / 4;
+  grid-row: 2 / 5;
   @include _mobile {
     grid-column: 1 / 2;
   }
@@ -192,11 +192,50 @@
   opacity: 1;
 }
 
+.product__buttons {
+  grid-column: 4 / 5;
+  display: block;
+  margin: $marginDesctopDiv4 auto;
+
+  @include _mobile {
+    grid-column: 1 / 2;
+    margin-top: $marginMobile;
+  }
+}
+
+.buttons__add-button,
+.buttons__remove-button {
+  @include _button(170px, 30px, 16px);
+  border: 0px;
+  margin: $marginDesctopDiv8;
+  
+  @include _tablet {
+    @include _button(150px, 25px, 14px);
+  }
+
+  @include _mobile {
+    @include _button(130px, 20px, 12px);
+    border-radius: $marginMobileDiv2;
+  }
+}
+
+.buttons__add-button {
+  &:hover {
+    background-color: limegreen; 
+  }
+}
+
+.buttons__remove-button {
+  &:hover {
+    background-color: crimson;
+  }
+}
+
 .product__description-block {
   grid-column: 1 / 5;
   width: 60vw;
-  // max-width: 1080px;
-  max-width: 600px; // for cross-check only
+  max-width: 1080px;
+  margin: auto;
   margin-top: $marginDesctopDiv2;
   @include _mobile {
     margin-top: $marginMobileDiv2;

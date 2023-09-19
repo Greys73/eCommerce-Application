@@ -63,7 +63,14 @@
   justify-content: center;
   flex-wrap: wrap;
   max-width: 1920px;
-  margin: 0 auto;
+  margin: $marginDesctop auto;
+
+  @include _tablet {
+    margin: $marginTablet auto;
+  }
+  @include _mobile {
+    margin: $marginMobile auto;
+  }
 }
 
 .brands__logo {
@@ -77,5 +84,74 @@
     border: 1px solid rgba($color: #B0C4DE, $alpha: .3);
     border-radius: 5%;
     background-color: rgba($color: #1E90FF, $alpha: .05);
+  }
+}
+
+.main-page__promo-paragraph {
+  @include _mainFont(25px);
+  text-align: center;
+  margin: $marginDesctop auto;
+  margin-bottom: $marginDesctopDiv2;
+
+  @include _tablet {
+      font-size: 20px;
+      margin: $marginTablet 0;
+      margin-bottom: $marginTabletDiv4;
+  }
+  @include _mobile {
+      font-size: 16px;
+  }   
+}
+
+.promo__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.main-page__promo {
+    display: block;
+    border: 1px solid rgba($color: #B0C4DE, $alpha: .15);
+    border-radius: $marginDesctopDiv4;
+    background-color: rgba($color: #4682B4, $alpha: .05);
+    padding: $marginDesctopDiv2;
+    margin: $marginDesctopDiv4;
+    margin-top: 0;
+
+    @include _tablet {
+        padding: $marginTabletDiv2;
+        margin: $marginTabletDiv4;
+    }
+}
+
+.promo__name {
+  @include _mainFont(20px);
+  font-weight: 700;
+  text-align: center;
+  color: orangered;
+
+  @include _tablet {
+    font-size: 16px;
+  }
+
+  @include _mobile {
+    font-size: 14px;
+  }
+}
+
+.promo__desc {
+  @include _mainFont(16px);
+  text-align: center;
+  color: darkslategray;
+  margin-top: $marginDesctopDiv4;
+
+  @include _tablet {
+    font-size: 14px;
+    margin-top: $marginTabletDiv4;
+
+  }
+  @include _mobile {
+    font-size: 12px;
   }
 }

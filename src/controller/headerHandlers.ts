@@ -1,6 +1,7 @@
 import { getLoacalCustomer, setLoacalCustomer } from '../model/login';
 import { NavObjType } from '../types/type';
 import { logoImg, navObj } from '../view/header/header';
+import { updateHeaderCart } from './headerBasketHandlers';
 
 let menu: NavObjType = {};
 
@@ -27,8 +28,11 @@ function navChanger(_menu: NavObjType) {
       e.preventDefault();
       setLoacalCustomer({});
       switchElements(false);
+      localStorage.removeItem('customerToken');
+      updateHeaderCart();
+      window.location.reload();
       setTimeout(() => {
-        window.routeLocation = (e.target as HTMLLinkElement).href;
+        window.routeLocation = '/login';
       }, 50);
     });
   }

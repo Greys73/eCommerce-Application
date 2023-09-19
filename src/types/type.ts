@@ -29,7 +29,12 @@ export interface AddressVariant {
 }
 
 export type NavObjType = {
-  [key: string]: { text: string; routing: string; obj?: HTMLElement };
+  [key: string]: {
+    text: string;
+    routing: string;
+    src: string;
+    obj?: HTMLElement;
+  };
 };
 
 export interface FormElements extends HTMLFormControlsCollection {
@@ -119,3 +124,32 @@ type Color = 'black' | 'blue' | 'red' | 'yellow' | 'green' | 'white';
 type Brake = 'disc' | 'drum' | 'combi';
 type Drive = 'chain' | 'belt' | 'shaft';
 type Type = 'standard' | 'sport' | 'cruiser' | 'tour';
+
+export type MemberObj = {
+  name: string;
+  surname: string;
+  age: number;
+  photo: string;
+  city: string;
+  role: string;
+  skill: string;
+  contribution: string;
+  gitHub: string;
+  telegram: string;
+};
+
+export type ItemToBasket = {
+  name: string;
+  price: number;
+  priceDiscount?: number;
+  totalPrice: number;
+  img: string;
+  year: number;
+  type: string;
+  dsp: number;
+  power: number;
+  weight: number;
+  amount: number;
+  sku: string;
+  lineItemId: string;
+};
