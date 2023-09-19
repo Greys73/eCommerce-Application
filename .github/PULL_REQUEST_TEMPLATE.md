@@ -6,7 +6,7 @@ What kind of changes?
 - [ ] Refactor (formatting code, no functional changes, no api changes)
 - [ ] Other
 
-## RSSChool Issue:
+## RSSchool Issue:
 [RSS-ECOMM-1_01](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/eCommerce-Application/Sprints/Sprint1/RSS-ECOMM-1_01.md)
 
 ## Description:

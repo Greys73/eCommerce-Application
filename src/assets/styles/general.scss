@@ -1,0 +1,70 @@
+$marginDesctop: 40px;
+$marginTablet: 20px;
+$marginMobile: 10px;
+
+$marginDesctopDiv2: calc($marginDesctop / 2);
+$marginTabletDiv2: calc($marginTablet / 2);
+$marginMobileDiv2: calc($marginMobile / 2);
+
+$marginDesctopDiv4: calc($marginDesctop / 4);
+$marginTabletDiv4: calc($marginTablet / 4);
+
+$marginDesctopDiv8: calc($marginDesctop / 8);
+
+@mixin _tablet {
+  @media (max-width: 1279.98px) {
+    @content;
+  }
+}
+
+@mixin _mobile {
+  @media (max-width: 767.98px) {
+    @content;
+  }
+}
+
+@mixin _font($size) {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: $size;
+  color: white;
+  text-decoration: none;
+}
+
+@mixin _mainFont($size) {
+  @include _font($size);
+  color: black;
+}
+
+@mixin _button($width, $height, $font-size) {
+  display: flex;
+  width: $width;
+  height: $height;
+  justify-content: center;
+  align-items: center;
+  background-color: cornflowerblue;
+  border-radius: 10px;
+  @include _font($font-size);
+  &:hover {
+    background-color: darkorange;
+    transform: scale(.95);
+    cursor: pointer;
+  }
+}
+
+* {
+  margin: 0;
+  transition-duration: .3s;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.visable {
+  display: block;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+}
